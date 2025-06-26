@@ -1,23 +1,23 @@
 export const SIGNUP_STEPS = {
   terms: {
     step: 1,
-    title: "서비스 이용약관",
-    description: "서비스 이용을 위해 약관에 동의해주세요",
+    title: "링바에 오신 걸 환영해요",
+    description: "시작하려면 약관에 동의해주세요",
   },
   nickname: {
     step: 2,
-    title: "닉네임 설정",
-    description: "서비스에서 사용할 닉네임을 입력해주세요",
+    title: "사용하실 닉네임을",
+    description: "정해주세요",
   },
   gender: {
     step: 3,
-    title: "성별 선택",
-    description: "성별을 선택해주세요",
+    title: "성별을 알려주세요",
+    description: "간단히 선택해주시면 돼요",
   },
   age: {
     step: 4,
-    title: "연령대 선택",
-    description: "연령대를 선택해주세요",
+    title: "연령대를 선택해주세요",
+    description: "대략적인 나이만 알아도 충분해요",
   },
 } as const;
 
