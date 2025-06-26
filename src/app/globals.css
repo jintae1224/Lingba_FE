@@ -48,35 +48,6 @@
   --font-5xl: 36px;
 }
 
-/* Responsive Typography */
-@media (min-width: 768px) {
-  :root {
-    --font-xs: 13px;
-    --font-sm: 15px;
-    --font-md: 17px;
-    --font-lg: 20px;
-    --font-xl: 22px;
-    --font-2xl: 28px;
-    --font-3xl: 32px;
-    --font-4xl: 36px;
-    --font-5xl: 42px;
-  }
-}
-
-@media (min-width: 1024px) {
-  :root {
-    --font-xs: 14px;
-    --font-sm: 16px;
-    --font-md: 18px;
-    --font-lg: 22px;
-    --font-xl: 24px;
-    --font-2xl: 30px;
-    --font-3xl: 36px;
-    --font-4xl: 40px;
-    --font-5xl: 48px;
-  }
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -92,8 +63,8 @@ body {
 
 body {
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Inter", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
