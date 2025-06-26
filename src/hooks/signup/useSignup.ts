@@ -11,6 +11,7 @@ export interface SignupData {
   gender: Gender;
   ageGroup: AgeGroup;
   termsAccepted: boolean;
+  privacyAccepted: boolean;
 }
 
 export const useSignup = () => {
@@ -20,6 +21,7 @@ export const useSignup = () => {
     gender: "",
     ageGroup: "",
     termsAccepted: false,
+    privacyAccepted: false,
   });
 
   const handleNext = () => {
@@ -56,7 +58,7 @@ export const useSignup = () => {
   const canProceed = (() => {
     switch (currentStep) {
       case "terms":
-        return signupData.termsAccepted;
+        return signupData.termsAccepted && signupData.privacyAccepted;
       case "nickname":
         return (
           signupData.nickname.trim().length >=
@@ -91,6 +93,10 @@ export const useSignup = () => {
     updateSignupData({ termsAccepted: e.target.checked });
   };
 
+  const handlePrivacyAccept = (e: React.ChangeEvent<HTMLInputElement>) => {
+    updateSignupData({ privacyAccepted: e.target.checked });
+  };
+
   const stepInfo = SIGNUP_STEPS[currentStep];
 
   return {
@@ -105,5 +111,6 @@ export const useSignup = () => {
     handleGenderSelect,
     handleAgeSelect,
     handleTermsAccept,
+    handlePrivacyAccept,
   };
 };
