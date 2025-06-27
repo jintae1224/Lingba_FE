@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 
 import { AGE_OPTIONS } from "@/constants/signup";
-import { AgeGroup, SignupData } from "@/hooks/signup/useSignup";
+import { AgeGroupWithEmpty, SignupFormData } from "@/hooks/signup/useSignup";
 
 import OptionButton from "../../../_components/OptionButton/OptionButton";
 import styles from "./AgeStep.module.css";
@@ -9,8 +9,8 @@ import styles from "./AgeStep.module.css";
 const cx = classNames.bind(styles);
 
 interface AgeStepProps {
-  signupData: SignupData;
-  onSelect: (ageGroup: AgeGroup) => void;
+  signupData: SignupFormData;
+  onSelect: (ageGroup: AgeGroupWithEmpty) => void;
 }
 
 export default function AgeStep({ signupData, onSelect }: AgeStepProps) {

@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 
 import { GENDER_OPTIONS } from "@/constants/signup";
-import { Gender, SignupData } from "@/hooks/signup/useSignup";
+import { GenderWithEmpty, SignupFormData } from "@/hooks/signup/useSignup";
 
 import OptionButton from "../../../_components/OptionButton/OptionButton";
 import styles from "./GenderStep.module.css";
@@ -9,8 +9,8 @@ import styles from "./GenderStep.module.css";
 const cx = classNames.bind(styles);
 
 interface GenderStepProps {
-  signupData: SignupData;
-  onSelect: (gender: Gender) => void;
+  signupData: SignupFormData;
+  onSelect: (gender: GenderWithEmpty) => void;
 }
 
 export default function GenderStep({ signupData, onSelect }: GenderStepProps) {

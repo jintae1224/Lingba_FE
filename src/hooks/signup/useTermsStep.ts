@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import { SignupData } from "./useSignup";
+import { SignupFormData } from "./useSignup";
 
 interface UseTermsStepProps {
-  signupData: SignupData;
+  signupData: SignupFormData;
   onTermsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPrivacyChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
