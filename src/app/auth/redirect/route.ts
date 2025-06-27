@@ -16,18 +16,30 @@ export async function GET(request: Request) {
   } = await supabase.auth.getUser();
 
   if (!user) {
-    return NextResponse.redirect(`${origin}`);
+    return NextResponse.redirect(`${origin}/login`);
   }
 
-  const { data, error } = await supabase.from("user").select("*");
+  // 새로운 API를 사용하여 사용자 정보 확인
+  try {
+    const { error } = await supabase
+      .from("users")
+      .select("id")
+      .eq("email", user.email!)
+      .single();
 
-  if (error) {
+    if (error) {
+      if (error.code === "PGRST116") {
+        // 등록되지 않은 사용자 -> 회원가입 페이지로
+        return NextResponse.redirect(`${origin}/signup`);
+      }
+      console.error("사용자 정보 조회 오류:", error);
+      return NextResponse.redirect(`${origin}/error`);
+    }
+
+    // 등록된 사용자 -> 메인 페이지로
+    return NextResponse.redirect(`${origin}/main`);
+  } catch (error) {
+    console.error("리다이렉트 처리 오류:", error);
     return NextResponse.redirect(`${origin}/error`);
   }
-
-  if (data?.length > 0) {
-    return NextResponse.redirect(`${origin}`);
-  }
-
-  return NextResponse.redirect(`${origin}/signup`);
 }
