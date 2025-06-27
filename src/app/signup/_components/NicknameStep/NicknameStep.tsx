@@ -2,14 +2,14 @@ import classNames from "classnames/bind";
 import { Input } from "jtrc";
 
 import { SIGNUP_VALIDATION } from "@/constants/signup";
-import { SignupData } from "@/hooks/signup/useSignup";
+import { SignupFormData } from "@/hooks/signup/useSignup";
 
 import styles from "./NicknameStep.module.css";
 
 const cx = classNames.bind(styles);
 
 interface NicknameStepProps {
-  signupData: SignupData;
+  signupData: SignupFormData;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
