@@ -127,17 +127,7 @@ export async function POST(request: NextRequest) {
     const response: ApiResponse = {
       success: true,
       message: "회원가입이 완료되었습니다.",
-      data: {
-        user: {
-          id: result.user.id,
-          email: result.user.email,
-          nickname: result.user.nickname,
-        },
-        defaultBox: {
-          id: result.defaultBox.id,
-          name: result.defaultBox.name,
-        },
-      },
+      data: null,
     };
     return NextResponse.json(response, { status: 201 });
   } catch (error) {
