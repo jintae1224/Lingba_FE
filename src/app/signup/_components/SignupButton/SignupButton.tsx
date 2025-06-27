@@ -8,6 +8,7 @@ const cx = classNames.bind(styles);
 interface SignupButtonProps {
   canProceed: boolean;
   showBackButton: boolean;
+  isLoading?: boolean;
   onNext: () => void;
   onBack: () => void;
   nextButtonText: string;
@@ -16,6 +17,7 @@ interface SignupButtonProps {
 export default function SignupButton({
   canProceed,
   showBackButton,
+  isLoading = false,
   onNext,
   onBack,
   nextButtonText,
@@ -23,7 +25,12 @@ export default function SignupButton({
   return (
     <div className={cx("button-container")}>
       {showBackButton && (
-        <Button variant="secondary" size="large" onClick={onBack}>
+        <Button
+          variant="secondary"
+          size="large"
+          onClick={onBack}
+          disabled={isLoading}
+        >
           이전
         </Button>
       )}
@@ -32,7 +39,8 @@ export default function SignupButton({
         variant="primary"
         size="large"
         onClick={onNext}
-        disabled={!canProceed}
+        disabled={!canProceed || isLoading}
+        loading={isLoading}
       >
         {nextButtonText}
       </Button>

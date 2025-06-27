@@ -27,6 +27,7 @@ export default function Signup() {
     handleAgeSelect,
     handleTermsAccept,
     handlePrivacyAccept,
+    isLoading,
   } = useSignup();
 
   return (
@@ -74,6 +75,7 @@ export default function Signup() {
           <SignupButton
             canProceed={canProceed}
             showBackButton={currentStep !== "terms"}
+            isLoading={isLoading}
             onNext={handleNext}
             onBack={handleBack}
             nextButtonText={currentStep === "age" ? "완료" : "다음"}
