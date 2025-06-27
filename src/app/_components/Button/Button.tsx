@@ -11,6 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;
   size?: ButtonSize;
   fullWidth?: boolean;
+  loading?: boolean;
   children: React.ReactNode;
 }
 
@@ -18,6 +19,7 @@ export default function Button({
   variant = "primary",
   size = "medium",
   fullWidth = false,
+  loading = false,
   children,
   className,
   disabled,
@@ -31,14 +33,26 @@ export default function Button({
         `size-${size}`,
         {
           "full-width": fullWidth,
-          disabled,
+          disabled: disabled || loading,
+          loading,
         },
         className
       )}
-      disabled={disabled}
+      disabled={disabled || loading}
       {...props}
     >
-      {children}
+      <span style={{ visibility: loading ? "hidden" : "visible" }}>
+        {children}
+      </span>
+      {loading && (
+        <span className={cx("loading-container")}>
+          <span className={cx("loading-dots")}>
+            <span className={cx("dot")}></span>
+            <span className={cx("dot")}></span>
+            <span className={cx("dot")}></span>
+          </span>
+        </span>
+      )}
     </button>
   );
 }

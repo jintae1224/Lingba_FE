@@ -39,19 +39,24 @@
 }
 
 .step-title {
-  font-size: var(--font-xl);
-  font-weight: 700;
+  font-family: var(--font-noto-sans-kr), -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+  font-size: var(--font-lg);
+  font-weight: 600;
   color: var(--gray-900);
   margin-bottom: 5px;
-  letter-spacing: 0.5px;
+  letter-spacing: -0.02em;
 }
 
 .step-description {
-  font-size: var(--font-xl);
-  font-weight: 700;
+  font-family: var(--font-noto-sans-kr), -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+  font-size: var(--font-lg);
+  font-weight: 600;
   color: var(--gray-900);
   margin-bottom: 30px;
-  letter-spacing: 0.3px;
+  letter-spacing: -0.01em;
+  line-height: 1.5;
 }
 
 .signup-footer {

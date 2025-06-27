@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import { useRef } from "react";
 
-import { SignupData } from "@/hooks/signup/useSignup";
+import { SignupFormData } from "@/hooks/signup/useSignup";
 import { useTermsStep } from "@/hooks/signup/useTermsStep";
 
 import Checkbox from "../../../_components/Checkbox/Checkbox";
@@ -14,7 +14,7 @@ import styles from "./TermsStep.module.css";
 const cx = classNames.bind(styles);
 
 interface TermsStepProps {
-  signupData: SignupData;
+  signupData: SignupFormData;
   onTermsChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPrivacyChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
