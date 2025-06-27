@@ -1,27 +1,43 @@
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { SIGNUP_STEPS, SIGNUP_VALIDATION } from "@/constants/signup";
+import { signupUser } from "@/services/signup/signup";
+import { AgeGroup, Gender, SignupData } from "@/types/user";
+import { getRandomUserColor } from "@/utils/colors";
 
 export type SignupStep = "terms" | "nickname" | "gender" | "age";
-export type Gender = "male" | "female" | "other" | "";
-export type AgeGroup = "10s" | "20s" | "30s" | "40s" | "50s" | "60plus" | "";
+export type GenderWithEmpty = Gender | "";
+export type AgeGroupWithEmpty = AgeGroup | "";
 
-export interface SignupData {
+export interface SignupFormData {
   nickname: string;
-  gender: Gender;
-  ageGroup: AgeGroup;
+  gender: GenderWithEmpty;
+  ageGroup: AgeGroupWithEmpty;
   termsAccepted: boolean;
   privacyAccepted: boolean;
 }
 
 export const useSignup = () => {
   const [currentStep, setCurrentStep] = useState<SignupStep>("terms");
-  const [signupData, setSignupData] = useState<SignupData>({
+  const [signupData, setSignupData] = useState<SignupFormData>({
     nickname: "",
     gender: "",
     ageGroup: "",
     termsAccepted: false,
     privacyAccepted: false,
+  });
+
+  const signupMutation = useMutation({
+    mutationFn: (data: SignupData) => signupUser(data),
+    onSuccess: () => {
+      window.location.href = "/main";
+    },
+    onError: (error: Error) => {
+      alert(error.message || "회원가입 중 오류가 발생했습니다.");
+      console.error("회원가입 실패:", error.message);
+      window.location.href = "/signup";
+    },
   });
 
   const handleNext = () => {
@@ -50,9 +66,17 @@ export const useSignup = () => {
   };
 
   const handleComplete = () => {
-    // TODO: 회원가입 완료 처리
-    console.log("회원가입 완료:", signupData);
-    alert("회원가입이 완료되었습니다!");
+    const requestData: SignupData = {
+      nickname: signupData.nickname,
+      gender:
+        signupData.gender === "" ? "other" : (signupData.gender as Gender),
+      ageGroup: signupData.ageGroup as AgeGroup,
+      color: getRandomUserColor(),
+      termsAccepted: signupData.termsAccepted,
+      privacyAccepted: signupData.privacyAccepted,
+    };
+
+    signupMutation.mutate(requestData);
   };
 
   const canProceed = (() => {
@@ -73,7 +97,7 @@ export const useSignup = () => {
     }
   })();
 
-  const updateSignupData = (data: Partial<SignupData>) => {
+  const updateSignupData = (data: Partial<SignupFormData>) => {
     setSignupData((prev) => ({ ...prev, ...data }));
   };
 
@@ -81,11 +105,11 @@ export const useSignup = () => {
     updateSignupData({ nickname: e.target.value });
   };
 
-  const handleGenderSelect = (gender: Gender) => {
+  const handleGenderSelect = (gender: GenderWithEmpty) => {
     updateSignupData({ gender });
   };
 
-  const handleAgeSelect = (ageGroup: AgeGroup) => {
+  const handleAgeSelect = (ageGroup: AgeGroupWithEmpty) => {
     updateSignupData({ ageGroup });
   };
 
@@ -112,5 +136,7 @@ export const useSignup = () => {
     handleAgeSelect,
     handleTermsAccept,
     handlePrivacyAccept,
+    isLoading: signupMutation.isPending,
+    error: signupMutation.error,
   };
 };
