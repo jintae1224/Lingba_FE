@@ -26,11 +26,6 @@ export default function NicknameStep({
         onChange={onChange}
         maxLength={SIGNUP_VALIDATION.nickname.maxLength}
       />
-      <div className={cx("helper")}>
-        <span className={cx("counter")}>
-          {signupData.nickname.length}/{SIGNUP_VALIDATION.nickname.maxLength}자
-        </span>
-      </div>
     </div>
   );
 }
