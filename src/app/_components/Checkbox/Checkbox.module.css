@@ -1,0 +1,61 @@
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-mark {
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgba(209, 213, 219, 0.8);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  backdrop-filter: blur(10px);
+}
+
+.checkbox-mark::after {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
+  border-radius: 3px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+}
+
+.checkbox-input:checked + .checkbox-mark {
+  border-color: var(--primary-500);
+  background: rgba(239, 246, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.checkbox-input:checked + .checkbox-mark::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.checkbox-input:focus + .checkbox-mark {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.checkbox-label {
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+  line-height: 1.5;
+}
