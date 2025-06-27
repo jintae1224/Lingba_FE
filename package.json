@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "classnames": "^2.5.1",
+    "@supabase/ssr": "^0.6.1",
+    "@supabase/supabase-js": "^2.50.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "jtrc": "^0.9.11",
     "next": "15.3.4",
