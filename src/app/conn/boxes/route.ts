@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { ApiResponse } from "@/types/api";
-import { Box } from "@/types/user";
+import { Box } from "@/types/box";
 import { createClient } from "@/utils/supabase/server";
 
 // 사용자의 박스 목록 조회 API

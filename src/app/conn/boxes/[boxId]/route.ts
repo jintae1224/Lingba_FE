@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { ApiResponse } from "@/types/api";
-import { Box } from "@/types/user";
+import { Box } from "@/types/box";
 import { createClient } from "@/utils/supabase/server";
 
 interface RouteParams {
