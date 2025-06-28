@@ -1,0 +1,22 @@
+.box-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.empty-state {
+  padding: 20px;
+  text-align: center;
+  color: var(--color-text-secondary, #6b7280);
+  font-size: 14px;
+}
+
+/* Variant styles */
+.box-list.dropdown {
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.box-list.modal {
+  max-height: none;
+}

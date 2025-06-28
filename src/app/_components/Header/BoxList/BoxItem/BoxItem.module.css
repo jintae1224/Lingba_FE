@@ -1,0 +1,42 @@
+.box-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.box-item:hover {
+  background-color: var(--color-hover, #f3f4f6);
+}
+
+.box-item.current {
+  background-color: var(--color-primary-light, #dbeafe);
+}
+
+.box-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.box-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+  flex: 1;
+}
+
+.current-indicator {
+  font-size: 12px;
+  color: var(--color-primary, #3b82f6);
+  font-weight: 600;
+  flex-shrink: 0;
+}
