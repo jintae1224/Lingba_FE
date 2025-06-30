@@ -1,0 +1,101 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.terms-section {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 0;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.terms-section:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.required-mark {
+  color: var(--error);
+  font-weight: 600;
+  font-size: var(--font-sm);
+  margin-top: 2px;
+}
+
+.terms-text {
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+  cursor: pointer;
+  user-select: none;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.required-text {
+  color: var(--error);
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Drawer 내부 콘텐츠 */
+.drawer-content {
+  padding: 8px 0;
+}
+
+.drawer-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--gray-800);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--gray-200);
+  text-align: center;
+}
+
+.terms-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Drawer 하단 영역 */
+.drawer-footer {
+  padding: 20px 0 0;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.close-drawer-button {
+  margin-top: 8px;
+}
+
+.section h5 {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--gray-700);
+  margin-bottom: 8px;
+}
+
+.section p {
+  font-size: var(--font-sm);
+  line-height: 1.6;
+  color: var(--gray-600);
+  margin-bottom: 12px;
+}
+
+.section ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.section li {
+  font-size: var(--font-sm);
+  color: var(--gray-600);
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
