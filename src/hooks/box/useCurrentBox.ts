@@ -1,7 +1,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { useBoxes } from "@/hooks/boxes/useBoxes";
+import { useBoxes } from "@/hooks/box/useBox";
 import { Box } from "@/types/box";
 
 export function useCurrentBox() {

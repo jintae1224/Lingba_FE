@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import BoxList from "@/app/_components/Header/BoxList/BoxList";
 import ChevronDownIcon from "@/app/_components/Icons/ChevronDownIcon";
 import Modal from "@/app/_components/Modal/Modal";
-import { useCurrentBox } from "@/hooks/boxes/useCurrentBox";
+import { useCurrentBox } from "@/hooks/box/useCurrentBox";
 import { useBoxSelector } from "@/hooks/header/useBoxSelector";
 
 import styles from "./BoxSelector.module.css";

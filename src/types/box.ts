@@ -4,7 +4,7 @@ export interface Box {
   color?: string | null;
   position?: number | null;
   is_default?: boolean | null;
-  owner_id: string;
+  user_id: string;
   created_at?: string | null;
   updated_at?: string | null;
 }
