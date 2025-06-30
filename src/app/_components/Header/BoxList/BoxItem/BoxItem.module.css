@@ -13,11 +13,11 @@
 }
 
 .box-item:hover {
-  background-color: var(--color-hover, #f3f4f6);
+  background-color: var(--gray-50, #f9fafb);
 }
 
 .box-item.current {
-  background-color: var(--color-primary-light, #dbeafe);
+  background-color: var(--primary-50, #eff6ff);
 }
 
 .box-color {
@@ -30,13 +30,13 @@
 .box-name {
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--gray-900, #111827);
   flex: 1;
 }
 
 .current-indicator {
   font-size: 12px;
-  color: var(--color-primary, #3b82f6);
+  color: var(--primary-600, #2563eb);
   font-weight: 600;
   flex-shrink: 0;
 }
