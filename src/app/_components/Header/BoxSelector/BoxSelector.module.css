@@ -26,9 +26,14 @@
   transform: translateY(-1px);
 }
 
-.current-box:disabled {
+.current-box:disabled,
+.current-box.disabled {
   cursor: not-allowed;
   opacity: 0.6;
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  border-color: rgba(0, 0, 0, 0.05);
+  box-shadow: none;
+  transform: none;
 }
 
 .box-info {
@@ -58,9 +63,20 @@
 }
 
 .no-box {
-  color: #64748b;
+  color: #94a3b8;
   font-style: italic;
   font-weight: 400;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .chevron {
@@ -71,9 +87,24 @@
   transition: all 0.3s ease;
 }
 
-.current-box:hover .chevron {
+.current-box:hover:not(:disabled) .chevron {
   color: #3b82f6;
   transform: rotate(180deg);
+}
+
+/* 로딩 중인 chevron 애니메이션 */
+.chevron.loading {
+  animation: spin 1s linear infinite;
+  color: #94a3b8;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .dropdown {

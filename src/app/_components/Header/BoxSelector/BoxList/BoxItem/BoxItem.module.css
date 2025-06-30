@@ -40,3 +40,26 @@
   font-weight: 600;
   flex-shrink: 0;
 }
+
+/* 모바일에서 더 큰 크기 */
+@media (max-width: 768px) {
+  .box-item {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
+  .box-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  .box-name {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .current-indicator {
+    font-size: 14px;
+  }
+}

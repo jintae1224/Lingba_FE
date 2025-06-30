@@ -1,11 +1,11 @@
 import classNames from "classnames/bind";
 
-import BoxList from "@/app/_components/Header/BoxList/BoxList";
 import ChevronDownIcon from "@/app/_components/Icons/ChevronDownIcon";
 import Modal from "@/app/_components/Modal/Modal";
 import { useCurrentBox } from "@/hooks/box/useCurrentBox";
 import { useBoxSelector } from "@/hooks/header/useBoxSelector";
 
+import BoxList from "./BoxList/BoxList";
 import styles from "./BoxSelector.module.css";
 
 const cx = classNames.bind(styles);
@@ -27,7 +27,11 @@ export default function BoxSelector() {
   return (
     <>
       <div className={cx("box-selector")} ref={boxSelectorRef}>
-        <button className={cx("current-box")} onClick={toggleDropdown}>
+        <button
+          className={cx("current-box", { disabled: boxesLoading })}
+          onClick={toggleDropdown}
+          disabled={boxesLoading}
+        >
           <div className={cx("box-info")}>
             {error ? (
               <span className={cx("box-name", "error")}>-</span>
@@ -43,7 +47,9 @@ export default function BoxSelector() {
               <span className={cx("box-name", "no-box")}>로딩 중...</span>
             )}
           </div>
-          <ChevronDownIcon className={cx("chevron")} />
+          <ChevronDownIcon
+            className={cx("chevron", { loading: boxesLoading })}
+          />
         </button>
 
         {/* 데스크톱 드롭다운 */}
