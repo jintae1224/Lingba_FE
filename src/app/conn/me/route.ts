@@ -26,7 +26,7 @@ export async function GET() {
     // 사용자 정보 조회
     const { data: userData, error: fetchError } = await supabase
       .from("users")
-      .select("nickname, gender, age_group, provider, color")
+      .select("nickname, gender, age_group, provider, color, visited_box")
       .eq("email", user.email!)
       .single();
 
