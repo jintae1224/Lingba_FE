@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 
     // 트랜잭션으로 사용자와 기본 박스를 원자적으로 생성
     const { data: result, error: rpcError } = await supabase.rpc(
-      "create_user_with_box",
+      "create_user_with_user_box",
       {
         p_email: user.email!,
         p_nickname: nickname.trim(),
