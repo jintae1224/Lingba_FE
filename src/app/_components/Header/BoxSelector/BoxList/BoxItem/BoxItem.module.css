@@ -20,6 +20,15 @@
   background-color: var(--primary-50, #eff6ff);
 }
 
+.box-item.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.box-item.disabled:hover {
+  background-color: var(--primary-50, #eff6ff);
+}
+
 .box-color {
   width: 16px;
   height: 16px;
@@ -61,5 +70,14 @@
 
   .current-indicator {
     font-size: 14px;
+  }
+
+  .box-item.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .box-item.disabled:hover {
+    background-color: var(--primary-50, #eff6ff);
   }
 }

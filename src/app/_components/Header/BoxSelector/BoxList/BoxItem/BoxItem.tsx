@@ -13,12 +13,20 @@ interface BoxItemProps {
 }
 
 export default function BoxItem({ box, isCurrentBox, onClick }: BoxItemProps) {
+  const handleClick = () => {
+    if (!isCurrentBox) {
+      onClick();
+    }
+  };
+
   return (
     <button
       className={cx("box-item", {
         current: isCurrentBox,
+        disabled: isCurrentBox,
       })}
-      onClick={onClick}
+      onClick={handleClick}
+      disabled={isCurrentBox}
     >
       <div
         className={cx("box-color")}

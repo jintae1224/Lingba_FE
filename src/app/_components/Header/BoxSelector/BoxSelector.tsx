@@ -11,8 +11,13 @@ import styles from "./BoxSelector.module.css";
 const cx = classNames.bind(styles);
 
 export default function BoxSelector() {
-  const { currentBox, otherBoxes, boxesLoading, error, handleBoxSelect } =
-    useCurrentBox();
+  const {
+    currentBox,
+    otherBoxes,
+    boxesLoading,
+    error,
+    handleBoxSelect: originalHandleBoxSelect,
+  } = useCurrentBox();
 
   const {
     boxSelectorRef,
@@ -23,6 +28,13 @@ export default function BoxSelector() {
     closeDropdown,
     closeModal,
   } = useBoxSelector();
+
+  // 박스 선택 시 드롭다운/모달 닫기
+  const handleBoxSelect = (boxId: string) => {
+    originalHandleBoxSelect(boxId);
+    closeDropdown();
+    closeModal();
+  };
 
   return (
     <>
