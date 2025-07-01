@@ -5,9 +5,9 @@ import styles from "./page.module.css";
 const cx = classNames.bind(styles);
 
 interface SharePageProps {
-  params: {
+  params: Promise<{
     boxId: string;
-  };
+  }>;
 }
 
 export default async function SharePage({ params }: SharePageProps) {
