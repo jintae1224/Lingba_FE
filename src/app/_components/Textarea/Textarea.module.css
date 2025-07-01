@@ -1,0 +1,80 @@
+.textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: var(--font-md);
+  color: var(--gray-900);
+  background: var(--bg-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+  line-height: 1.5;
+
+  /* 스크롤바 디자인 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-300) transparent;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.textarea.disabled {
+  background: var(--gray-100);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  border-color: var(--gray-200);
+}
+
+.textarea.disabled:focus {
+  border-color: var(--gray-200);
+  box-shadow: none;
+}
+
+/* 웹킷 브라우저 스크롤바 스타일링 */
+.textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.textarea::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.textarea::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 4px;
+  border: 1px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+.textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+.textarea::-webkit-scrollbar-thumb:active {
+  background: var(--gray-500);
+}
+
+/* 플레이스홀더 스타일 */
+.textarea::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
+}
+
+.textarea.disabled::placeholder {
+  color: var(--gray-300);
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .textarea {
+    font-size: var(--font-sm);
+    padding: 10px 12px;
+  }
+}
