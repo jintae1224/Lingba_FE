@@ -2,7 +2,7 @@
 
 import classNames from "classnames/bind";
 
-import BoxSelector from "@/app/_components/Header/BoxSelector/BoxSelector";
+import BoxSelector from "@/app/(afterLogin)/_components/Header/BoxSelector/BoxSelector";
 
 import AddLinkButton from "./AddLinkButton/AddLinkButton";
 import styles from "./Header.module.css";
