@@ -1,0 +1,52 @@
+/* 링크 추가 버튼 */
+.add-link-section {
+  flex: 0 0 auto;
+  padding: 0 20px;
+}
+
+.add-link-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--gray-50);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  font-size: var(--font-sm);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.add-link-button:hover {
+  background: var(--gray-100);
+  color: var(--gray-800);
+  border-color: var(--gray-300);
+}
+
+.add-link-button:active {
+  background: var(--gray-200);
+}
+
+.add-link-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.add-link-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .add-link-section {
+    padding: 0 16px;
+  }
+}

@@ -1,3 +1,27 @@
-.container {
-  padding-top: 64px;
+.layout {
+  padding-top: 64px; /* Header 높이 */
+  display: flex;
+  min-height: calc(100vh - 64px);
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 280px; /* LNB 너비 */
+  padding: 24px;
+  transition: margin-left 0.3s ease;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 240px; /* 모바일에서 LNB 너비 줄임 */
+    padding: 20px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-content {
+    margin-left: 0; /* 모바일에서 LNB 숨김 */
+    padding: 16px;
+  }
 }

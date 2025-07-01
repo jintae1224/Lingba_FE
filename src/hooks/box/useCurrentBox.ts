@@ -18,12 +18,12 @@ export function useCurrentBox() {
     // 에러 상태 초기화
     setError(null);
 
-    // /main/[boxId] 경로에서 boxId 추출
-    const boxIdMatch = pathname.match(/^\/main\/(.+)$/);
+    // 모든 박스 관련 페이지에서 boxId 추출 (main, search, share, settings)
+    const boxIdMatch = pathname.match(/^\/(main|search|share|settings)\/(.+)$/);
 
     if (boxIdMatch) {
       // 특정 박스 페이지인 경우
-      const boxId = boxIdMatch[1];
+      const boxId = boxIdMatch[2];
       const foundBox = boxes.find((box) => box.id === boxId);
 
       if (foundBox) {
@@ -48,7 +48,17 @@ export function useCurrentBox() {
   const otherBoxes = boxes?.filter((box) => box.id !== currentBox?.id) || [];
 
   const handleBoxSelect = (boxId: string) => {
-    router.push(`/main/${boxId}`);
+    // 현재 경로에서 페이지 타입을 감지하여 같은 페이지로 이동
+    const currentPageMatch = pathname.match(/^\/([^\/]+)\/(.+)$/);
+
+    if (currentPageMatch) {
+      const [, pageType] = currentPageMatch;
+      // 현재 페이지 타입 유지하면서 boxId만 변경
+      router.push(`/${pageType}/${boxId}`);
+    } else {
+      // 기본적으로 메인 페이지로 이동
+      router.push(`/main/${boxId}`);
+    }
   };
 
   return {
