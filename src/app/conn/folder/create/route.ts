@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { createClient } from "@/utils/supabase/server";
 import type { ApiResponse } from "@/types/api";
+import { createClient } from "@/utils/supabase/server";
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
         box_id,
         parent_id,
         position: position || 0,
-        is_expanded: true,
+        is_expanded: false,
       })
       .select()
       .single();
