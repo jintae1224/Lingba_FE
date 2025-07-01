@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 
+import { useCurrentBox } from "@/hooks/box/useCurrentBox";
 import { useClickOutside } from "@/hooks/etc/useClickOutside";
+import { useLink } from "@/hooks/link/useLink";
 
 export function useAddLinkForm() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,7 +11,12 @@ export function useAddLinkForm() {
   const [description, setDescription] = useState("");
   const [isExpanded, setIsExpanded] = useState(false);
   const [useAiSummary, setUseAiSummary] = useState(true);
+  const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const { currentBox } = useCurrentBox();
+  const { createLink } = useLink(currentBox?.id || "", null);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -22,6 +29,8 @@ export function useAddLinkForm() {
     setDescription("");
     setIsExpanded(false);
     setUseAiSummary(true);
+    setSelectedFolderId(null);
+    setIsSubmitting(false);
   };
 
   const handleToggleExpanded = () => {
@@ -51,17 +60,29 @@ export function useAddLinkForm() {
     setDescription(e.target.value);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (url.trim()) {
-      // TODO: URL 추가 로직 구현
-      console.log("URL 추가:", {
-        url,
-        name,
-        description,
-        useAiSummary,
+
+    if (!url.trim() || !currentBox || isSubmitting) return;
+
+    setIsSubmitting(true);
+
+    try {
+      await createLink({
+        url: url.trim(),
+        title: name.trim() || undefined,
+        description: description.trim() || undefined,
+        box_id: currentBox.id,
+        parent_id: selectedFolderId || undefined,
+        // AI 요약 기능이 활성화된 경우 나중에 AI 처리 로직 추가
+        // ai_summary: useAiSummary ? "AI 요약 예정" : undefined,
       });
+
       handleClose();
+    } catch (error) {
+      console.error("링크 추가 실패:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -72,6 +93,10 @@ export function useAddLinkForm() {
     onClickOutside: handleClose,
   });
 
+  const handleFolderSelect = (folderId: string | null) => {
+    setSelectedFolderId(folderId);
+  };
+
   return {
     isOpen,
     url,
@@ -79,6 +104,9 @@ export function useAddLinkForm() {
     description,
     isExpanded,
     useAiSummary,
+    selectedFolderId,
+    isSubmitting,
+    currentBox,
     setUseAiSummary,
     containerRef,
     handleToggle,
@@ -89,5 +117,6 @@ export function useAddLinkForm() {
     handleNameChange,
     handleDescriptionChange,
     handleSubmit,
+    handleFolderSelect,
   };
 }
