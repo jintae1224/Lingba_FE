@@ -1,13 +1,13 @@
 .header {
   position: fixed;
   top: 0;
-  left: 280px; /* LNB 너비만큼 왼쪽 여백 */
+  left: 220px; /* LNB 너비만큼 왼쪽 여백 */
   right: 0;
   z-index: 100;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  height: 64px;
+  height: 56px;
   transition: all 0.3s ease;
 }
 
@@ -17,7 +17,7 @@
   justify-content: space-between;
   height: 100%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 20px;
 }
 
 .left {
@@ -110,11 +110,11 @@
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .header {
-    left: 240px; /* 모바일에서 LNB 너비에 맞춤 */
+    left: 200px; /* 모바일에서 LNB 너비에 맞춤 */
   }
 
   .container {
-    padding: 0 16px;
+    padding: 0 14px;
   }
 
   .left {
@@ -136,7 +136,7 @@
   }
 
   .container {
-    padding: 0 12px;
+    padding: 0 10px;
   }
 
   .left {
