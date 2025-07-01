@@ -1,0 +1,124 @@
+.switch-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.switch-container.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--gray-300);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  padding: 0;
+}
+
+.switch:focus-visible {
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+/* 사이즈 variants */
+.switch.sm {
+  width: 32px;
+  height: 18px;
+}
+
+.switch.md {
+  width: 44px;
+  height: 24px;
+}
+
+.switch.lg {
+  width: 56px;
+  height: 32px;
+}
+
+/* 체크된 상태 */
+.switch.checked {
+  background-color: var(--primary-500);
+}
+
+.switch.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 스위치 썸브 */
+.switch-thumb {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* 사이즈별 썸브 크기 */
+.switch.sm .switch-thumb {
+  width: 14px;
+  height: 14px;
+  left: 2px;
+}
+
+.switch.md .switch-thumb {
+  width: 20px;
+  height: 20px;
+  left: 2px;
+}
+
+.switch.lg .switch-thumb {
+  width: 28px;
+  height: 28px;
+  left: 2px;
+}
+
+/* 체크된 상태의 썸브 위치 */
+.switch.sm.checked .switch-thumb {
+  transform: translateX(14px);
+}
+
+.switch.md.checked .switch-thumb {
+  transform: translateX(20px);
+}
+
+.switch.lg.checked .switch-thumb {
+  transform: translateX(24px);
+}
+
+/* 라벨 */
+.switch-label {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-700);
+  user-select: none;
+}
+
+.switch-label.disabled {
+  color: var(--gray-400);
+}
+
+/* 호버 효과 */
+.switch:hover:not(.disabled):not(.checked) {
+  background-color: var(--gray-400);
+}
+
+.switch:hover:not(.disabled).checked {
+  background-color: var(--primary-600);
+}
+
+/* 애니메이션 */
+.switch-thumb {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.switch {
+  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
