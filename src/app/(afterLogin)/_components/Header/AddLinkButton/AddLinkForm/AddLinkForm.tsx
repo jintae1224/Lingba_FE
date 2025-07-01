@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
+import FolderSelector from "@/app/_components/FolderSelector/FolderSelector";
 import Switch from "@/app/_components/Switch/Switch";
 import Textarea from "@/app/_components/Textarea/Textarea";
 
@@ -14,12 +15,16 @@ interface AddLinkFormProps {
   description: string;
   isExpanded: boolean;
   useAiSummary: boolean;
+  selectedFolderId?: string | null;
+  currentBoxId?: string;
+  isSubmitting?: boolean;
   setUseAiSummary: (value: boolean) => void;
   onToggleExpanded: () => void;
   onPaste: () => void;
   onUrlChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onNameChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onDescriptionChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onFolderSelect: (folderId: string | null) => void;
   onSubmit: (e: React.FormEvent) => void;
   onClose: () => void;
 }
@@ -30,12 +35,16 @@ export default function AddLinkForm({
   description,
   isExpanded,
   useAiSummary,
+  selectedFolderId,
+  currentBoxId,
+  isSubmitting = false,
   setUseAiSummary,
   onToggleExpanded,
   onPaste,
   onUrlChange,
   onNameChange,
   onDescriptionChange,
+  onFolderSelect,
   onSubmit,
   onClose,
 }: AddLinkFormProps) {
@@ -97,6 +106,20 @@ export default function AddLinkForm({
               rows={3}
             />
           </div>
+
+          {currentBoxId && (
+            <div className={cx("input-group")}>
+              <label className={cx("label")}>폴더 위치</label>
+              <div className={cx("folder-selector-container")}>
+                <FolderSelector
+                  boxId={currentBoxId}
+                  selectedFolderId={selectedFolderId}
+                  onFolderSelect={onFolderSelect}
+                  showCreateButton={false}
+                />
+              </div>
+            </div>
+          )}
         </div>
       )}
 
@@ -106,12 +129,18 @@ export default function AddLinkForm({
           variant="secondary"
           onClick={onClose}
           className={cx("cancel-btn")}
+          disabled={isSubmitting}
         >
           취소
         </Button>
         {url.trim() ? (
-          <Button type="submit" variant="primary" className={cx("submit-btn")}>
-            추가하기
+          <Button
+            type="submit"
+            variant="primary"
+            className={cx("submit-btn")}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "추가 중..." : "추가하기"}
           </Button>
         ) : (
           <Button
@@ -119,6 +148,7 @@ export default function AddLinkForm({
             variant="primary"
             onClick={onPaste}
             className={cx("paste-btn")}
+            disabled={isSubmitting}
           >
             붙여넣기
           </Button>

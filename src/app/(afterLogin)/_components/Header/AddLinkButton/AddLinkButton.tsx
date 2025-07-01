@@ -21,6 +21,9 @@ export default function AddLinkButton() {
     description,
     isExpanded,
     useAiSummary,
+    selectedFolderId,
+    isSubmitting,
+    currentBox,
     setUseAiSummary,
     containerRef,
     handleToggle,
@@ -31,6 +34,7 @@ export default function AddLinkButton() {
     handleNameChange,
     handleDescriptionChange,
     handleSubmit,
+    handleFolderSelect,
   } = useAddLinkForm();
 
   // 모바일에서는 아예 렌더링하지 않음
@@ -62,12 +66,16 @@ export default function AddLinkButton() {
                 description={description}
                 isExpanded={isExpanded}
                 useAiSummary={useAiSummary}
+                selectedFolderId={selectedFolderId}
+                currentBoxId={currentBox?.id}
+                isSubmitting={isSubmitting}
                 setUseAiSummary={setUseAiSummary}
                 onToggleExpanded={handleToggleExpanded}
                 onPaste={handlePaste}
                 onUrlChange={handleUrlChange}
                 onNameChange={handleNameChange}
                 onDescriptionChange={handleDescriptionChange}
+                onFolderSelect={handleFolderSelect}
                 onSubmit={handleSubmit}
                 onClose={handleClose}
               />

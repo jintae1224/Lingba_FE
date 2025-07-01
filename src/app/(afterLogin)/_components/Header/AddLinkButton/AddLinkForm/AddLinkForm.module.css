@@ -89,6 +89,12 @@
   margin-bottom: 0;
 }
 
+.folder-selector-container {
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--gray-200);
+}
+
 .actions {
   display: flex;
   gap: 8px;
