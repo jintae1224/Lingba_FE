@@ -3,7 +3,7 @@
 import classNames from "classnames/bind";
 import { useRouter } from "next/navigation";
 
-import type { BreadcrumbItem } from "@/hooks/folder/useBreadcrumb";
+import type { BreadcrumbItem } from "@/types/breadcrumb";
 
 import styles from "./Breadcrumb.module.css";
 

@@ -1,7 +1,7 @@
 import type { ApiResponse } from "@/types/api";
 import type {
-  Folder,
   CreateFolderRequest,
+  Folder,
   UpdateFolderRequest,
 } from "@/types/folder";
 

@@ -1,13 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import type { ApiResponse } from "@/types/api";
+import type { BreadcrumbItem } from "@/types/breadcrumb";
 import { createClient } from "@/utils/supabase/server";
-
-interface BreadcrumbItem {
-  id: string;
-  name: string;
-  parent_id: string | null;
-}
 
 export async function GET(request: NextRequest) {
   try {
