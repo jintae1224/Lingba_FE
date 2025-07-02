@@ -1,10 +1,16 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import * as linkService from "@/services/link/link";
 import type { CreateLinkRequest, UpdateLinkRequest } from "@/types/link";
 
-export function useLink(boxId: string, parentId?: string | null) {
+export function useLink() {
+  const params = useParams();
+  const searchParams = useSearchParams();
+  
+  const boxId = params.boxId as string;
+  const parentId = searchParams.get('f_id') || null;
   const queryClient = useQueryClient();
   const [isCreating, setIsCreating] = useState(false);
 

@@ -1,10 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import * as folderService from "@/services/folder/folder";
 import type { CreateFolderRequest, UpdateFolderRequest } from "@/types/folder";
 
-export function useFolder(boxId: string) {
+export function useFolder() {
+  const params = useParams();
+  const boxId = params.boxId as string;
   const queryClient = useQueryClient();
   const [isCreating, setIsCreating] = useState(false);
 
