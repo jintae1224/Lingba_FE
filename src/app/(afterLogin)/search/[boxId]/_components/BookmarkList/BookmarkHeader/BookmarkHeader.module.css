@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 8px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-button {
+  padding: 6px 12px;
+  background: var(--primary-600);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+.action-button:hover {
+  background: var(--primary-700);
+}
+
+.folder-button {
+  padding: 6px 12px;
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.folder-button:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
