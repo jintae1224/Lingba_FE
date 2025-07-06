@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     const { error } = await supabase
       .from("users")
       .select("id")
-      .eq("email", user.email!)
+      .eq("id", user.id)
       .single();
 
     if (error) {

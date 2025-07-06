@@ -1,0 +1,83 @@
+.box-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+  width: 100%;
+}
+
+.box-item:hover {
+  background-color: var(--gray-50, #f9fafb);
+}
+
+.box-item.current {
+  background-color: var(--primary-50, #eff6ff);
+}
+
+.box-item.disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.box-item.disabled:hover {
+  background-color: var(--primary-50, #eff6ff);
+}
+
+.box-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.box-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-900, #111827);
+  flex: 1;
+}
+
+.current-indicator {
+  font-size: 12px;
+  color: var(--primary-600, #2563eb);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* 모바일에서 더 큰 크기 */
+@media (max-width: 768px) {
+  .box-item {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
+  .box-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+  }
+
+  .box-name {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .current-indicator {
+    font-size: 14px;
+  }
+
+  .box-item.disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+
+  .box-item.disabled:hover {
+    background-color: var(--primary-50, #eff6ff);
+  }
+}
