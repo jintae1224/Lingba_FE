@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import { createClient } from "@/utils/supabase/server";
 import type { ApiResponse } from "@/types/api";
+import { createClient } from "@/utils/supabase/server";
 
 export async function DELETE(
   request: NextRequest,
