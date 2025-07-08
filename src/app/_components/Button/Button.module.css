@@ -43,6 +43,22 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.variant-danger {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.3);
+}
+
+.variant-danger:hover:not(.disabled) {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+}
+
+.variant-danger.loading {
+  background: #f87171 !important;
+}
+
 /* Sizes */
 .size-small {
   padding: 0 16px;
