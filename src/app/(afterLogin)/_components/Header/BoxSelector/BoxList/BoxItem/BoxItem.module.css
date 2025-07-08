@@ -36,11 +36,39 @@
   flex-shrink: 0;
 }
 
+.box-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
 .box-name {
   font-size: 14px;
   font-weight: 500;
   color: var(--gray-900, #111827);
   flex: 1;
+}
+
+.shared-role {
+  font-size: 12px;
+  padding: 2px 6px;
+  background-color: var(--blue-100, #dbeafe);
+  color: var(--blue-700, #1d4ed8);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.box-item.shared {
+  background-color: var(--blue-25, #f8faff);
+}
+
+.box-item.shared:hover {
+  background-color: var(--blue-50, #eff6ff);
+}
+
+.box-item.shared.current {
+  background-color: var(--blue-100, #dbeafe);
 }
 
 .current-indicator {
