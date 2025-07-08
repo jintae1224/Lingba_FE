@@ -152,21 +152,36 @@
 }
 
 /* 스크롤바 스타일링 */
+.dropdown-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
+}
+
 .dropdown-content::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
 
 .dropdown-content::-webkit-scrollbar-track {
   background: transparent;
+  border-radius: 10px;
 }
 
 .dropdown-content::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
-  border-radius: 3px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(99, 102, 241, 0.2) 100%);
+  border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: all 0.2s ease;
 }
 
 .dropdown-content::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.4) 0%, rgba(99, 102, 241, 0.4) 100%);
+  background-clip: content-box;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.6) 0%, rgba(99, 102, 241, 0.6) 100%);
+  background-clip: content-box;
 }
 
 /* 반응형 스타일 */
