@@ -1,68 +1,77 @@
+"use client";
+
 import classNames from "classnames/bind";
 
+import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
+import { useCurrentBox } from "@/hooks/box/useCurrentBox";
+
+import ShareForm from "./_components/ShareForm/ShareForm";
+import ShareList from "./_components/ShareList/ShareList";
 import styles from "./page.module.css";
 
 const cx = classNames.bind(styles);
 
-interface SharePageProps {
-  params: Promise<{
-    boxId: string;
-  }>;
-}
+export default function SharePage() {
+  const { currentBox, boxesLoading, error: boxError } = useCurrentBox();
 
-export default async function SharePage({ params }: SharePageProps) {
-  const { boxId } = await params;
+  const isLoading = boxesLoading;
+  const hasError = boxError || !currentBox;
+
+  if (isLoading) {
+    return (
+      <div className={cx("container")}>
+        <LoadingSpinner text="박스 정보를 불러오는 중..." />
+      </div>
+    );
+  }
+
+  if (hasError) {
+    return (
+      <div className={cx("container")}>
+        <div className={cx("info-card")}>
+          <div className={cx("info-icon")}>⚠️</div>
+          <div className={cx("info-content")}>
+            <h3 className={cx("info-title")}>접근 제한</h3>
+            <p className={cx("info-description")}>
+              박스를 찾을 수 없거나 접근 권한이 없습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // 공유 권한은 소유자만 가능 (is_shared false인 경우만)
+  if (currentBox.is_shared) {
+    return (
+      <div className={cx("container")}>
+        <div className={cx("info-card")}>
+          <div className={cx("info-icon")}>🔒</div>
+          <div className={cx("info-content")}>
+            <h3 className={cx("info-title")}>공유 권한 없음</h3>
+            <p className={cx("info-description")}>
+              공유받은 박스는 공유할 수 없습니다. 박스 소유자만 공유 설정을
+              변경할 수 있습니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cx("container")}>
       <div className={cx("header")}>
         <h1 className={cx("title")}>공유하기</h1>
-        <p className={cx("description")}>북마크를 다른 사람들과 공유해보세요</p>
-        <p className={cx("box-info")}>현재 박스: {boxId}</p>
+        <p className={cx("description")}>
+          <span className={cx("box-name")}>{currentBox.name}</span> 박스를 다른
+          사람들과 공유해보세요
+        </p>
       </div>
 
       <div className={cx("content")}>
-        <div className={cx("share-options")}>
-          <div className={cx("share-card")}>
-            <div className={cx("share-icon")}>🔗</div>
-            <h3 className={cx("share-title")}>링크 공유</h3>
-            <p className={cx("share-description")}>
-              북마크 링크를 복사하여 공유할 수 있습니다
-            </p>
-            <button className={cx("share-button", "secondary")}>
-              링크 복사하기
-            </button>
-          </div>
-
-          <div className={cx("share-card")}>
-            <div className={cx("share-icon")}>👥</div>
-            <h3 className={cx("share-title")}>협업 초대</h3>
-            <p className={cx("share-description")}>
-              팀원들을 초대하여 함께 북마크를 관리할 수 있습니다
-            </p>
-            <button className={cx("share-button", "primary")}>
-              팀원 초대하기
-            </button>
-          </div>
-
-          <div className={cx("share-card")}>
-            <div className={cx("share-icon")}>📱</div>
-            <h3 className={cx("share-title")}>소셜 공유</h3>
-            <p className={cx("share-description")}>
-              SNS를 통해 북마크를 공유할 수 있습니다
-            </p>
-            <button className={cx("share-button", "secondary")}>
-              SNS 공유하기
-            </button>
-          </div>
-        </div>
-
-        <div className={cx("recent-shares")}>
-          <h2 className={cx("section-title")}>최근 공유 내역</h2>
-          <div className={cx("empty-state")}>
-            <p className={cx("empty-text")}>아직 공유한 내역이 없습니다.</p>
-          </div>
-        </div>
+        <ShareForm />
+        <ShareList />
       </div>
     </div>
   );

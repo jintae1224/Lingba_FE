@@ -22,17 +22,68 @@
   margin: 0 0 8px 0;
 }
 
-.box-info {
-  font-size: var(--font-sm);
-  color: var(--gray-500);
-  margin: 0;
-  font-family: monospace;
+.box-name {
+  font-weight: 600;
+  color: var(--primary-500, #3b82f6);
 }
 
 .content {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 24px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: var(--font-lg);
+  color: var(--gray-600);
+}
+
+.error {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: var(--font-lg);
+  color: var(--red-500, #ef4444);
+}
+
+/* Notion 스타일 정보 카드 */
+.info-card {
+  max-width: 600px;
+  margin: 80px auto;
+  padding: 32px;
+  background: #fefefe;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.info-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.info-content {
+  flex: 1;
+}
+
+.info-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d2d2d;
+  margin: 0 0 8px 0;
+  line-height: 1.3;
+}
+
+.info-description {
+  font-size: 15px;
+  color: #6b6b6b;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .share-options {
@@ -154,5 +205,23 @@
 
   .description {
     font-size: var(--font-md);
+  }
+
+  .info-card {
+    margin: 40px auto;
+    padding: 24px;
+    gap: 16px;
+  }
+
+  .info-icon {
+    font-size: 24px;
+  }
+
+  .info-title {
+    font-size: 16px;
+  }
+
+  .info-description {
+    font-size: 14px;
   }
 }
