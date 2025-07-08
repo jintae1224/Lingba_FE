@@ -6,6 +6,7 @@ import Link from "next/link";
 
 import { useLnb } from "@/hooks/lnb/useLnb";
 
+import { JoinBoxButton } from "./JoinBoxButton/JoinBoxButton";
 import styles from "./Lnb.module.css";
 import NavigationIcon from "./NavigationIcon/NavigationIcon";
 import UserInfo from "./UserInfo/UserInfo";
@@ -30,6 +31,11 @@ export default function Lnb() {
                 className={cx("logo")}
               />
             </Link>
+          </div>
+
+          {/* 박스 참여 버튼 */}
+          <div className={cx("join-box-section")}>
+            <JoinBoxButton />
           </div>
 
           {/* 네비게이션 */}

@@ -1,0 +1,45 @@
+.joinButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  margin: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--gray-900);
+  font-size: var(--font-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.joinButton:hover {
+  background: var(--gray-200);
+  color: var(--gray-900);
+}
+
+.buttonIcon {
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.buttonLabel {
+  letter-spacing: -0.01em;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
