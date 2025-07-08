@@ -1,3 +1,4 @@
+import { createClient as createServiceClient } from "@supabase/supabase-js";
 import { NextResponse } from "next/server";
 
 import { ApiResponse } from "@/types/api";
@@ -23,8 +24,8 @@ export async function GET() {
       return NextResponse.json(response, { status: 401 });
     }
 
-    // user_box 테이블에서 사용자의 모든 박스 조회 (RLS 정책에 의해 자동 필터링)
-    const { data: boxes, error: boxesError } = await supabase
+    // 1. 내 박스들 조회
+    const { data: ownBoxes, error: ownBoxesError } = await supabase
       .from("user_box")
       .select(
         "id, name, color, position, is_default, user_id, created_at, updated_at"
@@ -33,7 +34,7 @@ export async function GET() {
       .order("position", { ascending: true })
       .order("created_at", { ascending: true });
 
-    if (boxesError) {
+    if (ownBoxesError) {
       const response: ApiResponse = {
         success: false,
         message: "박스 목록 조회 중 오류가 발생했습니다.",
@@ -42,21 +43,74 @@ export async function GET() {
       return NextResponse.json(response, { status: 500 });
     }
 
-    // 보안 검증: 반환된 모든 박스가 현재 사용자 소유인지 확인
-    if (boxes) {
-      const invalidBoxes = boxes.filter((box) => box.user_id !== user.id);
-      if (invalidBoxes.length > 0) {
-        const response: ApiResponse<Box[]> = {
-          success: true,
-          message: "박스 목록 조회 성공",
-          data: [],
-        };
-        return NextResponse.json(response);
+    // 2. 공유받은 박스들 조회 (서비스 역할 클라이언트 사용)
+    const supabaseUrl = process.env.SUPABASE_URL;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+    let sharedBoxes: Box[] = [];
+
+    if (supabaseUrl && supabaseServiceKey) {
+      const serviceClient = createServiceClient(
+        supabaseUrl,
+        supabaseServiceKey
+      );
+
+      // 먼저 공유 정보 조회
+      const { data: shareData, error: shareError } = await serviceClient
+        .from("box_shares")
+        .select("box_id, owner_id")
+        .eq("member_id", user.id);
+
+      if (!shareError && shareData && shareData.length > 0) {
+        // 각 공유받은 박스 ID로 실제 박스 데이터 조회
+        const boxIds = shareData.map((share) => share.box_id);
+
+        const { data: boxesData, error: boxesError } = await serviceClient
+          .from("user_box")
+          .select(
+            "id, name, color, position, is_default, user_id, created_at, updated_at"
+          )
+          .in("id", boxIds);
+
+        if (!boxesError && boxesData) {
+          // 공유 정보와 박스 데이터 매핑
+          sharedBoxes = boxesData.map((box): Box => {
+            return {
+              id: box.id,
+              name: box.name,
+              color: box.color,
+              position: box.position,
+              is_default: box.is_default,
+              user_id: box.user_id,
+              created_at: box.created_at,
+              updated_at: box.updated_at,
+              is_shared: true,
+            };
+          });
+        }
       }
     }
 
-    // 박스가 없는 경우 기본 박스 자동 생성
-    if (!boxes || boxes.length === 0) {
+    // 3. 데이터 병합
+    const allBoxes: Box[] = [];
+
+    // 내 박스들 추가
+    if (ownBoxes) {
+      allBoxes.push(
+        ...(ownBoxes as Box[]).map(
+          (box): Box => ({
+            ...box,
+            is_shared: false,
+          })
+        )
+      );
+    }
+
+    // 공유받은 박스들 추가
+    allBoxes.push(...sharedBoxes);
+
+    // 내 박스가 없는 경우 기본 박스 자동 생성
+    if (!ownBoxes || ownBoxes.length === 0) {
       const { data: newBox, error: createError } = await supabase
         .from("user_box")
         .insert({
@@ -72,19 +126,15 @@ export async function GET() {
         .single();
 
       if (!createError && newBox) {
-        const response: ApiResponse<Box[]> = {
-          success: true,
-          message: "박스 목록 조회 성공",
-          data: [newBox],
-        };
-        return NextResponse.json(response);
+        // 새로 생성한 박스를 목록에 추가
+        allBoxes.unshift({ ...(newBox as Box), is_shared: false });
       }
     }
 
     const response: ApiResponse<Box[]> = {
       success: true,
       message: "박스 목록 조회 성공",
-      data: boxes || [],
+      data: allBoxes,
     };
 
     return NextResponse.json(response);
