@@ -3,7 +3,7 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import { useImageFallback } from "@/hooks/ui/useImageFallback";
+import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import type { Link } from "@/types/link";
 import { getHostname } from "@/utils/url";
 
@@ -16,38 +16,37 @@ interface LinkCardProps {
 }
 
 export default function LinkCard({ link }: LinkCardProps) {
-  const { hasError, handleError } = useImageFallback();
-
   return (
     <div className={cx("card")}>
       <div className={cx("thumbnail")}>
-        {link.thumbnail_url && !hasError ? (
+        {link.thumbnail_url ? (
           <Image
             src={link.thumbnail_url}
             alt={link.title || ""}
             className={cx("thumbnail-image")}
             width={280}
             height={120}
-            onError={handleError}
           />
         ) : (
-          <div className={cx("default-thumbnail")}>🔗</div>
+          <div className={cx("default-thumbnail")}>
+            <LinkIcon className={cx("link-icon")} />
+          </div>
         )}
       </div>
       <div className={cx("content")}>
-        <h3 className={cx("title")}>
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cx("link")}
-          >
-            {link.title || getHostname(link.url)}
-          </a>
-        </h3>
-        {link.description && (
-          <p className={cx("description")}>{link.description}</p>
-        )}
+        <h3 className={cx("title")}>{link.title || getHostname(link.url)}</h3>
+        <div className={cx("favicon-wrapper")}>
+          {link.favicon_url && (
+            <Image
+              src={link.favicon_url || ""}
+              alt="Favicon"
+              className={cx("favicon")}
+              width={16}
+              height={16}
+            />
+          )}
+          <span className={cx("url")}>{getHostname(link.url)}</span>
+        </div>
       </div>
     </div>
   );
