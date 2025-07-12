@@ -1,0 +1,144 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 8px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-50);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.folder-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-600);
+}
+
+.title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-hint {
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cancel-btn,
+.save-btn {
+  flex: 1;
+  min-height: 48px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.cancel-btn {
+  background: white;
+  border: 1.5px solid var(--gray-200);
+  color: var(--gray-700);
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+}
+
+.save-btn {
+  background: var(--primary-600);
+  border: 1.5px solid var(--primary-600);
+  color: white;
+  font-weight: 600;
+}
+
+.save-btn:hover:not(:disabled) {
+  background: var(--primary-700);
+  border-color: var(--primary-700);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.save-btn:disabled {
+  background: var(--gray-300);
+  border-color: var(--gray-300);
+  color: var(--gray-500);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.cancel-btn:active,
+.save-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .container {
+    gap: 20px;
+  }
+
+  .header {
+    gap: 10px;
+  }
+
+  .icon-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .folder-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .title {
+    font-size: var(--font-lg);
+  }
+
+  .input {
+    font-size: var(--font-sm);
+  }
+
+  .actions {
+    gap: 10px;
+  }
+
+  .cancel-btn,
+  .save-btn {
+    min-height: 44px;
+    font-size: var(--font-sm);
+  }
+}

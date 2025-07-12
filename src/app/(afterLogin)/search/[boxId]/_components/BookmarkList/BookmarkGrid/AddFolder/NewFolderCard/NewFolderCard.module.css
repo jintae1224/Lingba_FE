@@ -1,0 +1,165 @@
+.card {
+  background: white;
+  border: 2px solid var(--gray-300);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.15s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.thumbnail {
+  aspect-ratio: 16/9;
+  background: var(--gray-25, #fafafa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.icon {
+  font-size: 32px;
+  opacity: 0.8;
+}
+
+.folder-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--gray-500);
+  transition: color 0.15s ease;
+}
+
+.content {
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-height: 0;
+}
+
+.input-wrapper {
+  flex: 1;
+}
+
+.name-input {
+  width: 100%;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  padding: 6px 8px;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  background: white;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.name-input:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 2px var(--primary-100);
+}
+
+.name-input:disabled {
+  background: var(--gray-50);
+  color: var(--gray-400);
+  cursor: not-allowed;
+}
+
+.name-input::placeholder {
+  color: var(--gray-400);
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.action-button:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.action-button.save {
+  border-color: var(--gray-300);
+  color: var(--gray-700);
+}
+
+.action-button.save:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.action-button.save:disabled {
+  color: var(--gray-400);
+  border-color: var(--gray-300);
+}
+
+.action-button.cancel {
+  color: var(--gray-500);
+}
+
+.action-button.cancel:hover:not(:disabled) {
+  color: var(--error);
+  border-color: var(--error);
+  background: #fef2f2;
+}
+
+.action-icon {
+  width: 12px;
+  height: 12px;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+
+  .folder-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .content {
+    padding: 6px;
+    gap: 4px;
+  }
+
+  .name-input {
+    font-size: var(--font-xs);
+    padding: 4px 6px;
+  }
+
+  .action-button {
+    width: 22px;
+    height: 22px;
+  }
+
+  .action-icon {
+    width: 10px;
+    height: 10px;
+  }
+}
