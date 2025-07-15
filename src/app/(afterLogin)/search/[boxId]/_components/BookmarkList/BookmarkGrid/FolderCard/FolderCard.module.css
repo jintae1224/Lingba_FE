@@ -1,0 +1,64 @@
+.content {
+  padding: 8px;
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
+  border-top: 1px solid var(--gray-200);
+}
+
+.card.editing .content {
+  gap: 5px;
+  justify-content: flex-start;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+  margin-top: auto;
+}
+
+.folder-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-count {
+  font-weight: 500;
+  color: var(--primary-600);
+}
+
+.separator {
+  color: var(--gray-300);
+  font-weight: 400;
+}
+
+.updated-time {
+  color: var(--gray-500);
+}
+
+.edit-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    width: 100%;
+  }
+}

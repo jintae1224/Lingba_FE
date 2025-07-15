@@ -1,0 +1,17 @@
+.expanded {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.label {
+  font-size: var(--font-md);
+  font-weight: 500;
+  color: var(--gray-500);
+}
