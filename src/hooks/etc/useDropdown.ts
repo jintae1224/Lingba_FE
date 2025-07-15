@@ -6,11 +6,15 @@ export function useDropdown() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const handleOpen = () => {
+  const handleOpen = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
     setIsOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
     setIsOpen(false);
   };
 
