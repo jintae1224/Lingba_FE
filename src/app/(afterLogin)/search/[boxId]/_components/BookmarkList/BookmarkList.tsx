@@ -2,7 +2,6 @@
 
 import classNames from "classnames/bind";
 
-import Breadcrumb from "@/app/_components/Breadcrumb/Breadcrumb";
 import { useAddFolderState } from "@/hooks/folder/useAddFolderState";
 
 import BookmarkGrid from "./BookmarkGrid/BookmarkGrid";
@@ -16,8 +15,6 @@ export default function BookmarkList() {
 
   return (
     <div className={cx("container")}>
-      <Breadcrumb />
-
       <BookmarkHeader handleAddOn={handleAddOn} />
 
       <BookmarkGrid isAddOn={isAddOn} handleAddClose={handleAddClose} />
