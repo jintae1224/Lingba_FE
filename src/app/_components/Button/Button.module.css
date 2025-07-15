@@ -16,12 +16,12 @@
 
 /* Variants */
 .variant-primary {
-  background: var(--gray-900);
+  background: var(--primary-600);
   color: white;
 }
 
 .variant-primary:hover:not(.disabled) {
-  background: var(--gray-800);
+  background: var(--primary-700);
 }
 
 .variant-primary.loading {

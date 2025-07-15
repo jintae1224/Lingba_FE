@@ -26,7 +26,7 @@
 /* 모바일 대응 */
 @media (max-width: 768px) {
   .input {
-    font-size: var(--font-md);
-    padding: 10px 12px;
+    font-size: var(--font-sm);
+    padding: 5px 6px;
   }
 }
