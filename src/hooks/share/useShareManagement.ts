@@ -33,6 +33,7 @@ export const useShareManagement = () => {
       return getBoxMembers(boxId);
     },
     enabled: !!boxId,
+    retry: 0,
   });
 
   // 멤버 방출
