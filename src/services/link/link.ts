@@ -1,5 +1,5 @@
 import type { ApiResponse } from "@/types/api";
-import type { Link, CreateLinkRequest, UpdateLinkRequest } from "@/types/link";
+import type { CreateLinkRequest, Link, UpdateLinkRequest } from "@/types/link";
 
 // 링크 생성
 export async function createLink(
@@ -16,22 +16,6 @@ export async function createLink(
   return response.json();
 }
 
-// 링크 목록 조회
-export async function getLinks(
-  boxId: string,
-  parentId?: string | null
-): Promise<ApiResponse<Link[]>> {
-  const params = new URLSearchParams({ box_id: boxId });
-  if (parentId !== undefined) {
-    params.append("parent_id", parentId || "null");
-  }
-
-  const response = await fetch(`/conn/link/list?${params.toString()}`, {
-    method: "GET",
-  });
-
-  return response.json();
-}
 
 // 링크 수정
 export async function updateLink(
