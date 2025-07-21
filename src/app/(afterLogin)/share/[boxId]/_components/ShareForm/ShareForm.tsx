@@ -29,7 +29,6 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
   return (
     <div className={cx("container")}>
       <div className={cx("header")}>
-        <div className={cx("icon")}>👥</div>
         <div className={cx("content")}>
           <h3 className={cx("title")}>초대 코드 생성</h3>
           <p className={cx("description")}>
@@ -50,7 +49,6 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
         // 활성화된 토큰이 있는 경우
         <div className={cx("existing-invitation")}>
           <div className={cx("existing-header")}>
-            <span className={cx("existing-icon")}>✅</span>
             <span className={cx("existing-title")}>활성화된 토큰</span>
           </div>
           
@@ -60,14 +58,14 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
               <code className={cx("code")}>
                 {activeToken.join_token}
               </code>
-              <button
-                type="button"
-                className={cx("copy-button")}
+              <Button
+                variant="secondary"
+                size="small"
                 onClick={() => copyToClipboard(activeToken.join_token)}
                 title="복사하기"
               >
-                📋
-              </button>
+                복사
+              </Button>
             </div>
           </div>
 
@@ -79,14 +77,15 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
           </div>
 
           <div className={cx("invitation-actions")}>
-            <button
-              type="button"
-              className={cx("delete-button")}
+            <Button
+              variant="secondary"
+              size="small"
               onClick={() => setShowDeleteConfirm(true)}
               disabled={isDiscarding}
+              className={cx("delete-action")}
             >
-              🗑️ 토큰 폐기
-            </button>
+              토큰 폐기
+            </Button>
           </div>
         </div>
       ) : (
@@ -94,20 +93,10 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
         <div className={cx("form")}>
           <Button
             onClick={handleIssueToken}
-            className={cx("submit-button")}
-            disabled={isIssuing}
+            loading={isIssuing}
+            fullWidth
           >
-            {isIssuing ? (
-              <>
-                <span className={cx("spinner")} />
-                발급 중...
-              </>
-            ) : (
-              <>
-                <span className={cx("plus-icon")}>+</span>
-                토큰 발급하기
-              </>
-            )}
+            토큰 발급하기
           </Button>
         </div>
       )}
