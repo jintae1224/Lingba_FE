@@ -71,12 +71,14 @@ export default function ShareList() {
               </div>
 
               <div className={cx("actions")}>
-                <button
-                  className={cx("action-button", "danger")}
+                <Button
+                  variant="secondary"
+                  size="small"
                   onClick={() => openDeleteConfirm(member)}
+                  className={cx("delete-action")}
                 >
                   멤버 방출
-                </button>
+                </Button>
               </div>
             </div>
           ))}
