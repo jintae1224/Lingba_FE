@@ -15,6 +15,7 @@ export default function QueryProvider({
           queries: {
             staleTime: 1000 * 60 * 5, // 5분
             refetchOnWindowFocus: false,
+            retry: 1,
           },
           mutations: {
             retry: false,

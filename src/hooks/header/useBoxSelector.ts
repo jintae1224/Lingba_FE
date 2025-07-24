@@ -33,9 +33,31 @@ export function useBoxSelector() {
     }
   };
 
-  // 스크롤 시 드롭다운/모달 닫기
+  // 외부 클릭 및 ESC 키로 드롭다운/모달 닫기
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (event: Event) => {
+      // 드롭다운 내부의 스크롤은 무시
+      const target = event.target as HTMLElement;
+      
+      // BoxSelector 내부의 스크롤인 경우 무시
+      if (boxSelectorRef.current && (
+        boxSelectorRef.current === target || 
+        boxSelectorRef.current.contains(target)
+      )) {
+        return;
+      }
+      
+      // 드롭다운 내부 요소에서 발생한 스크롤인 경우 무시
+      if (target.closest && (
+        target.closest('.dropdown') ||
+        target.closest('.dropdown-content') ||
+        target.classList.contains('dropdown') ||
+        target.classList.contains('dropdown-content')
+      )) {
+        return;
+      }
+      
+      // 페이지 스크롤만 드롭다운/모달 닫기
       if (isDropdownOpen || isModalOpen) {
         closeDropdown();
         closeModal();

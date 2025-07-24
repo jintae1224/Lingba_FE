@@ -1,0 +1,252 @@
+/* Notion-style clean design */
+.container {
+  background: var(--bg-primary);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  margin-bottom: 16px;
+  transition: box-shadow 0.15s ease;
+}
+
+.container:hover {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.description {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.form {
+  padding: 16px 20px 20px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 로딩 섹션 스타일 */
+.loading-section {
+  padding: 16px 20px 20px;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.loading-text {
+  font-size: var(--font-sm);
+}
+
+/* 기존 초대 코드 표시 스타일 */
+.existing-invitation {
+  padding: 16px 20px 20px;
+}
+
+.existing-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.existing-title {
+  font-size: var(--font-sm);
+  font-weight: 600;
+  color: var(--success);
+}
+
+.code-section {
+  margin-bottom: 12px;
+}
+
+.code-label {
+  font-size: var(--font-xs);
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.code-container button {
+  width: auto !important;
+  flex-shrink: 0;
+}
+
+.code-container:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-300);
+}
+
+.code {
+  flex: 1;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: var(--font-xs);
+  color: var(--gray-800);
+  word-break: break-all;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.expiry-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+}
+
+.expiry-label {
+  font-weight: 500;
+}
+
+.expiry-date {
+  color: var(--gray-800);
+}
+
+.invitation-actions {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--gray-200);
+}
+
+.delete-action {
+  color: var(--red-600) !important;
+  border-color: var(--red-200) !important;
+}
+
+.delete-action:hover {
+  background: var(--red-50) !important;
+  border-color: var(--red-300) !important;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .header {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    margin-bottom: 2px;
+  }
+
+  .description {
+    font-size: var(--font-xs);
+  }
+
+  .form {
+    padding: 14px 16px 16px;
+  }
+
+  .existing-invitation {
+    padding: 14px 16px 16px;
+  }
+
+  .loading-section {
+    padding: 14px 16px 16px;
+  }
+
+  .loading-content {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .loading-text {
+    font-size: var(--font-xs);
+  }
+
+  .existing-title {
+    font-size: var(--font-xs);
+  }
+
+  .code-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .code-container {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .code {
+    font-size: 11px;
+  }
+
+  .expiry-info {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .invitation-actions {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .delete-action {
+    font-size: var(--font-xs) !important;
+    padding: 6px 10px !important;
+    min-height: 32px !important;
+  }
+}

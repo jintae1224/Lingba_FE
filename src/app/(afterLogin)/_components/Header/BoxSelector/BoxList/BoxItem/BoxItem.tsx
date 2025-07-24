@@ -24,6 +24,7 @@ export default function BoxItem({ box, isCurrentBox, onClick }: BoxItemProps) {
       className={cx("box-item", {
         current: isCurrentBox,
         disabled: isCurrentBox,
+        shared: box.is_shared,
       })}
       onClick={handleClick}
       disabled={isCurrentBox}
@@ -32,7 +33,9 @@ export default function BoxItem({ box, isCurrentBox, onClick }: BoxItemProps) {
         className={cx("box-color")}
         style={{ backgroundColor: box.color || "#3b82f6" }}
       />
-      <span className={cx("box-name")}>{box.name}</span>
+      <div className={cx("box-info")}>
+        <span className={cx("box-name")}>{box.name}</span>
+      </div>
       {isCurrentBox && <span className={cx("current-indicator")}>현재</span>}
     </button>
   );
