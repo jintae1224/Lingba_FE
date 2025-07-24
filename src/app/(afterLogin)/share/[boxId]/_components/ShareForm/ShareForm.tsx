@@ -1,10 +1,10 @@
 import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
-import Modal from "@/app/_components/Modal/Modal";
 import { useTokenManagement } from "@/hooks/share/useTokenManagement";
 
 import styles from "./ShareForm.module.css";
+import TokenDeleteModal from "./TokenDeleteModal/TokenDeleteModal";
 
 const cx = classNames.bind(styles);
 
@@ -51,13 +51,11 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
           <div className={cx("existing-header")}>
             <span className={cx("existing-title")}>활성화된 토큰</span>
           </div>
-          
+
           <div className={cx("code-section")}>
             <div className={cx("code-label")}>토큰</div>
             <div className={cx("code-container")}>
-              <code className={cx("code")}>
-                {activeToken.join_token}
-              </code>
+              <code className={cx("code")}>{activeToken.join_token}</code>
               <Button
                 variant="secondary"
                 size="small"
@@ -91,49 +89,18 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
       ) : (
         // 활성화된 토큰이 없는 경우
         <div className={cx("form")}>
-          <Button
-            onClick={handleIssueToken}
-            loading={isIssuing}
-            fullWidth
-          >
+          <Button onClick={handleIssueToken} loading={isIssuing} fullWidth>
             토큰 발급하기
           </Button>
         </div>
       )}
 
-      {/* 폐기 확인 모달 */}
-      {showDeleteConfirm && activeToken && (
-        <Modal
-          isOpen={true}
-          onClose={() => setShowDeleteConfirm(false)}
-          title="토큰 폐기"
-        >
-          <div className={cx("modal-content")}>
-            <p className={cx("modal-text")}>
-              토큰을 폐기하시겠습니까?
-            </p>
-            <p className={cx("modal-subtext")}>
-              이 작업은 취소할 수 없으며, 폐기된 토큰은 더 이상 사용할 수 없습니다.
-            </p>
-            <div className={cx("modal-actions")}>
-              <Button
-                onClick={() => setShowDeleteConfirm(false)}
-                variant="secondary"
-                disabled={isDiscarding}
-              >
-                취소
-              </Button>
-              <Button
-                onClick={handleDiscardToken}
-                variant="danger"
-                disabled={isDiscarding}
-              >
-                {isDiscarding ? "폐기 중..." : "폐기하기"}
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <TokenDeleteModal
+        isOpen={showDeleteConfirm && !!activeToken}
+        onClose={() => setShowDeleteConfirm(false)}
+        onConfirm={handleDiscardToken}
+        isDeleting={isDiscarding}
+      />
     </div>
   );
 }

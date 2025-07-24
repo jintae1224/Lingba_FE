@@ -1,9 +1,9 @@
 import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
-import Modal from "@/app/_components/Modal/Modal";
 import { useShareManagement } from "@/hooks/share/useShareManagement";
 
+import MemberDeleteModal from "./MemberDeleteModal/MemberDeleteModal";
 import styles from "./ShareList.module.css";
 
 const cx = classNames.bind(styles);
@@ -85,29 +85,13 @@ export default function ShareList() {
         </div>
       )}
 
-      {/* 공유 해제 확인 모달 */}
-      {deleteConfirmShare && (
-        <Modal isOpen={true} onClose={closeDeleteConfirm} title="멤버 방출">
-          <div className={cx("modal-content")}>
-            <p className={cx("modal-text")}>
-              {deleteConfirmShare.nickname}님을 박스에서 방출하시겠습니까?
-            </p>
-            <p className={cx("modal-subtext")}>이 작업은 취소할 수 없습니다.</p>
-            <div className={cx("modal-actions")}>
-              <Button onClick={closeDeleteConfirm} variant="secondary">
-                취소
-              </Button>
-              <Button
-                onClick={() => handleDeleteShare(deleteConfirmShare.user_id)}
-                disabled={isDeleting}
-                variant="danger"
-              >
-                {isDeleting ? "방출 중..." : "방출하기"}
-              </Button>
-            </div>
-          </div>
-        </Modal>
-      )}
+      <MemberDeleteModal
+        isOpen={!!deleteConfirmShare}
+        memberName={deleteConfirmShare?.nickname || ""}
+        onClose={closeDeleteConfirm}
+        onConfirm={() => deleteConfirmShare && handleDeleteShare(deleteConfirmShare.user_id)}
+        isRemoving={isDeleting}
+      />
     </div>
   );
 }
