@@ -175,24 +175,78 @@
 }
 
 /* 반응형 */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  .container {
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
   .header {
     padding: 14px 16px;
+    gap: 10px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    margin-bottom: 2px;
+  }
+
+  .description {
+    font-size: var(--font-xs);
   }
 
   .form {
-    padding: 14px 16px 18px;
+    padding: 14px 16px 16px;
   }
 
   .existing-invitation {
-    padding: 14px 16px 18px;
+    padding: 14px 16px 16px;
   }
 
   .loading-section {
-    padding: 14px 16px 18px;
+    padding: 14px 16px 16px;
+  }
+
+  .loading-content {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .loading-text {
+    font-size: var(--font-xs);
+  }
+
+  .existing-title {
+    font-size: var(--font-xs);
+  }
+
+  .code-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .code-container {
+    padding: 8px 10px;
+    gap: 6px;
   }
 
   .code {
-    font-size: 12px;
+    font-size: 11px;
+  }
+
+  .expiry-info {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .invitation-actions {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .delete-action {
+    font-size: var(--font-xs) !important;
+    padding: 6px 10px !important;
+    min-height: 32px !important;
   }
 }
