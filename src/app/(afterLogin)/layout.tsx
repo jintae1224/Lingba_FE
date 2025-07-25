@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 
-import MobileNav from "@/app/_components/MobileNav/MobileNav";
+import Footer from "@/app/_components/Footer/Footer";
 import Header from "@/app/(afterLogin)/_components/Header/Header";
 import Lnb from "@/app/(afterLogin)/_components/Lnb/Lnb";
 import UserProvider from "@/providers/UserProvider";
@@ -21,7 +21,7 @@ export default function AfterLoginLayout({
         <Lnb />
         <main className={cx("main-content")}>{children}</main>
       </div>
-      <MobileNav />
+      <Footer />
     </UserProvider>
   );
 }
