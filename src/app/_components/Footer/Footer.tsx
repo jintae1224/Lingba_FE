@@ -3,32 +3,27 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 import Drawer from "@/app/_components/Drawer/Drawer";
 import AddLinkForm from "@/app/(afterLogin)/_components/Header/AddLinkButton/AddLinkForm/AddLinkForm";
 import NavigationIcon from "@/app/(afterLogin)/_components/Lnb/NavigationIcon/NavigationIcon";
-import { useMobile } from "@/hooks/etc/useMobile";
-import { useLnb } from "@/hooks/lnb/useLnb";
+import { useFooter } from "@/hooks/footer/useFooter";
 
 import styles from "./Footer.module.css";
 
 const cx = classNames.bind(styles);
 
 export default function Footer() {
-  const { isMobile, mounted } = useMobile();
-  const { getNavigationHref, isActiveRoute } = useLnb();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const {
+    shouldShow,
+    getNavigationHref,
+    isActiveRoute,
+    isDrawerOpen,
+    handleOpenDrawer,
+    handleCloseDrawer,
+  } = useFooter();
 
-  const handleOpenDrawer = () => {
-    setIsDrawerOpen(true);
-  };
-
-  const handleCloseDrawer = () => {
-    setIsDrawerOpen(false);
-  };
-
-  if (!mounted || !isMobile) {
+  if (!shouldShow) {
     return null;
   }
 
