@@ -65,15 +65,15 @@
 }
 
 .box-item.shared {
-  background-color: var(--blue-25, #f8faff);
+  background-color: transparent;
 }
 
 .box-item.shared:hover {
-  background-color: var(--blue-50, #eff6ff);
+  background-color: var(--gray-50);
 }
 
 .box-item.shared.current {
-  background-color: var(--blue-100, #dbeafe);
+  background-color: var(--primary-50);
 }
 
 .current-check-icon {
@@ -124,10 +124,10 @@
   }
 
   .box-item.shared {
-    background-color: var(--blue-50);
+    background-color: transparent;
   }
 
   .box-item.shared:hover {
-    background-color: var(--blue-100);
+    background-color: var(--gray-50);
   }
 }
