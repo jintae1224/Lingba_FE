@@ -7,17 +7,19 @@
   background: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   text-align: left;
   width: 100%;
+  min-height: 44px;
 }
 
 .box-item:hover {
-  background-color: var(--gray-50, #f9fafb);
+  background-color: var(--gray-50);
+  transform: translateY(-1px);
 }
 
 .box-item.current {
-  background-color: var(--primary-50, #eff6ff);
+  background-color: var(--primary-50);
 }
 
 .box-item.disabled {
@@ -44,10 +46,13 @@
 }
 
 .box-name {
-  font-size: 14px;
+  font-size: var(--font-sm);
   font-weight: 500;
-  color: var(--gray-900, #111827);
+  color: var(--gray-900);
   flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .shared-role {
@@ -72,40 +77,61 @@
 }
 
 .current-indicator {
-  font-size: 12px;
-  color: var(--primary-600, #2563eb);
+  font-size: var(--font-xs);
+  color: var(--primary-600);
   font-weight: 600;
   flex-shrink: 0;
+  padding: 2px 6px;
+  background-color: var(--primary-100);
+  border-radius: 4px;
 }
 
-/* 모바일에서 더 큰 크기 */
+/* 모바일 반응형 (768px 이하) */
 @media (max-width: 768px) {
   .box-item {
-    padding: 16px 20px;
-    gap: 16px;
+    padding: 12px;
+    gap: 12px;
+    min-height: 48px;
+    border-radius: 8px;
+  }
+
+  .box-item:hover {
+    background-color: var(--gray-50);
+    transform: none;
+  }
+
+  .box-item:active {
+    background-color: var(--gray-100);
+    transform: scale(0.98);
   }
 
   .box-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
   }
 
   .box-name {
-    font-size: 16px;
+    font-size: var(--font-sm);
     font-weight: 500;
+    line-height: 1.4;
   }
 
   .current-indicator {
-    font-size: 14px;
+    font-size: var(--font-xs);
+    padding: 2px 6px;
+    border-radius: 4px;
   }
 
-  .box-item.disabled {
-    cursor: not-allowed;
-    opacity: 0.7;
+  .box-item.current {
+    background-color: var(--primary-50);
   }
 
-  .box-item.disabled:hover {
-    background-color: var(--primary-50, #eff6ff);
+  .box-item.shared {
+    background-color: var(--blue-50);
+  }
+
+  .box-item.shared:hover {
+    background-color: var(--blue-100);
   }
 }
