@@ -1,14 +1,11 @@
 .nav-wrapper {
   position: fixed;
-  bottom: 0;
+  bottom: 20px;
   left: 0;
   right: 0;
   z-index: 1000;
   padding: 0 16px calc(env(safe-area-inset-bottom) + 8px);
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  background: transparent;
 
   display: none; /* 기본적으로 숨김 */
 }
@@ -27,6 +24,12 @@
   height: 60px;
   max-width: 480px;
   margin: 0 auto;
+  border-radius: 99999px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 16px;
 }
 
 .nav-item {
@@ -57,24 +60,44 @@
 }
 
 .add-link-button {
-  background: none;
-  border: 1px solid var(--gray-200, #e5e7eb);
+  background: linear-gradient(135deg, #ffffff, #f8fafc);
+  border: 2px solid var(--primary-200);
   border-radius: 50%;
-  padding: 4px;
+  padding: 8px;
   cursor: pointer;
-  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-link-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), transparent);
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
 }
 
 .add-link-button:hover {
-  transform: scale(1.1);
-  background-color: var(--gray-100, #f3f4f6);
+  transform: scale(1.15) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(59, 130, 246, 0.2);
+  border-color: var(--primary-400);
+}
+
+.add-link-button:hover::before {
+  opacity: 0.6;
 }
 
 /* 다크 모드 스타일 */
 @media (prefers-color-scheme: dark) {
-  .nav-wrapper {
+  .nav-container {
     background: rgba(20, 20, 20, 0.7);
-    border-top-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.1);
   }
 
   .nav-item {
@@ -87,5 +110,16 @@
 
   .nav-item:hover {
     color: var(--primary-300, #93c5fd);
+  }
+
+  .add-link-button {
+    background: linear-gradient(135deg, #1f2937, #374151);
+    border-color: var(--primary-400);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .add-link-button:hover {
+    box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+    border-color: var(--primary-300);
   }
 }
