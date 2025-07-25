@@ -11,3 +11,13 @@
   color: var(--gray-900);
   padding-left: 1px;
 }
+
+@media (max-width: 768px) {
+  .form-content {
+    padding: 0px;
+  }
+
+  .title {
+    font-size: var(--font-md);
+  }
+}

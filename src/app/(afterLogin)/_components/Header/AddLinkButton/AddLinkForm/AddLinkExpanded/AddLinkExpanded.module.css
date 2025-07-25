@@ -15,3 +15,10 @@
   font-weight: 500;
   color: var(--gray-500);
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .label {
+    font-size: var(--font-sm);
+  }
+}

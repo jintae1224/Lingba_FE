@@ -16,3 +16,10 @@
   color: var(--primary-600);
   cursor: pointer;
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .expanded-btn {
+    font-size: var(--font-sm);
+  }
+}
