@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import CheckIcon from "@/app/_components/Icons/CheckIcon";
 import { Box } from "@/types/box";
 
 import styles from "./BoxItem.module.css";
@@ -36,7 +37,7 @@ export default function BoxItem({ box, isCurrentBox, onClick }: BoxItemProps) {
       <div className={cx("box-info")}>
         <span className={cx("box-name")}>{box.name}</span>
       </div>
-      {isCurrentBox && <span className={cx("current-indicator")}>현재</span>}
+      {isCurrentBox && <CheckIcon className={cx("current-check-icon")} />}
     </button>
   );
 }

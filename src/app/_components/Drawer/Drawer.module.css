@@ -81,6 +81,4 @@
   max-height: 300px;
 }
 
-.touch-lock {
-  overscroll-behavior: none;
-}
+/* Body 스크롤 차단은 useBodyScrollLock 훅에서 처리 */

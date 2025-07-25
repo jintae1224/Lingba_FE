@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
 import { useDropdown } from "@/hooks/etc/useDropdown";
-import { useMobile } from "@/hooks/etc/useMobile";
 
 import styles from "./AddLinkButton.module.css";
 import AddLinkForm from "./AddLinkForm/AddLinkForm";
@@ -12,13 +11,7 @@ import AddLinkForm from "./AddLinkForm/AddLinkForm";
 const cx = classNames.bind(styles);
 
 export default function AddLinkButton() {
-  const isMobile = useMobile();
   const { containerRef, isOpen, handleOpen, handleClose } = useDropdown();
-
-  // 모바일에서는 아예 렌더링하지 않음
-  if (isMobile) {
-    return null;
-  }
 
   return (
     <div className={cx("container")} ref={containerRef}>

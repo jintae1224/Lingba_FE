@@ -6,7 +6,7 @@ export function useBoxSelector() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const boxSelectorRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMobile();
+  const { isMobile, mounted } = useMobile();
 
   const openDropdown = () => {
     if (isMobile) {
@@ -36,6 +36,11 @@ export function useBoxSelector() {
   // 외부 클릭 및 ESC 키로 드롭다운/모달 닫기
   useEffect(() => {
     const handleScroll = (event: Event) => {
+      // 모바일에서는 모달이므로 스크롤로 닫히지 않음
+      if (isMobile && isModalOpen) {
+        return;
+      }
+
       // 드롭다운 내부의 스크롤은 무시
       const target = event.target as HTMLElement;
       
@@ -57,14 +62,18 @@ export function useBoxSelector() {
         return;
       }
       
-      // 페이지 스크롤만 드롭다운/모달 닫기
-      if (isDropdownOpen || isModalOpen) {
+      // 데스크톱에서만 페이지 스크롤로 드롭다운 닫기
+      if (!isMobile && isDropdownOpen) {
         closeDropdown();
-        closeModal();
       }
     };
 
     const handleClickOutside = (event: MouseEvent) => {
+      // 모바일에서는 외부 클릭으로 모달이 닫히지 않음 (Modal 컴포넌트에서 처리)
+      if (isMobile) {
+        return;
+      }
+
       const target = event.target as Node;
       if (boxSelectorRef.current && !boxSelectorRef.current.contains(target)) {
         closeDropdown();
@@ -96,6 +105,7 @@ export function useBoxSelector() {
     isDropdownOpen,
     isModalOpen,
     isMobile,
+    mounted,
     toggleDropdown,
     closeDropdown,
     closeModal,
