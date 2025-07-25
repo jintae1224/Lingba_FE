@@ -76,14 +76,11 @@
   background-color: var(--blue-100, #dbeafe);
 }
 
-.current-indicator {
-  font-size: var(--font-xs);
+.current-check-icon {
+  width: 16px;
+  height: 16px;
   color: var(--primary-600);
-  font-weight: 600;
   flex-shrink: 0;
-  padding: 2px 6px;
-  background-color: var(--primary-100);
-  border-radius: 4px;
 }
 
 /* 모바일 반응형 (768px 이하) */
@@ -117,10 +114,9 @@
     line-height: 1.4;
   }
 
-  .current-indicator {
-    font-size: var(--font-xs);
-    padding: 2px 6px;
-    border-radius: 4px;
+  .current-check-icon {
+    width: 18px;
+    height: 18px;
   }
 
   .box-item.current {
