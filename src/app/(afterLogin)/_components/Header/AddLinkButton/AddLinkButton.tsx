@@ -15,7 +15,7 @@ export default function AddLinkButton() {
 
   return (
     <div className={cx("container")} ref={containerRef}>
-      <Button onClick={handleOpen} className={cx("add-btn")} variant="primary">
+      <Button onClick={handleOpen} className={cx("add-btn")} variant="primary" size="small">
         링크 추가
       </Button>
 
