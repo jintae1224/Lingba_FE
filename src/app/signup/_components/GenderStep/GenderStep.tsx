@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import { GENDER_OPTIONS } from "@/constants/signup";
 import { GenderWithEmpty, SignupFormData } from "@/hooks/signup/useSignup";
 
-import OptionButton from "../../../_components/OptionButton/OptionButton";
+import Button from "../../../_components/Button/Button";
 import styles from "./GenderStep.module.css";
 
 const cx = classNames.bind(styles);
@@ -18,14 +18,16 @@ export default function GenderStep({ signupData, onSelect }: GenderStepProps) {
     <div className={cx("container")}>
       <div className={cx("grid")}>
         {GENDER_OPTIONS.map((option) => (
-          <OptionButton
+          <Button
             key={option.value}
+            variant="option"
             selected={signupData.gender === option.value}
             onClick={() => onSelect(option.value)}
-            icon={option.icon}
+            fullWidth
           >
+            {option.icon}
             {option.label}
-          </OptionButton>
+          </Button>
         ))}
       </div>
     </div>

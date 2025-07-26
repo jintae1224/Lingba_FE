@@ -3,7 +3,7 @@ import classNames from "classnames/bind";
 import { AGE_OPTIONS } from "@/constants/signup";
 import { AgeGroupWithEmpty, SignupFormData } from "@/hooks/signup/useSignup";
 
-import OptionButton from "../../../_components/OptionButton/OptionButton";
+import Button from "../../../_components/Button/Button";
 import styles from "./AgeStep.module.css";
 
 const cx = classNames.bind(styles);
@@ -18,13 +18,15 @@ export default function AgeStep({ signupData, onSelect }: AgeStepProps) {
     <div className={cx("container")}>
       <div className={cx("grid")}>
         {AGE_OPTIONS.map((option) => (
-          <OptionButton
+          <Button
             key={option.value}
+            variant="option"
             selected={signupData.ageGroup === option.value}
             onClick={() => onSelect(option.value)}
+            fullWidth
           >
             {option.label}
-          </OptionButton>
+          </Button>
         ))}
       </div>
     </div>
