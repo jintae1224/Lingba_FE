@@ -29,9 +29,9 @@ export const SIGNUP_VALIDATION = {
 } as const;
 
 export const GENDER_OPTIONS = [
-  { value: "male", label: "남성", icon: "👨" },
-  { value: "female", label: "여성", icon: "👩" },
-  { value: "other", label: "기타", icon: "🧑" },
+  { value: "male", label: "남성", icon: "" },
+  { value: "female", label: "여성", icon: "" },
+  { value: "other", label: "비밀이야!", icon: "" },
 ] as const;
 
 export const AGE_OPTIONS = [
