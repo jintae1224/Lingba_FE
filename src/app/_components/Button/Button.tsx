@@ -4,7 +4,7 @@ import styles from "./Button.module.css";
 
 const cx = classNames.bind(styles);
 
-type ButtonVariant = "primary" | "secondary" | "danger";
+type ButtonVariant = "primary" | "secondary" | "danger" | "option";
 type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -12,6 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
   fullWidth?: boolean;
   loading?: boolean;
+  selected?: boolean;
   children: React.ReactNode;
 }
 
@@ -20,6 +21,7 @@ export default function Button({
   size = "medium",
   fullWidth = false,
   loading = false,
+  selected = false,
   children,
   className,
   disabled,
@@ -35,13 +37,14 @@ export default function Button({
           "full-width": fullWidth,
           disabled: disabled || loading,
           loading,
+          selected,
         },
         className
       )}
       disabled={disabled || loading}
       {...props}
     >
-      <span style={{ visibility: loading ? "hidden" : "visible" }}>
+      <span className={cx("button-content")} style={{ visibility: loading ? "hidden" : "visible" }}>
         {children}
       </span>
       {loading && (
