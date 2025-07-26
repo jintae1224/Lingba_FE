@@ -26,18 +26,14 @@ export const JoinBoxButton = () => {
 
   return (
     <>
-      <button className={cx("join-button")} onClick={open}>
+      <Button className={cx("join-button")} onClick={open} variant="secondary">
         <span className={cx("button-icon")}>
           <PlusIcon />
         </span>
         <span className={cx("button-label")}>박스 참여</span>
-      </button>
+      </Button>
 
-      <Modal
-        isOpen={isOpen}
-        onClose={close}
-        title="박스 참여하기"
-      >
+      <Modal isOpen={isOpen} onClose={close} title="박스 참여하기">
         <div className={cx("content")}>
           <div className={cx("info")}>
             <p className={cx("text")}>
@@ -54,7 +50,7 @@ export const JoinBoxButton = () => {
               rows={3}
             />
           </div>
-          
+
           <div className={cx("actions")}>
             <Button onClick={close} variant="secondary" disabled={isPending}>
               취소
