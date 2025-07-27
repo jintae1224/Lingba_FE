@@ -4,7 +4,7 @@ import { USER_COLORS } from "@/constants/colors";
 
 import { useCreateBox } from "./useBox";
 
-interface UseAddBoxProps {
+interface UseBoxAddProps {
   onSuccess?: () => void;
 }
 
@@ -12,7 +12,7 @@ interface UseAddBoxProps {
  * 새 박스 생성 로직을 관리하는 hook
  * UI 상태(isCreating)와 생성 로직을 모두 포함
  */
-export function useAddBox({ onSuccess }: UseAddBoxProps) {
+export function useBoxAdd({ onSuccess }: UseBoxAddProps = {}) {
   const [newBoxName, setNewBoxName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
   const createBoxMutation = useCreateBox();
@@ -48,7 +48,8 @@ export function useAddBox({ onSuccess }: UseAddBoxProps) {
     setIsCreating(false);
   };
 
-  const startCreating = () => {
+  const startCreating = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     setIsCreating(true);
   };
 

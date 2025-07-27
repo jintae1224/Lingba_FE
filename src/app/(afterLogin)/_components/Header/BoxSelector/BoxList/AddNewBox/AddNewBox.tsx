@@ -3,7 +3,7 @@
 import classNames from "classnames/bind";
 
 import PlusIcon from "@/app/_components/Icons/PlusIcon";
-import { useAddBox } from "@/hooks/box/useAddBox";
+import { useBoxAdd } from "@/hooks/box/useBoxAdd";
 
 import styles from "./AddNewBox.module.css";
 
@@ -22,7 +22,7 @@ export default function AddNewBox({ onSuccess }: AddNewBoxProps) {
     cancel,
     handleKeyDown,
     handleInputChange,
-  } = useAddBox({ onSuccess });
+  } = useBoxAdd({ onSuccess });
 
   if (isCreating) {
     return (
