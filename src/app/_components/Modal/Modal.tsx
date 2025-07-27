@@ -27,7 +27,7 @@ export default function Modal({
   children,
   className,
 }: ModalProps) {
-  const isMobile = useMobile();
+  const { isMobile } = useMobile();
   const drawerRef = useRef<DrawerHandle>(null);
 
   useEffect(() => {
