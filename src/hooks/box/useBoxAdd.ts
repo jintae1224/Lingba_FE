@@ -49,7 +49,11 @@ export function useBoxAdd({ onSuccess }: UseBoxAddProps = {}) {
   };
 
   const startCreating = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      e.nativeEvent.stopImmediatePropagation();
+    }
     setIsCreating(true);
   };
 
