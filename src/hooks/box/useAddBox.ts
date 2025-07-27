@@ -4,16 +4,17 @@ import { USER_COLORS } from "@/constants/colors";
 
 import { useCreateBox } from "./useBox";
 
-interface UseBoxCreatorProps {
-  onSuccess: () => void;
-  onCancel: () => void;
+interface UseAddBoxProps {
+  onSuccess?: () => void;
 }
 
 /**
  * 새 박스 생성 로직을 관리하는 hook
+ * UI 상태(isCreating)와 생성 로직을 모두 포함
  */
-export function useBoxCreator({ onSuccess, onCancel }: UseBoxCreatorProps) {
+export function useAddBox({ onSuccess }: UseAddBoxProps) {
   const [newBoxName, setNewBoxName] = useState("");
+  const [isCreating, setIsCreating] = useState(false);
   const createBoxMutation = useCreateBox();
 
   const save = async () => {
@@ -34,7 +35,8 @@ export function useBoxCreator({ onSuccess, onCancel }: UseBoxCreatorProps) {
 
       // 상태 초기화 및 성공 콜백
       setNewBoxName("");
-      onSuccess();
+      setIsCreating(false);
+      onSuccess?.();
     } catch (error) {
       console.error("박스 생성 실패:", error);
       // 에러 처리는 나중에 toast나 다른 방식으로 개선
@@ -43,7 +45,11 @@ export function useBoxCreator({ onSuccess, onCancel }: UseBoxCreatorProps) {
 
   const cancel = () => {
     setNewBoxName("");
-    onCancel();
+    setIsCreating(false);
+  };
+
+  const startCreating = () => {
+    setIsCreating(true);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -60,10 +66,12 @@ export function useBoxCreator({ onSuccess, onCancel }: UseBoxCreatorProps) {
 
   return {
     // 상태
+    isCreating,
     newBoxName,
     isLoading: createBoxMutation.isPending,
 
     // 액션들
+    startCreating,
     save,
     cancel,
     handleKeyDown,
