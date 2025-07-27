@@ -2,7 +2,9 @@
 
 import classNames from "classnames/bind";
 
+import Button from "@/app/_components/Button/Button";
 import PlusIcon from "@/app/_components/Icons/PlusIcon";
+import Input from "@/app/_components/Input/Input";
 import { useBoxAdd } from "@/hooks/box/useBoxAdd";
 
 import styles from "./AddNewBox.module.css";
@@ -31,8 +33,8 @@ export default function AddNewBox({ onSuccess }: AddNewBoxProps) {
           className={cx("box-color")}
           style={{ backgroundColor: "#6b7280" }}
         />
-        <input
-          className={cx("new-box-input")}
+        <Input
+          variant="underline"
           value={newBoxName}
           onChange={handleInputChange}
           placeholder="박스 이름을 입력하세요"
@@ -46,12 +48,12 @@ export default function AddNewBox({ onSuccess }: AddNewBoxProps) {
   }
 
   return (
-    <button
-      className={cx("action-button")}
+    <Button
+      variant="default"
       onClick={startCreating}
       disabled={isLoading}
     >
       <PlusIcon className={cx("action-icon")} />새 박스 추가
-    </button>
+    </Button>
   );
 }

@@ -28,13 +28,21 @@ export const JoinBoxButton = ({ variant = "default" }: JoinBoxButtonProps) => {
     handleJoin,
   } = useJoinBox();
 
+  const handleOpen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    // 네이티브 이벤트도 차단
+    e.nativeEvent.stopImmediatePropagation();
+    open();
+  };
+
   if (variant === "action") {
     return (
       <>
-        <button className={cx("action-button")} onClick={open}>
+        <Button variant="default" onClick={handleOpen}>
           <PlusIcon className={cx("action-icon")} />
           박스 참여
-        </button>
+        </Button>
 
         <Modal isOpen={isOpen} onClose={close} title="박스 참여하기">
           <div className={cx("content")}>
@@ -74,7 +82,7 @@ export const JoinBoxButton = ({ variant = "default" }: JoinBoxButtonProps) => {
 
   return (
     <>
-      <Button onClick={open} fullWidth>
+      <Button onClick={handleOpen} fullWidth>
         <PlusIcon />
         박스 참여
       </Button>
