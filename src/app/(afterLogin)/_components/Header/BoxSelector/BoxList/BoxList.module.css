@@ -1,7 +1,7 @@
 .box-list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .box-section {
@@ -24,38 +24,7 @@
   letter-spacing: 0.05em;
 }
 
-.add-box-button {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
-  border: none;
-  background: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: var(--font-sm);
-  color: var(--gray-600);
-  transition: all 0.2s ease;
-  margin-top: 4px;
-  text-align: left;
-  min-height: 44px;
-}
 
-.add-box-button:hover {
-  background-color: var(--gray-50);
-  color: var(--gray-700);
-}
-
-.add-box-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.plus-icon {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-}
 
 /* Variant styles */
 .box-list.dropdown {
@@ -92,16 +61,4 @@
     color: var(--gray-600);
   }
 
-  .box-list.modal .add-box-button {
-    padding: 12px 0;
-    font-size: var(--font-sm);
-    gap: 8px;
-    min-height: 48px;
-    border-radius: 8px;
-  }
-
-  .box-list.modal .plus-icon {
-    width: 16px;
-    height: 16px;
-  }
 }
