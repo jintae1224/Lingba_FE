@@ -1,3 +1,11 @@
+/* Icon styling for button */
+.action-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* New Box Input Container */
 .new-box-item {
   display: flex;
   align-items: center;
@@ -15,24 +23,14 @@
   flex-shrink: 0;
 }
 
-.new-box-input {
-  flex: 1;
-  font-size: var(--font-sm);
-  font-weight: 500;
-  color: var(--gray-900);
-  border: none;
-  outline: none;
-  background: transparent;
-  padding: 4px 0;
-}
-
-.new-box-input::placeholder {
-  color: var(--gray-400);
-  font-weight: 400;
-}
 
 /* 모바일 반응형 (768px 이하) */
 @media (max-width: 768px) {
+  .action-icon {
+    width: 16px;
+    height: 16px;
+  }
+
   .new-box-item {
     padding: 12px 0;
     gap: 12px;
@@ -44,10 +42,5 @@
     width: 18px;
     height: 18px;
     border-radius: 4px;
-  }
-
-  .new-box-input {
-    font-size: 16px; /* iOS 확대 방지를 위해 16px 이상 필요 */
-    padding: 4px 0;
   }
 }

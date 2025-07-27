@@ -11,7 +11,7 @@ interface AddFolderProps {
 }
 
 export default function AddFolder({ handleAddClose }: AddFolderProps) {
-  const isMobile = useMobile();
+  const { isMobile } = useMobile();
 
   const { folderName, changeFolderName, isAddLoading, handleAddFolder } =
     useAddFolder({

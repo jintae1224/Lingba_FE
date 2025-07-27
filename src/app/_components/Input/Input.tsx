@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   autoFocus?: boolean;
   autoSelect?: boolean;
-  variant?: "default" | "confirm";
+  variant?: "default" | "confirm" | "underline";
   error?: boolean;
 }
 

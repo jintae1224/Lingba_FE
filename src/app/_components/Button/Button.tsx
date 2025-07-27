@@ -4,7 +4,7 @@ import styles from "./Button.module.css";
 
 const cx = classNames.bind(styles);
 
-type ButtonVariant = "primary" | "secondary" | "danger" | "option";
+type ButtonVariant = "primary" | "secondary" | "danger" | "option" | "default";
 type ButtonSize = "small" | "medium" | "large";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
