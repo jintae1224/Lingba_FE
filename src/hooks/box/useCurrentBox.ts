@@ -1,19 +1,22 @@
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useBoxes } from "@/hooks/box/useBox";
 import { Box } from "@/types/box";
-
 export function useCurrentBox() {
   const [currentBox, setCurrentBox] = useState<Box | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const { data: boxes, isLoading: boxesLoading } = useBoxes();
+  const { data, isLoading } = useBoxes(); // 이제 내 박스 + 공유받은 박스가 모두 포함됨
   const router = useRouter();
   const pathname = usePathname();
 
+  const allBoxes: Box[] = useMemo(() => {
+    return (data as Box[]) || [];
+  }, [data]);
+
   // 현재 박스 감지 및 redirect 로직
   useEffect(() => {
-    if (boxesLoading || !boxes) return;
+    if (isLoading || allBoxes.length === 0) return;
 
     // 에러 상태 초기화
     setError(null);
@@ -24,7 +27,7 @@ export function useCurrentBox() {
     if (boxIdMatch) {
       // 특정 박스 페이지인 경우
       const boxId = boxIdMatch[2];
-      const foundBox = boxes.find((box) => box.id === boxId);
+      const foundBox = allBoxes.find((box) => box.id === boxId);
 
       if (foundBox) {
         setCurrentBox(foundBox);
@@ -35,17 +38,19 @@ export function useCurrentBox() {
       }
     } else if (pathname === "/main") {
       // /main 페이지인 경우 첫 번째 박스로 redirect
-      if (boxes.length > 0) {
-        const defaultBox = boxes.find((box) => box.is_default) || boxes[0];
+      if (allBoxes.length > 0) {
+        const defaultBox =
+          allBoxes.find((box) => box.is_default && !box.is_shared) ||
+          allBoxes[0];
         router.replace(`/main/${defaultBox.id}`);
       }
       setCurrentBox(null);
     } else {
       setCurrentBox(null);
     }
-  }, [pathname, boxes, boxesLoading, router]);
+  }, [pathname, allBoxes, isLoading, router]);
 
-  const otherBoxes = boxes?.filter((box) => box.id !== currentBox?.id) || [];
+  const otherBoxes = allBoxes.filter((box) => box.id !== currentBox?.id);
 
   const handleBoxSelect = (boxId: string) => {
     // 현재 경로에서 페이지 타입을 감지하여 같은 페이지로 이동
@@ -64,7 +69,7 @@ export function useCurrentBox() {
   return {
     currentBox,
     otherBoxes,
-    boxesLoading,
+    boxesLoading: isLoading,
     error,
     handleBoxSelect,
   };

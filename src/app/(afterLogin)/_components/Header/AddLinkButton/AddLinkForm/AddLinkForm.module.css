@@ -1,131 +1,25 @@
 .form-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   padding: 20px;
-}
-
-.header {
-  margin-bottom: 16px;
 }
 
 .title {
   font-size: var(--font-lg);
   font-weight: 600;
   color: var(--gray-900);
-  margin: 0;
+  padding-left: 1px;
 }
 
-.label {
-  display: block;
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--gray-700);
-  margin-bottom: 8px;
-}
-
-.text-input {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid var(--gray-200);
-  border-radius: 8px;
-  font-size: var(--font-md);
-  color: var(--gray-900);
-  background: var(--bg-primary);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.text-input:focus {
-  outline: none;
-  border-color: var(--primary-500);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.options-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  padding: 8px 0;
-}
-
-.ai-switch-container {
-  display: flex;
-  align-items: center;
-}
-
-.advanced-toggle {
-  display: flex;
-  align-items: center;
-}
-
-.toggle-btn {
-  background: none;
-  border: none;
-  color: var(--primary-600);
-  font-size: var(--font-sm);
-  font-weight: 500;
-  cursor: pointer;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: all 0.2s ease;
-}
-
-.toggle-btn:hover {
-  background: var(--primary-50);
-  color: var(--primary-700);
-}
-
-.advanced-fields {
-  padding: 16px;
-  background: var(--gray-50);
-  border-radius: 8px;
-  margin-bottom: 16px;
-  border: 1px solid var(--gray-200);
-}
-
-.advanced-fields .input-group {
-  margin-bottom: 12px;
-}
-
-.advanced-fields .input-group:last-child {
-  margin-bottom: 0;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  justify-content: flex-end;
-}
-
-.cancel-btn,
-.submit-btn,
-.paste-btn {
-  padding: 8px 16px;
-  font-size: var(--font-sm);
-  border-radius: 6px;
-  min-height: 32px;
-}
-
-/* 모바일 대응 */
 @media (max-width: 768px) {
-  .options-row {
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
+  .form-content {
+    gap: 18px;
+    padding: 0px;
+    margin: 8px 0 12px;
   }
 
-  .ai-switch-container {
-    justify-content: center;
-  }
-
-  .advanced-toggle {
-    justify-content: center;
-  }
-
-  .actions {
-    flex-direction: column-reverse;
-    gap: 8px;
-  }
-
-  .actions button {
-    width: 100%;
+  .title {
+    font-size: var(--font-md);
   }
 }

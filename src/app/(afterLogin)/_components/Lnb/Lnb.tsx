@@ -32,6 +32,7 @@ export default function Lnb() {
             </Link>
           </div>
 
+
           {/* 네비게이션 */}
           <nav className={cx("navigation")}>
             <ul className={cx("nav-list")}>

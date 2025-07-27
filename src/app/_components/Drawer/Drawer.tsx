@@ -7,6 +7,8 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 
+import { useBodyScrollLock } from "@/hooks/etc/useBodyScrollLock";
+
 import styles from "./Drawer.module.css";
 
 const cx = classNames.bind(styles);
@@ -31,6 +33,9 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
     const isDraggingRef = useRef<boolean>(false);
     const dragStartTargetRef = useRef<HTMLElement | null>(null);
 
+    // 배경 스크롤 완전 차단
+    useBodyScrollLock({ enabled: true });
+
     // 외부에서 닫기 가능하도록 expose
     useImperativeHandle(ref, () => ({
       close: () => {
@@ -44,8 +49,6 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
     }));
 
     useEffect(() => {
-      document.body.classList.add("touch-lock");
-
       const drawer = drawerRef.current;
       if (drawer) {
         drawer.style.transition = "none";
@@ -55,36 +58,6 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
           drawer.style.transform = "translateY(0)";
         });
       }
-
-      const handleTouchMove = (e: TouchEvent) => {
-        const target = dragStartTargetRef.current;
-
-        if (!target) return;
-
-        if (bodyRef.current && bodyRef.current.contains(target)) {
-          const scrollTop = bodyRef.current.scrollTop;
-          const touch = e.touches[0];
-          const deltaY = touch.clientY - (startYRef.current ?? touch.clientY);
-
-          if (scrollTop <= 0 && deltaY > 0) {
-            e.preventDefault();
-          }
-        }
-      };
-
-      const overlay = overlayRef.current;
-      if (overlay) {
-        overlay.addEventListener("touchmove", handleTouchMove, {
-          passive: false,
-        });
-      }
-
-      return () => {
-        document.body.classList.remove("touch-lock");
-        if (overlay) {
-          overlay.removeEventListener("touchmove", handleTouchMove);
-        }
-      };
     }, []);
 
     const handleDragStart = (clientY: number) => {
@@ -173,7 +146,7 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
             {" "}
             <div className={cx("drawer-handle")} />
           </div>
-          <div ref={bodyRef} className={cx("drawer-body")}>
+          <div ref={bodyRef} className={cx("drawer-body")} data-scroll-allowed>
             {children}
           </div>
         </div>

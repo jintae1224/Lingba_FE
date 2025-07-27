@@ -24,6 +24,7 @@ export default function BoxSelector() {
     isDropdownOpen,
     isModalOpen,
     isMobile,
+    mounted,
     toggleDropdown,
     closeDropdown,
     closeModal,
@@ -65,7 +66,7 @@ export default function BoxSelector() {
         </button>
 
         {/* 데스크톱 드롭다운 */}
-        {!isMobile && isDropdownOpen && (
+        {mounted && !isMobile && isDropdownOpen && (
           <div className={cx("dropdown")}>
             <div className={cx("dropdown-content")}>
               <BoxList
@@ -80,19 +81,21 @@ export default function BoxSelector() {
       </div>
 
       {/* 데스크톱 백드롭 */}
-      {!isMobile && isDropdownOpen && (
+      {mounted && !isMobile && isDropdownOpen && (
         <div className={cx("backdrop")} onClick={closeDropdown} />
       )}
 
       {/* 모바일 모달 */}
-      <Modal isOpen={isModalOpen} onClose={closeModal} title="박스 선택">
-        <BoxList
-          currentBox={currentBox}
-          otherBoxes={otherBoxes}
-          onBoxSelect={handleBoxSelect}
-          variant="modal"
-        />
-      </Modal>
+      {mounted && (
+        <Modal isOpen={isModalOpen} onClose={closeModal} title="박스 선택">
+          <BoxList
+            currentBox={currentBox}
+            otherBoxes={otherBoxes}
+            onBoxSelect={handleBoxSelect}
+            variant="modal"
+          />
+        </Modal>
+      )}
     </>
   );
 }

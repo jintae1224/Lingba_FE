@@ -1,9 +1,12 @@
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export function useMobile() {
   const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    setMounted(true);
+
     const checkIsMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
@@ -16,5 +19,5 @@ export function useMobile() {
     };
   }, []);
 
-  return isMobile;
+  return { isMobile: mounted ? isMobile : false, mounted };
 }

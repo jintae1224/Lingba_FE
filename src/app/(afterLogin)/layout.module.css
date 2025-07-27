@@ -14,14 +14,8 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 200px; /* 모바일에서 LNB 너비 줄임 */
+    margin-left: 0; /* 모바일에서 LNB 너비 줄임 */
     padding: 20px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .main-content {
-    margin-left: 0; /* 모바일에서 LNB 숨김 */
-    padding: 16px;
+    padding-bottom: 120px; /* 모바일 하단 네비게이션 공간 확보 */
   }
 }

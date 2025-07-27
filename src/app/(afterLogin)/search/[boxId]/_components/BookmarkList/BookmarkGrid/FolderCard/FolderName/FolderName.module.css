@@ -1,0 +1,81 @@
+.title {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-900);
+  line-height: 1.4;
+  height: calc(1.4em * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2; /* 표준 속성 */
+  -webkit-line-clamp: 2; /* 벤더 프리픽스 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.edit-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--gray-300);
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.edit-button:hover:not(:disabled) {
+  background: var(--gray-50);
+  border-color: var(--gray-400);
+}
+
+.edit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.edit-button.save {
+  color: var(--primary-600);
+  border-color: var(--primary-300);
+}
+
+.edit-button.save:hover:not(:disabled) {
+  background: var(--primary-50);
+  border-color: var(--primary-500);
+}
+
+.edit-button.cancel {
+  color: var(--gray-600);
+}
+
+.edit-button.cancel:hover:not(:disabled) {
+  color: var(--error);
+  border-color: var(--error);
+  background: #fef2f2;
+}
+
+.edit-icon {
+  width: 12px;
+  height: 12px;
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: var(--font-xs);
+    height: calc(1.4em * 2);
+  }
+}

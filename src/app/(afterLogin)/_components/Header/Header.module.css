@@ -17,7 +17,7 @@
   justify-content: space-between;
   height: 100%;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 5px 20px;
 }
 
 .left {
@@ -38,6 +38,7 @@
   display: flex;
   align-items: center;
   flex: 0 0 auto;
+  gap: 12px;
 }
 
 .box-selector {
@@ -51,7 +52,7 @@
   left: 0;
   right: 0;
   z-index: 200;
-  background: #ffffff;
+  background: var(--bg-primary);
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 16px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
@@ -99,18 +100,24 @@
 }
 
 .dropdown-content::-webkit-scrollbar-thumb {
-  background: #e2e8f0;
+  background: var(--gray-200);
   border-radius: 3px;
 }
 
 .dropdown-content::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
+  background: var(--gray-300);
+}
+
+/* 모바일 UserAvatar 스타일 */
+.mobile-user-avatar {
+  display: flex;
+  align-items: center;
 }
 
 /* 반응형 스타일 */
 @media (max-width: 768px) {
   .header {
-    left: 200px; /* 모바일에서 LNB 너비에 맞춤 */
+    left: 0px; /* 모바일에서 LNB 너비에 맞춤 */
   }
 
   .container {
@@ -127,19 +134,5 @@
     min-width: auto;
     width: 100%;
     max-width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .header {
-    left: 0; /* 모바일에서 LNB 숨김시 전체 너비 */
-  }
-
-  .container {
-    padding: 0 10px;
-  }
-
-  .left {
-    max-width: calc(100% - 50px); /* 더 작은 화면에서 아바타 공간 확보 */
   }
 }

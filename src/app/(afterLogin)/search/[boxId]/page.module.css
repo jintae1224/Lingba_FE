@@ -80,6 +80,23 @@
   margin-top: 80px;
 }
 
+.bookmark-section {
+  margin-bottom: 60px;
+}
+
+.section-title {
+  font-size: var(--font-xl);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.search-results {
+  border-top: 1px solid var(--gray-200);
+  padding-top: 40px;
+}
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;
