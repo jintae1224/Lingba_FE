@@ -2,7 +2,7 @@
 
 import classNames from "classnames/bind";
 
-import BookmarkCardSkeleton from "@/app/_components/Skeleton/BookmarkCardSkeleton";
+import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
 import { useBookmarkList } from "@/hooks/bookmark/useBookmarkList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
@@ -21,7 +21,8 @@ export default function BookmarkGrid({
   isAddOn,
   handleAddClose,
 }: BookmarkGridProps) {
-  const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } = useBookmarkList();
+  const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } =
+    useBookmarkList();
 
   return (
     <div className={cx("content")}>
@@ -32,7 +33,7 @@ export default function BookmarkGrid({
         {isLoading ? (
           <>
             {Array.from({ length: 12 }, (_, index) => (
-              <BookmarkCardSkeleton
+              <CardSkeleton
                 key={`initial-loading-${index}`}
                 type={index % 3 === 0 ? "link" : "folder"}
               />
@@ -52,7 +53,7 @@ export default function BookmarkGrid({
             {isLoadingMore && (
               <>
                 {Array.from({ length: 6 }, (_, index) => (
-                  <BookmarkCardSkeleton
+                  <CardSkeleton
                     key={`loading-${index}`}
                     type={index % 3 === 0 ? "link" : "folder"}
                   />
