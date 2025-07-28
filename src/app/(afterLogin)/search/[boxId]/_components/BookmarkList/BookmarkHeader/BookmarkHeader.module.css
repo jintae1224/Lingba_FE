@@ -2,4 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  min-height: 40px;
+}
+
+.header.root-folder {
+  justify-content: flex-end;
 }
