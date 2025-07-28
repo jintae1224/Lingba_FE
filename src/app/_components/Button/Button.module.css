@@ -217,6 +217,15 @@
   gap: 8px;
 }
 
+/* Icon-only button style */
+.button-content svg {
+  flex-shrink: 0;
+}
+
+.button-content svg:only-child {
+  margin: 0;
+}
+
 /* Size-specific gaps */
 .size-small .button-content {
   gap: 6px;
@@ -228,6 +237,45 @@
 
 .size-large .button-content {
   gap: 10px;
+}
+
+/* Icon Variant */
+.variant-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 8px;
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.variant-icon:hover:not(.disabled) {
+  border-color: var(--primary-300);
+  background: var(--primary-50);
+  color: var(--primary-700);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.variant-icon:active:not(.disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.variant-icon .button-content {
+  gap: 0;
+}
+
+.variant-icon .button-content svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* Default Variant */
