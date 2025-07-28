@@ -89,7 +89,12 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
       ) : (
         // 활성화된 토큰이 없는 경우
         <div className={cx("form")}>
-          <Button onClick={handleIssueToken} loading={isIssuing} fullWidth>
+          <Button
+            onClick={handleIssueToken}
+            size="small"
+            loading={isIssuing}
+            fullWidth
+          >
             토큰 발급하기
           </Button>
         </div>
