@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
+import CopyIcon from "@/app/_components/Icons/CopyIcon";
 import { useTokenManagement } from "@/hooks/share/useTokenManagement";
 
 import styles from "./ShareForm.module.css";
@@ -57,12 +58,11 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
             <div className={cx("code-container")}>
               <code className={cx("code")}>{activeToken.join_token}</code>
               <Button
-                variant="secondary"
-                size="small"
+                variant="icon"
                 onClick={() => copyToClipboard(activeToken.join_token)}
                 title="복사하기"
               >
-                복사
+                <CopyIcon />
               </Button>
             </div>
           </div>
