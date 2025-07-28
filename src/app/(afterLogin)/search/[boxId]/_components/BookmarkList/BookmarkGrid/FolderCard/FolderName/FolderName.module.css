@@ -1,9 +1,9 @@
 .title {
-  font-size: var(--font-sm);
-  font-weight: 500;
+  font-size: var(--font-md);
+  font-weight: 600;
   color: var(--gray-900);
-  line-height: 1.4;
-  height: calc(1.4em * 2);
+  line-height: 1.5;
+  height: calc(1.5em * 2);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   line-clamp: 2; /* 표준 속성 */
@@ -75,7 +75,7 @@
 
 @media (max-width: 480px) {
   .title {
-    font-size: var(--font-xs);
-    height: calc(1.4em * 2);
+    font-size: var(--font-sm);
+    height: calc(1.5em * 2);
   }
 }
