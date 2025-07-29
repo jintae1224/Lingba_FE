@@ -1,3 +1,52 @@
+/* Card Container (from FolderWrap) */
+.card {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: visible;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: var(--shadow-sm);
+}
+
+/* Thumbnail (from FolderThumbnail) */
+.thumbnail {
+  aspect-ratio: 16/9;
+  background: linear-gradient(
+    135deg,
+    var(--primary-100) 0%,
+    var(--primary-200) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+}
+
+.folder-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--primary-600);
+}
+
+/* Content Area */
 .content {
   padding: 16px;
   position: relative;
@@ -9,11 +58,22 @@
   gap: 12px;
 }
 
-.card.editing .content {
-  gap: 5px;
-  justify-content: flex-start;
+/* Folder Title (from FolderName) */
+.title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--gray-900);
+  line-height: 1.5;
+  height: calc(1.5em * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+/* Info Section */
 .info {
   display: flex;
   align-items: center;
@@ -44,13 +104,85 @@
   color: var(--gray-500);
 }
 
-.edit-section {
+/* Menu (from FolderMenu) */
+.menu-container {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-  flex: 1;
+  align-items: center;
 }
 
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.15s ease;
+  color: var(--gray-500);
+}
+
+.menu-button:hover {
+  background: var(--gray-100);
+  color: var(--gray-700);
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: 6px;
+  box-shadow: var(--shadow-lg);
+  z-index: 50;
+  min-width: 120px;
+  overflow: hidden;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  font-size: var(--font-sm);
+  color: var(--gray-700);
+  transition: background-color 0.15s ease;
+}
+
+.menu-item:hover {
+  background: var(--gray-50);
+}
+
+.menu-item.delete {
+  color: var(--error);
+}
+
+.menu-item.delete:hover {
+  background: #fef2f2;
+}
+
+.menu-item-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .card {
     width: 100%;
@@ -70,5 +202,10 @@
   .content {
     padding: 10px;
     gap: 8px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    height: calc(1.5em * 2);
   }
 }
