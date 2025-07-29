@@ -1,40 +1,26 @@
-import { Drawer } from "jtrc";
+import React from "react";
 
-import { useMobile } from "@/hooks/etc/useMobile";
 import { useAddFolder } from "@/hooks/folder/useAddFolder";
 
-import NewFolderCard from "./NewFolderCard/NewFolderCard";
-import NewFolderDrawer from "./NewFolderDrawer/NewFolderDrawer";
+import FolderAddModal from "../FolderCard/FolderAddModal/FolderAddModal";
 
 interface AddFolderProps {
   handleAddClose: () => void;
 }
 
 export default function AddFolder({ handleAddClose }: AddFolderProps) {
-  const { isMobile } = useMobile();
+  // 기존 CRUD hook 직접 사용
+  const addFolder = useAddFolder({ handleAddClose });
 
-  const { folderName, changeFolderName, isAddLoading, handleAddFolder } =
-    useAddFolder({
-      handleAddClose,
-    });
-
-  return isMobile ? (
-    <Drawer onClose={handleAddClose}>
-      <NewFolderDrawer
-        folderName={folderName}
-        changeFolderName={changeFolderName}
-        isAddLoading={isAddLoading}
-        handleAddFolder={handleAddFolder}
-        handleAddClose={handleAddClose}
-      />
-    </Drawer>
-  ) : (
-    <NewFolderCard
-      folderName={folderName}
-      changeFolderName={changeFolderName}
-      isAddLoading={isAddLoading}
-      handleAddFolder={handleAddFolder}
-      handleAddClose={handleAddClose}
+  return (
+    <FolderAddModal
+      folderName={addFolder.folderName}
+      isLoading={addFolder.isAddLoading}
+      error={addFolder.isAddError ? (addFolder.addError?.message || "추가에 실패했습니다.") : null}
+      isValid={addFolder.folderName.trim().length > 0}
+      onNameChange={(name) => addFolder.changeFolderName({ target: { value: name } } as React.ChangeEvent<HTMLInputElement>)}
+      onSubmit={addFolder.handleAddFolder}
+      onClose={handleAddClose}
     />
   );
 }
