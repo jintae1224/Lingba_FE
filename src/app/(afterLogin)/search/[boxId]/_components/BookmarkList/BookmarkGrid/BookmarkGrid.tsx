@@ -6,8 +6,8 @@ import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
 import { useBookmarkList } from "@/hooks/bookmark/useBookmarkList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
-import AddFolder from "./AddFolder/AddFolder";
 import styles from "./BookmarkGrid.module.css";
+import FolderAddModal from "./FolderCard/FolderAddModal/FolderAddModal";
 import FolderCard from "./FolderCard/FolderCard";
 
 const cx = classNames.bind(styles);
@@ -27,9 +27,8 @@ export default function BookmarkGrid({
   return (
     <div className={cx("content")}>
       <div className={cx("grid")}>
-        {isAddOn && <AddFolder handleAddClose={handleAddClose} />}
+        {isAddOn && <FolderAddModal handleAddClose={handleAddClose} />}
 
-        {/* 초기 로딩 시 스켈레톤 */}
         {isLoading ? (
           <>
             {Array.from({ length: 12 }, (_, index) => (

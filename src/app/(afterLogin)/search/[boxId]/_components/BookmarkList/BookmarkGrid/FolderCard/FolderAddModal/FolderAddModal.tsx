@@ -5,48 +5,32 @@ import classNames from "classnames/bind";
 import Button from "@/app/_components/Button/Button";
 import Input from "@/app/_components/Input/Input";
 import Modal from "@/app/_components/Modal/Modal";
+import { useAddFolder } from "@/hooks/folder/useAddFolder";
 
 import styles from "./FolderAddModal.module.css";
 
 const cx = classNames.bind(styles);
 
-// 순수한 프레젠테이션 컴포넌트 - 비즈니스 로직 제거
+// hook을 내부에서 직접 사용하는 독립적인 컴포넌트
 interface FolderAddModalProps {
-  // 데이터
-  folderName: string;
-  isLoading: boolean;
-  error: string | null;
-  isValid: boolean;
-  
-  // 이벤트 핸들러
-  onNameChange: (name: string) => void;
-  onSubmit: () => void;
-  onClose: () => void;
+  handleAddClose: () => void;
 }
 
 export default function FolderAddModal({
-  folderName,
-  isLoading,
-  error,
-  isValid,
-  onNameChange,
-  onSubmit,
-  onClose,
+  handleAddClose,
 }: FolderAddModalProps) {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onNameChange(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isValid && !isLoading) {
-      onSubmit();
-    }
-  };
+  const addFolder = useAddFolder({ handleAddClose });
 
   return (
-    <Modal isOpen={true} title="폴더 추가" onClose={onClose}>
-      <form className={cx("content")} onSubmit={handleSubmit}>
+    <Modal
+      isOpen={true}
+      title="폴더 추가"
+      onClose={addFolder.addModalProps.onClose}
+    >
+      <form
+        className={cx("content")}
+        onSubmit={addFolder.addModalProps.onSubmit}
+      >
         <div className={cx("form-section")}>
           <div className={cx("input-group")}>
             <label htmlFor="folder-name" className={cx("label")}>
@@ -55,18 +39,18 @@ export default function FolderAddModal({
             <Input
               id="folder-name"
               type="text"
-              value={folderName}
-              onChange={handleInputChange}
+              value={addFolder.addModalProps.folderName}
+              onChange={addFolder.addModalProps.onChange}
               placeholder="폴더 이름을 입력하세요"
-              disabled={isLoading}
+              disabled={addFolder.addModalProps.isLoading}
               autoFocus
               maxLength={50}
             />
           </div>
 
-          {error && (
+          {addFolder.addModalProps.error && (
             <div className={cx("error-message")}>
-              {error}
+              {addFolder.addModalProps.error}
             </div>
           )}
         </div>
@@ -74,19 +58,22 @@ export default function FolderAddModal({
         <div className={cx("actions")}>
           <Button
             variant="secondary"
-            onClick={onClose}
-            disabled={isLoading}
+            onClick={addFolder.addModalProps.onClose}
+            disabled={addFolder.addModalProps.isLoading}
           >
             취소
           </Button>
 
           <Button
             variant="primary"
-            onClick={onSubmit}
-            disabled={!isValid || isLoading}
-            loading={isLoading}
+            type="submit"
+            disabled={
+              !addFolder.addModalProps.isValid ||
+              addFolder.addModalProps.isLoading
+            }
+            loading={addFolder.addModalProps.isLoading}
           >
-            {isLoading ? "추가 중..." : "추가"}
+            추가
           </Button>
         </div>
       </form>

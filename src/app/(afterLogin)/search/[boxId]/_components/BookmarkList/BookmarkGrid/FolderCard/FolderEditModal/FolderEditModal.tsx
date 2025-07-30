@@ -10,18 +10,15 @@ import styles from "./FolderEditModal.module.css";
 
 const cx = classNames.bind(styles);
 
-// 순수한 프레젠테이션 컴포넌트 - 비즈니스 로직 제거
 interface FolderEditModalProps {
-  // 데이터
   folderName: string;
   isLoading: boolean;
   error: string | null;
   isValid: boolean;
   hasChanges: boolean;
-  
-  // 이벤트 핸들러
-  onNameChange: (name: string) => void;
-  onSubmit: () => void;
+
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: (e: React.FormEvent) => void;
   onClose: () => void;
 }
 
@@ -31,24 +28,13 @@ export default function FolderEditModal({
   error,
   isValid,
   hasChanges,
-  onNameChange,
+  onChange,
   onSubmit,
   onClose,
 }: FolderEditModalProps) {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onNameChange(e.target.value);
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (isValid && hasChanges && !isLoading) {
-      onSubmit();
-    }
-  };
-
   return (
     <Modal isOpen={true} title="폴더 편집" onClose={onClose}>
-      <form className={cx("content")} onSubmit={handleSubmit}>
+      <form className={cx("content")} onSubmit={onSubmit}>
         <div className={cx("form-section")}>
           <div className={cx("input-group")}>
             <label htmlFor="folder-name-edit" className={cx("label")}>
@@ -58,7 +44,7 @@ export default function FolderEditModal({
               id="folder-name-edit"
               type="text"
               value={folderName}
-              onChange={handleInputChange}
+              onChange={onChange}
               placeholder="폴더 이름을 입력하세요"
               disabled={isLoading}
               autoFocus
@@ -67,29 +53,21 @@ export default function FolderEditModal({
             />
           </div>
 
-          {error && (
-            <div className={cx("error-message")}>
-              {error}
-            </div>
-          )}
+          {error && <div className={cx("error-message")}>{error}</div>}
         </div>
 
         <div className={cx("actions")}>
-          <Button
-            variant="secondary"
-            onClick={onClose}
-            disabled={isLoading}
-          >
+          <Button variant="secondary" onClick={onClose} disabled={isLoading}>
             취소
           </Button>
 
           <Button
             variant="primary"
-            onClick={onSubmit}
+            type="submit"
             disabled={!isValid || !hasChanges || isLoading}
             loading={isLoading}
           >
-            {isLoading ? "저장 중..." : "저장"}
+            저장
           </Button>
         </div>
       </form>

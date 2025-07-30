@@ -61,5 +61,21 @@ export function useAddFolder({ handleAddClose }: UseAddFolderProps) {
     isAddSuccess: isSuccess,
     isAddError: isError,
     addError: error,
+
+    // AddFolder용 모달 props - 모든 비즈니스 로직 포함
+    addModalProps: {
+      folderName: folderName,
+      isLoading: isPending,
+      error: isError ? (error?.message || "추가에 실패했습니다.") : null,
+      isValid: folderName.trim().length > 0,
+      onChange: changeFolderName,
+      onSubmit: (e: React.FormEvent) => {
+        e.preventDefault();
+        if (folderName.trim().length > 0 && !isPending) {
+          handleAddFolder();
+        }
+      },
+      onClose: handleAddClose,
+    },
   };
 }
