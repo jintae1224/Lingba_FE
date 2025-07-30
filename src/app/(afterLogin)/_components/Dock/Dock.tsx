@@ -1,18 +1,19 @@
 "use client";
 
 import classNames from "classnames/bind";
-import { useMemo } from "react";
+import Image from "next/image";
+import { useMemo, useState } from "react";
 
 import { useLnb } from "@/hooks/lnb/useLnb";
 
 import styles from "./Dock.module.css";
 import DockItem from "./DockItem/DockItem";
-import Image from "next/image";
 
 const cx = classNames.bind(styles);
 
 export default function Dock() {
   const { navigationItems, getNavigationHref, isActiveRoute } = useLnb();
+  const [isAddBtnHovered, setAddBtnHovered] = useState(false);
 
   // 성능 최적화: 네비게이션 아이템을 메모이제이션
   const dockItems = useMemo(
@@ -51,14 +52,20 @@ export default function Dock() {
           <div className={cx("separator")} />
 
           {/* 액션 섹션 */}
-          <div className={cx("action-section")}>
-            <button>
+          <div
+            className={cx("action-section")}
+            onMouseEnter={() => setAddBtnHovered(true)}
+            onMouseLeave={() => setAddBtnHovered(false)}
+          >
+            {isAddBtnHovered && (
+              <div className={cx("tooltip")}>새 항목 추가</div>
+            )}
+            <button className={cx("add-btn")} aria-label="새 항목 추가">
               <Image
                 src="/images/icon_logo.png"
-                alt="Lingba Logo"
-                width={40}
-                height={40}
-                className={cx("add-btn")}
+                alt="새 항목 추가"
+                width={32}
+                height={32}
               />
             </button>
           </div>

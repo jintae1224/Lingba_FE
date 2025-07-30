@@ -1,49 +1,104 @@
 .dock-wrapper {
   position: fixed;
-  bottom: 32px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
-  pointer-events: none;
-  padding-top: 25px; /* hover 확대 공간 확보 */
 }
 
 .dock {
-  pointer-events: auto;
-  border: 1px solid var(--gray-200);
-  border-radius: 20px;
-  padding: 10px 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
-  will-change: transform, opacity;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 24px;
+  background-color: rgba(242, 242, 247, 0.7);
+  border: 1px solid rgba(229, 229, 234, 0.8);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.1, 1);
 }
 
 .dock-container {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
-/* 네비게이션 섹션 */
 .nav-section {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
-/* 구분선 */
 .separator {
   width: 1px;
   height: 32px;
-  background: var(--gray-200);
+  background-color: var(--gray-300);
   margin: 0 8px;
-  flex-shrink: 0;
-  opacity: 0.6;
+  opacity: 0.8;
 }
 
-/* 액션 섹션 */
 .action-section {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.add-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.1, 1);
+  will-change: transform, background-color;
+}
+
+.add-btn:hover {
+  transform: scale(1.15) translateY(-8px);
+  background-color: rgba(229, 229, 234, 0.8);
+}
+
+.add-btn-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--gray-800);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 8px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  animation: tooltip-show 0.2s ease-out forwards;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+@keyframes tooltip-show {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
