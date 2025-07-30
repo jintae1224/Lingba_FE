@@ -1,0 +1,49 @@
+.dock-wrapper {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  pointer-events: none;
+  padding-top: 25px; /* hover 확대 공간 확보 */
+}
+
+.dock {
+  pointer-events: auto;
+  border: 1px solid var(--gray-200);
+  border-radius: 20px;
+  padding: 10px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+  will-change: transform, opacity;
+}
+
+.dock-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 네비게이션 섹션 */
+.nav-section {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* 구분선 */
+.separator {
+  width: 1px;
+  height: 32px;
+  background: var(--gray-200);
+  margin: 0 8px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+
+/* 액션 섹션 */
+.action-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
