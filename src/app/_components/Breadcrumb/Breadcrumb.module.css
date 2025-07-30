@@ -1,5 +1,5 @@
 .breadcrumb {
-  height: 36px;
+  height: 40px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -20,8 +20,8 @@
   border: none;
   color: var(--gray-500);
   cursor: pointer;
-  padding: 4px 6px;
-  border-radius: 4px;
+  padding: 8px 10px;
+  border-radius: 6px;
   font-size: var(--font-sm);
   font-weight: 400;
   transition: all 0.15s ease;
@@ -29,6 +29,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  min-height: 32px;
 }
 
 .breadcrumb-link:hover:not(:disabled) {
@@ -44,7 +47,7 @@
 
 .breadcrumb-link.home {
   font-size: 16px;
-  padding: 4px 6px;
+  padding: 8px 10px;
   max-width: none;
 }
 
@@ -56,9 +59,11 @@
 
 .separator {
   color: var(--gray-300);
-  margin: 0 6px;
+  margin: 0 8px;
   font-weight: 400;
   font-size: 12px;
+  display: flex;
+  align-items: center;
 }
 
 .ellipsis {

@@ -2,18 +2,19 @@
 
 import classNames from "classnames/bind";
 
-import styles from "./BookmarkCardSkeleton.module.css";
-import Skeleton from "./Skeleton";
+import Skeleton from "../../Skeleton/Skeleton";
+
+import styles from "./CardSkeleton.module.css";
 
 const cx = classNames.bind(styles);
 
-interface BookmarkCardSkeletonProps {
+interface CardSkeletonProps {
   type?: "folder" | "link";
 }
 
-export default function BookmarkCardSkeleton({ 
+export default function CardSkeleton({ 
   type = "folder" 
-}: BookmarkCardSkeletonProps) {
+}: CardSkeletonProps) {
   return (
     <div className={cx("card")}>
       {/* Thumbnail */}

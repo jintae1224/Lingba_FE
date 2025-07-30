@@ -5,6 +5,7 @@ import classNames from "classnames/bind";
 import Button from "@/app/_components/Button/Button";
 import AlertTriangleIcon from "@/app/_components/Icons/AlertTriangleIcon";
 import Input from "@/app/_components/Input/Input";
+import Modal from "@/app/_components/Modal/Modal";
 
 import styles from "./FolderDeleteModal.module.css";
 
@@ -12,76 +13,64 @@ const cx = classNames.bind(styles);
 
 interface FolderDeleteModalProps {
   folderName: string;
-  deleteFolerName: string;
-  changeEditName: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isDeleteAble: boolean;
-  isDeleteLoading: boolean;
-  isDeleteError: boolean;
-  deleteError: string | null;
-  handleDeleteFolder: () => void;
-  handleDeleteClose: () => void;
+  confirmName: string;
+  isLoading: boolean;
+  error: string | null;
+  isValid: boolean;
+
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onSubmit: () => void;
+  onClose: () => void;
 }
 
 export default function FolderDeleteModal({
   folderName,
-  deleteFolerName,
-  changeEditName,
-  isDeleteAble,
-  isDeleteLoading,
-  isDeleteError,
-  deleteError,
-  handleDeleteFolder,
-  handleDeleteClose,
+  confirmName,
+  isLoading,
+  error,
+  isValid,
+  onChange,
+  onSubmit,
+  onClose,
 }: FolderDeleteModalProps) {
   return (
-    <div className={cx("overlay")} onClick={handleDeleteClose}>
-      <div className={cx("dialog")} onClick={(e) => e.stopPropagation()}>
-        <div className={cx("header")}>
+    <Modal isOpen={true} title="폴더 삭제" onClose={onClose}>
+      <div className={cx("content")}>
+        <div className={cx("warning-header")}>
           <AlertTriangleIcon className={cx("warning-icon")} />
-          <h3 className={cx("title")}>폴더 삭제</h3>
         </div>
 
-        <div className={cx("content")}>
-          <div className={cx("confirm-section")}>
-            <p className={cx("warning-text")}>
-              이 작업은 되돌릴 수 없습니다. <br />
-              계속하려면 폴더 이름을 입력하세요
-            </p>
-            <div className={cx("folder-name")}>{folderName}</div>
-            <Input
-              type="text"
-              value={deleteFolerName}
-              onChange={changeEditName}
-              placeholder="폴더 이름을 입력하세요"
-              disabled={isDeleteLoading}
-            />
-            {isDeleteError && (
-              <div className={cx("error-message")}>
-                {deleteError || "폴더 삭제에 실패했습니다."}
-              </div>
-            )}
-          </div>
+        <div className={cx("confirm-section")}>
+          <p className={cx("warning-text")}>
+            이 작업은 되돌릴 수 없습니다. <br />
+            계속하려면 폴더 이름을 입력하세요
+          </p>
+          <div className={cx("folder-name")}>{folderName}</div>
+          <Input
+            type="text"
+            value={confirmName}
+            onChange={onChange}
+            placeholder="폴더 이름을 입력하세요"
+            disabled={isLoading}
+          />
+          {error && <div className={cx("error-message")}>{error}</div>}
         </div>
 
         <div className={cx("actions")}>
-          <Button
-            variant="secondary"
-            onClick={handleDeleteClose}
-            disabled={isDeleteLoading}
-          >
+          <Button variant="secondary" onClick={onClose} disabled={isLoading}>
             취소
           </Button>
 
           <Button
             variant="danger"
-            onClick={handleDeleteFolder}
-            disabled={!isDeleteAble || isDeleteLoading}
-            loading={isDeleteLoading}
+            onClick={onSubmit}
+            disabled={!isValid || isLoading}
+            loading={isLoading}
           >
-            {isDeleteLoading ? "삭제 중..." : "삭제"}
+            삭제
           </Button>
         </div>
       </div>
-    </div>
+    </Modal>
   );
 }

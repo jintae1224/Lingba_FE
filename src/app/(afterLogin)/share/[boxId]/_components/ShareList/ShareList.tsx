@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import Button from "@/app/_components/Button/Button";
+import TrashIcon from "@/app/_components/Icons/TrashIcon";
 import { useShareManagement } from "@/hooks/share/useShareManagement";
 
 import MemberDeleteModal from "./MemberDeleteModal/MemberDeleteModal";
@@ -72,12 +73,12 @@ export default function ShareList() {
 
               <div className={cx("actions")}>
                 <Button
-                  variant="secondary"
-                  size="small"
+                  variant="icon"
                   onClick={() => openDeleteConfirm(member)}
                   className={cx("delete-action")}
+                  title="멤버 방출"
                 >
-                  멤버 방출
+                  <TrashIcon />
                 </Button>
               </div>
             </div>

@@ -2,13 +2,16 @@
   width: 100%;
   border: 1px solid var(--gray-300);
   border-radius: 4px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   font-size: var(--font-sm);
   font-weight: 400;
   color: var(--gray-900);
   background: white;
   outline: none;
   transition: all 0.15s ease;
+  min-height: 40px;
+  line-height: 1.4;
+  box-sizing: border-box;
 }
 
 .input:focus {
@@ -34,8 +37,11 @@
   border-radius: 0;
   outline: none;
   background: transparent;
-  padding: 8px 0;
+  padding: 10px 0;
   transition: border-color 0.15s ease;
+  min-height: 40px;
+  line-height: 1.4;
+  box-sizing: border-box;
 }
 
 .input.underline:focus {
@@ -55,10 +61,12 @@
     font-size: 16px; /* iOS 확대 방지를 위해 16px 이상 필요 */
     padding: 12px;
     min-height: 44px;
+    line-height: 1.4;
   }
 
   .input.underline {
     font-size: 16px; /* iOS 확대 방지를 위해 16px 이상 필요 */
-    padding: 8px 0;
+    padding: 10px 0;
+    line-height: 1.4;
   }
 }
