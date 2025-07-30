@@ -102,3 +102,31 @@
     transform: translateX(-50%) translateY(0);
   }
 }
+
+@media (max-width: 768px) {
+  .dock {
+    gap: 8px;
+    padding: 8px;
+    border-radius: 22px;
+  }
+
+  .dock-container,
+  .nav-section {
+    gap: 8px;
+  }
+
+  .separator {
+    height: 30px;
+    margin: 0 7px;
+  }
+
+  .add-btn {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+  }
+
+  .add-btn:hover {
+    transform: scale(1.12) translateY(-5px);
+  }
+}

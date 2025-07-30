@@ -83,3 +83,24 @@
 .dock-item.active .active-indicator {
   opacity: 1;
 }
+
+@media (max-width: 768px) {
+  .tooltip {
+    display: none; /* 모바일에서는 툴팁 숨김 */
+  }
+
+  .dock-item {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+  }
+
+  .dock-item:hover {
+    transform: scale(1.12) translateY(-5px);
+  }
+
+  .icon-container {
+    width: 30px;
+    height: 30px;
+  }
+}
