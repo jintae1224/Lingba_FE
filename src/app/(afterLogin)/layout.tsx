@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 
-import Footer from "@/app/_components/Footer/Footer";
 import UserProvider from "@/providers/UserProvider";
 
 import Dock from "./_components/Dock/Dock";
@@ -20,7 +19,6 @@ export default function AfterLoginLayout({
       <div className={cx("layout")}>
         <main className={cx("main-content")}>{children}</main>
       </div>
-      <Footer />
       <Dock />
     </UserProvider>
   );
