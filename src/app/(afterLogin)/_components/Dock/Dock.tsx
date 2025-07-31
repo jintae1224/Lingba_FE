@@ -4,8 +4,10 @@ import classNames from "classnames/bind";
 import Image from "next/image";
 
 import Tooltip from "@/app/_components/Tooltip/Tooltip";
+import { useAddLinkModal } from "@/hooks/dock/useAddLinkModal";
 import { useDock } from "@/hooks/dock/useDock";
 
+import AddLinkModal from "./AddLinkModal/AddLinkModal";
 import styles from "./Dock.module.css";
 import DockItem from "./DockItem/DockItem";
 
@@ -13,6 +15,11 @@ const cx = classNames.bind(styles);
 
 export default function Dock() {
   const { dockItems } = useDock();
+  const {
+    isOpen: isAddLinkModalOpen,
+    open: openAddLinkModal,
+    close: closeAddLinkModal,
+  } = useAddLinkModal();
 
   return (
     <div className={cx("dock-wrapper")}>
@@ -41,11 +48,15 @@ export default function Dock() {
 
           {/* 액션 섹션 */}
           <div className={cx("action-section")}>
-            <Tooltip content="새 항목 추가">
-              <button className={cx("add-btn")} aria-label="새 항목 추가">
+            <Tooltip content="링크 추가">
+              <button
+                className={cx("add-btn")}
+                aria-label="링크 추가"
+                onClick={openAddLinkModal}
+              >
                 <Image
                   src="/images/icon_logo.png"
-                  alt="새 항목 추가"
+                  alt="링크 추가"
                   width={32}
                   height={32}
                 />
@@ -54,6 +65,8 @@ export default function Dock() {
           </div>
         </div>
       </nav>
+
+      <AddLinkModal isOpen={isAddLinkModalOpen} onClose={closeAddLinkModal} />
     </div>
   );
 }
