@@ -14,18 +14,44 @@
   border-radius: 24px;
   background-color: rgba(242, 242, 247, 0.7);
   border: 1px solid rgba(229, 229, 234, 0.8);
-  box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.12);
   backdrop-filter: blur(16px) saturate(180%);
   -webkit-backdrop-filter: blur(16px) saturate(180%);
-  transition: all 0.2s cubic-bezier(0.3, 0, 0.1, 1);
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform, width, padding;
+}
+
+.dock.form-mode {
+  width: 520px;
+  max-width: 90vw;
+  padding: 20px 24px;
+  border-radius: 32px;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(229, 229, 234, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.15),
+    0 4px 16px rgba(0, 0, 0, 0.1);
+  /* 기존 독과 동일한 위치 유지 */
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .dock-container {
   display: flex;
   align-items: center;
   gap: 8px;
+  animation: containerFadeIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+}
+
+@keyframes containerFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .nav-section {
@@ -49,37 +75,17 @@
   justify-content: center;
 }
 
-.add-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.3, 0, 0.1, 1);
-  will-change: transform, background-color;
-}
-
-.add-btn:hover {
-  transform: scale(1.15) translateY(-8px);
-  background-color: rgba(229, 229, 234, 0.8);
-}
-
-.add-btn-icon {
-  width: 24px;
-  height: 24px;
-  color: var(--gray-800);
-}
-
-
 @media (max-width: 768px) {
   .dock {
     gap: 8px;
     padding: 8px;
     border-radius: 22px;
+  }
+
+  .dock.form-mode {
+    width: calc(100vw - 32px);
+    max-width: 420px;
+    padding: 14px 18px;
   }
 
   .dock-container,
@@ -90,15 +96,5 @@
   .separator {
     height: 30px;
     margin: 0 7px;
-  }
-
-  .add-btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 15px;
-  }
-
-  .add-btn:hover {
-    transform: scale(1.12) translateY(-5px);
   }
 }
