@@ -2,6 +2,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useToast } from "@/providers/ToastProvider";
 import { createLink } from "@/services/link/link";
 import type { CreateLinkRequest } from "@/types/link";
 
@@ -22,47 +23,47 @@ interface UseAddLinkProps {
   resetForm?: () => void;
 }
 
-export function useAddLink({ formData, isValidUrl, handleAddClose, resetForm }: UseAddLinkProps) {
+export function useAddLink({
+  formData,
+  isValidUrl,
+  handleAddClose,
+  resetForm,
+}: UseAddLinkProps) {
   const queryClient = useQueryClient();
+  const { success, error: showError } = useToast();
 
   const { boxId } = useBoxId();
   const { folderId: parent_id } = useFolderId();
 
-  const { mutateAsync, isPending, isSuccess, isError, error } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationFn: (data: CreateLinkRequest) => createLink(data),
     onSuccess: () => {
-      // 북마크 목록 갱신 (무한 스크롤 데이터)
       queryClient.invalidateQueries({
         queryKey: ["bookmarks", boxId, parent_id],
       });
+      success("링크가 성공적으로 추가되었습니다!");
 
-      // 브레드크럼 갱신 (링크 추가로 인한 구조 변경 가능성)
-      queryClient.invalidateQueries({
-        queryKey: ["breadcrumb", boxId],
-      });
-
-      // 폼 초기화
       if (resetForm) {
         resetForm();
       }
+      handleAddClose();
     },
-    onSettled: () => {
-      handleAddClose(); // 링크 추가 후 닫기
+    onError: (error) => {
+      showError(error.message || "링크 추가에 실패했습니다.");
     },
   });
 
-  // Form 제출 핸들러
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.linkUrl.trim()) return;
 
     if (!isValidUrl) {
-      alert("올바른 URL을 입력해주세요.");
+      showError("올바른 URL을 입력해주세요.");
       return;
     }
 
-    await mutateAsync({
+    mutateAsync({
       url: formData.linkUrl.trim(),
       title: formData.linkName?.trim() || undefined,
       description: formData.linkDesc?.trim() || undefined,
@@ -74,8 +75,5 @@ export function useAddLink({ formData, isValidUrl, handleAddClose, resetForm }: 
   return {
     handleSubmit,
     isAddLoading: isPending,
-    isAddSuccess: isSuccess,
-    isAddError: isError,
-    addError: error,
   };
 }
