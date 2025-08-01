@@ -19,9 +19,10 @@ interface UseAddLinkProps {
   formData: FormData;
   isValidUrl: boolean;
   handleAddClose: () => void;
+  resetForm?: () => void;
 }
 
-export function useAddLink({ formData, isValidUrl, handleAddClose }: UseAddLinkProps) {
+export function useAddLink({ formData, isValidUrl, handleAddClose, resetForm }: UseAddLinkProps) {
   const queryClient = useQueryClient();
 
   const { boxId } = useBoxId();
@@ -39,6 +40,11 @@ export function useAddLink({ formData, isValidUrl, handleAddClose }: UseAddLinkP
       queryClient.invalidateQueries({
         queryKey: ["breadcrumb", boxId],
       });
+
+      // 폼 초기화
+      if (resetForm) {
+        resetForm();
+      }
     },
     onSettled: () => {
       handleAddClose(); // 링크 추가 후 닫기

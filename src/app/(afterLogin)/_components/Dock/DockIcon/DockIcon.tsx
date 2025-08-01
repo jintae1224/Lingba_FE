@@ -3,11 +3,11 @@ import SearchIcon from "@/app/_components/Icons/SearchIcon";
 import SettingsIcon from "@/app/_components/Icons/SettingsIcon";
 import ShareIcon from "@/app/_components/Icons/ShareIcon";
 
-interface NavigationIconProps {
+interface DockIconProps {
   iconName: string;
 }
 
-export default function NavigationIcon({ iconName }: NavigationIconProps) {
+export default function DockIcon({ iconName }: DockIconProps) {
   switch (iconName) {
     case "home":
       return <HomeIcon />;

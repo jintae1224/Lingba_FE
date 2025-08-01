@@ -10,6 +10,7 @@ interface SwitchProps {
   label?: string;
   disabled?: boolean;
   size?: "sm" | "md" | "lg";
+  variant?: "default";
 }
 
 export default function Switch({
@@ -18,6 +19,7 @@ export default function Switch({
   label,
   disabled = false,
   size = "md",
+  variant = "default",
 }: SwitchProps) {
   const handleClick = () => {
     if (!disabled) {
@@ -26,20 +28,20 @@ export default function Switch({
   };
 
   return (
-    <div className={cx("switch-container", { disabled })}>
+    <div className={cx("switch-container", variant, { disabled })}>
       <button
         type="button"
-        className={cx("switch", size, { checked, disabled })}
+        className={cx("switch", size, variant, { checked, disabled })}
         onClick={handleClick}
         disabled={disabled}
         role="switch"
         aria-checked={checked}
         aria-label={label}
       >
-        <span className={cx("switch-thumb")} />
+        <span className={cx("switch-thumb", variant)} />
       </button>
       {label && (
-        <span className={cx("switch-label", { disabled })}>{label}</span>
+        <span className={cx("switch-label", variant, { disabled })}>{label}</span>
       )}
     </div>
   );

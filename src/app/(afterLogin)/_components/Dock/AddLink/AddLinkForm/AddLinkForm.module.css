@@ -1,0 +1,79 @@
+/* 독 폼 스타일 */
+.dock-form {
+  width: 100%;
+  animation: formSlideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes formSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+
+/* URL 입력 섹션 */
+.url-section {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+}
+
+.options > button {
+  width: fit-content;
+}
+
+.expanded-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-700);
+  margin-bottom: 2px;
+}
+
+/* 하단 컨트롤 섹션 */
+.bottom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.action-section {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 16px;
+}
+
+.action-section > button {
+  width: fit-content;
+}

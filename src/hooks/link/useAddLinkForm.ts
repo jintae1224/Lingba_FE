@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useAddLinkForm() {
+export function useAddLinkForm(onClose?: () => void) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [useAi, setUseAi] = useState<boolean>(true);
 
@@ -60,6 +60,14 @@ export default function useAddLinkForm() {
     setLinkDesc("");
   };
 
+  // 닫기 핸들러 (폼 초기화 + 닫기)
+  const handleClose = () => {
+    resetForm();
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return {
     // Form 상태
     linkUrl,
@@ -78,6 +86,7 @@ export default function useAddLinkForm() {
     // 유틸리티
     handlePaste,
     resetForm,
+    handleClose,
     isValidUrl: isValidUrl(linkUrl.trim()),
   };
 }

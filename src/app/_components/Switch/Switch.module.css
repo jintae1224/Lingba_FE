@@ -1,7 +1,17 @@
 .switch-container {
   display: flex;
-  align-items: flex-end;
-  gap: 12px;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  padding: 4px 8px;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+.switch-container:hover {
+  background: rgba(59, 130, 246, 0.05);
+  transform: scale(1.02);
 }
 
 .switch-container.disabled {
@@ -13,13 +23,14 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  background-color: var(--gray-300);
+  background: rgba(229, 229, 234, 0.8);
   border: none;
-  border-radius: 9999px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   outline: none;
   padding: 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .switch:focus-visible {
@@ -33,7 +44,7 @@
 }
 
 .switch.md {
-  width: 44px;
+  width: 42px;
   height: 24px;
 }
 
@@ -44,7 +55,10 @@
 
 /* 체크된 상태 */
 .switch.checked {
-  background-color: var(--primary-500);
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+  box-shadow: 
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 0 12px rgba(59, 130, 246, 0.3);
 }
 
 .switch.disabled {
@@ -55,54 +69,74 @@
 /* 스위치 썸브 */
 .switch-thumb {
   position: absolute;
-  background-color: white;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
   border-radius: 50%;
-  transition: transform 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.15),
+    0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* 사이즈별 썸브 크기 */
 .switch.sm .switch-thumb {
   width: 14px;
   height: 14px;
+  top: 2px;
   left: 2px;
 }
 
 .switch.md .switch-thumb {
   width: 20px;
   height: 20px;
+  top: 2px;
   left: 2px;
 }
 
 .switch.lg .switch-thumb {
   width: 28px;
   height: 28px;
+  top: 2px;
   left: 2px;
 }
 
 /* 체크된 상태의 썸브 위치 */
 .switch.sm.checked .switch-thumb {
   transform: translateX(14px);
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .switch.md.checked .switch-thumb {
-  transform: translateX(20px);
+  transform: translateX(18px);
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 .switch.lg.checked .switch-thumb {
   transform: translateX(24px);
+  box-shadow: 
+    0 3px 8px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 /* 라벨 */
 .switch-label {
-  font-size: var(--font-sm);
-  font-weight: 500;
-  color: var(--gray-700);
+  font-size: 13px;
+  font-weight: 600;
+  color: #8e8e93;
+  transition: all 0.3s ease;
+  white-space: nowrap;
   user-select: none;
 }
 
+.switch.checked ~ .switch-label {
+  color: var(--primary-500);
+}
+
 .switch-label.disabled {
-  color: var(--gray-400);
+  color: #c7c7cc;
 }
 
 /* 호버 효과 */
@@ -121,4 +155,16 @@
 
 .switch {
   transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .switch-container {
+    padding: 8px 12px;
+    min-height: 44px;
+  }
+
+  .switch-label {
+    font-size: 12px;
+  }
 }
