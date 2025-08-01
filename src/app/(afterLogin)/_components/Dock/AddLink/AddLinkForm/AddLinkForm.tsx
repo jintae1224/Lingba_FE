@@ -6,7 +6,8 @@ import Button from "@/app/_components/Button/Button";
 import Input from "@/app/_components/Input/Input";
 import Switch from "@/app/_components/Switch/Switch";
 import Textarea from "@/app/_components/Textarea/Textarea";
-import { useDockForm } from "@/hooks/dock/useDockForm";
+import { useAddLink } from "@/hooks/link/useAddLink";
+import { useAddLinkForm } from "@/hooks/link/useAddLinkForm";
 
 import styles from "./AddLinkForm.module.css";
 
@@ -17,30 +18,61 @@ interface AddLinkFormProps {
 }
 
 export default function AddLinkForm({ onClose }: AddLinkFormProps) {
+  const {
+    linkUrl,
+    linkName,
+    linkDesc,
+    onChangeLinkUrl,
+    onChangeLinkName,
+    onChangeLinkDesc,
+    isExpanded,
+    toggleExpanded,
+    useAi,
+    toggleUseAi,
+    isValidUrl,
+    resetForm,
+    handleClose,
+  } = useAddLinkForm(onClose);
+
+  const formData = {
+    linkUrl,
+    linkName,
+    linkDesc,
+    useAi,
+  };
+
+  const { handleSubmit, isAddLoading } = useAddLink({
+    formData,
+    isValidUrl,
+    handleAddClose: onClose,
+    resetForm,
+  });
+
   return (
-    <form
-      // onSubmit={(e) => handleSubmit(e, onClose)}
-      className={cx("dock-form")}
-    >
+    <form onSubmit={handleSubmit} className={cx("dock-form")}>
       <div className={cx("form-content")}>
         <div className={cx("url-section")}>
           <Textarea
-            value={""}
-            onChange={() => {}}
+            value={linkUrl}
+            onChange={onChangeLinkUrl}
             placeholder="링크를 입력하세요..."
             autoFocus
             rows={4}
           />
           <div className={cx("options")}>
-            <Switch checked={false} onChange={() => {}} label="✨ AI" />
-            <Button variant="default" size="small" onClick={() => {}}>
-              {/* {isExpanded ? "간단히" : "자세히"} */}
-              간단히
+            <Switch checked={useAi} onChange={toggleUseAi} label="✨ AI" />
+            <Button
+              variant="default"
+              size="small"
+              onClick={toggleExpanded}
+              type="button"
+            >
+              {isExpanded ? "간단히" : "자세히"}
             </Button>
           </div>
         </div>
-        {/* 확장 필드들 */}
-        {/* {isExpanded && (
+
+        {isExpanded && (
           <div className={cx("expanded-section")}>
             <Input
               type="text"
@@ -62,23 +94,22 @@ export default function AddLinkForm({ onClose }: AddLinkFormProps) {
           <Button
             type="submit"
             size="small"
-            disabled={!isValidUrl || isSubmitting || isSuccess}
-            loading={isSubmitting}
-            selected={isSuccess}
+            disabled={!isValidUrl || isAddLoading}
+            loading={isAddLoading}
             aria-label="링크 추가"
           >
             추가
           </Button>
           <Button
             type="button"
-            onClick={() => handleClose(onClose)}
+            onClick={handleClose}
             variant="secondary"
             size="small"
             aria-label="취소"
           >
             취소
           </Button>
-        </div> */}
+        </div>
       </div>
     </form>
   );
