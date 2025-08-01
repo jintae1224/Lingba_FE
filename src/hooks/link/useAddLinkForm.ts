@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function useAddLinkForm(onClose?: () => void) {
+export function useAddLinkForm(onClose?: () => void) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const [useAi, setUseAi] = useState<boolean>(true);
 
