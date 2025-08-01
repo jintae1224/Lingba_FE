@@ -30,27 +30,13 @@ export function useAddLink({
   resetForm,
 }: UseAddLinkProps) {
   const queryClient = useQueryClient();
-  const { success, error: showError } = useToast();
+  const { success: showSuccess, error: showError } = useToast();
 
   const { boxId } = useBoxId();
   const { folderId: parent_id } = useFolderId();
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: (data: CreateLinkRequest) => createLink(data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["bookmarks", boxId, parent_id],
-      });
-      success("링크가 성공적으로 추가되었습니다!");
-
-      if (resetForm) {
-        resetForm();
-      }
-      handleAddClose();
-    },
-    onError: (error) => {
-      showError(error.message || "링크 추가에 실패했습니다.");
-    },
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -63,13 +49,35 @@ export function useAddLink({
       return;
     }
 
-    mutateAsync({
-      url: formData.linkUrl.trim(),
-      title: formData.linkName?.trim() || undefined,
-      description: formData.linkDesc?.trim() || undefined,
-      box_id: boxId || "",
-      parent_id: parent_id || undefined,
-    });
+    try {
+      await mutateAsync(
+        {
+          url: formData.linkUrl.trim(),
+          title: formData.linkName?.trim() || undefined,
+          description: formData.linkDesc?.trim() || undefined,
+          box_id: boxId || "",
+          parent_id: parent_id || undefined,
+        },
+        {
+          onSuccess: () => {
+            queryClient.invalidateQueries({
+              queryKey: ["bookmarks", boxId, parent_id],
+            });
+            showSuccess("링크가 성공적으로 추가되었습니다!");
+
+            if (resetForm) {
+              resetForm();
+            }
+            handleAddClose();
+          },
+          onError: (error) => {
+            showError(error.message || "링크 추가에 실패했습니다.");
+          },
+        }
+      );
+    } catch (err) {
+      console.warn("에러가 onError에서 처리됨:", err);
+    }
   };
 
   return {
