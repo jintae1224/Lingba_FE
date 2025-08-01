@@ -50,6 +50,12 @@
   box-shadow: none;
 }
 
+/* 플레이스홀더 스타일 */
+.input::placeholder {
+  color: var(--gray-400);
+  opacity: 1;
+}
+
 .input.underline::placeholder {
   color: var(--gray-400);
   font-weight: 400;
