@@ -74,19 +74,25 @@ export default function AddLinkForm({ onClose }: AddLinkFormProps) {
 
         {isExpanded && (
           <div className={cx("expanded-section")}>
-            <Input
-              type="text"
-              value={linkName}
-              onChange={onChangeLinkName}
-              placeholder="링크 이름 (선택)"
-              variant="default"
-            />
-            <Textarea
-              value={linkDesc}
-              onChange={onChangeLinkDesc}
-              placeholder="링크 설명 (선택)"
-              rows={2}
-            />
+            <div className={cx("field-group")}>
+              <label className={cx("field-label")}>링크 이름</label>
+              <Input
+                type="text"
+                value={linkName}
+                onChange={onChangeLinkName}
+                placeholder="예: 유용한 개발 도구"
+                variant="default"
+              />
+            </div>
+            <div className={cx("field-group")}>
+              <label className={cx("field-label")}>링크 설명</label>
+              <Textarea
+                value={linkDesc}
+                onChange={onChangeLinkDesc}
+                placeholder="이 링크에 대한 간단한 설명을 입력하세요"
+                rows={2}
+              />
+            </div>
           </div>
         )}
 
