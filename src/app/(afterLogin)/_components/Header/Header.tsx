@@ -2,7 +2,6 @@
 
 import classNames from "classnames/bind";
 
-import UserAvatar from "@/app/_components/UserAvatar/UserAvatar";
 import BoxSelector from "@/app/(afterLogin)/_components/Header/BoxSelector/BoxSelector";
 import { useMobile } from "@/hooks/etc/useMobile";
 
@@ -22,7 +21,7 @@ export default function Header() {
         <div className={cx("right")} suppressHydrationWarning>
           {mounted && isMobile && (
             <div className={cx("mobile-user-avatar")}>
-              <UserAvatar />
+              {/* <UserAvatar /> */}
             </div>
           )}
         </div>
