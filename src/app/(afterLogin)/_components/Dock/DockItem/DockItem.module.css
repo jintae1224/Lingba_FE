@@ -1,0 +1,73 @@
+
+.dock-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.3, 0, 0.1, 1);
+  will-change: transform, background-color;
+}
+
+.dock-item:hover {
+  transform: scale(1.15) translateY(-8px);
+  background-color: rgba(229, 229, 234, 0.8);
+}
+
+.dock-item.active {
+  background-color: rgba(229, 229, 234, 1);
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--gray-800);
+  transition: color 0.2s ease;
+}
+
+.dock-item.active .icon-container {
+  color: var(--primary-500);
+}
+
+.active-indicator {
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--primary-500);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.dock-item.active .active-indicator {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .dock-item {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+  }
+
+  .dock-item:hover {
+    transform: scale(1.12) translateY(-5px);
+  }
+
+  .icon-container {
+    width: 30px;
+    height: 30px;
+  }
+}

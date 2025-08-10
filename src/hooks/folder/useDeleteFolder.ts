@@ -15,6 +15,7 @@ export function useDeleteFolder({
   folderName,
 }: UseDeleteFolderProps) {
   const [isDeleteOn, setIsDeleteOn] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
   const [deleteFolerName, setDeleteFolderName] = useState<string>("");
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
@@ -26,8 +27,17 @@ export function useDeleteFolder({
     setDeleteError(null); // 에러 초기화
   };
 
+  const handleDeleteModalOpen = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    setIsDeleteModalOpen(true);
+    setDeleteFolderName(""); // 모달 열 때 입력 필드 초기화
+    setDeleteError(null); // 에러 초기화
+  };
+
   const handleDeleteClose = () => {
     setIsDeleteOn(false);
+    setIsDeleteModalOpen(false);
     setDeleteFolderName("");
     setDeleteError(null);
   };
@@ -42,6 +52,7 @@ export function useDeleteFolder({
     onSuccess: (data) => {
       if (data.success) {
         setIsDeleteOn(false);
+        setIsDeleteModalOpen(false);
       } else {
         setDeleteError(data.message);
       }
@@ -71,10 +82,30 @@ export function useDeleteFolder({
     handleDeleteOn,
     handleDeleteClose,
 
+    // 모달 상태
+    isDeleteModalOpen,
+    handleDeleteModalOpen,
+
     // React Query 상태
     isDeleteLoading: isPending,
     isDeleteError: !!deleteError,
     deleteError: deleteError || null,
     handleDeleteFolder,
+
+    // FolderCard용 모달 props - 모든 비즈니스 로직 포함
+    deleteModalProps: {
+      folderName: folderName,
+      confirmName: deleteFolerName,
+      isLoading: isPending,
+      error: deleteError,
+      isValid: deleteFolerName === folderName,
+      onChange: changeEditName,
+      onSubmit: () => {
+        if (deleteFolerName === folderName && !isPending) {
+          handleDeleteFolder();
+        }
+      },
+      onClose: handleDeleteClose,
+    },
   };
 }

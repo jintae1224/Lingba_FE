@@ -6,16 +6,29 @@
 
 .main-content {
   flex: 1;
-  margin-left: 220px; /* LNB 너비 */
+  width: 100%;
   padding: 24px;
-  transition: margin-left 0.3s ease;
+  padding-bottom: 120px; /* Dock 공간 확보 */
+  transition: padding 0.3s ease;
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
   .main-content {
-    margin-left: 0; /* 모바일에서 LNB 너비 줄임 */
     padding: 20px 16px;
-    padding-bottom: 120px; /* 모바일 하단 네비게이션 공간 확보 */
+    padding-bottom: 100px; /* 모바일 Dock 공간 확보 */
+  }
+}
+
+/* Safe Area 대응 */
+@supports (bottom: env(safe-area-inset-bottom)) {
+  .main-content {
+    padding-bottom: calc(120px + env(safe-area-inset-bottom));
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      padding-bottom: calc(100px + env(safe-area-inset-bottom));
+    }
   }
 }

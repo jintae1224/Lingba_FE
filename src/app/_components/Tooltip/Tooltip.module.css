@@ -1,0 +1,52 @@
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: absolute;
+  left: 50%;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: var(--font-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+  z-index: 1000;
+  animation: tooltip-show 0.2s ease-out forwards;
+}
+
+.tooltip.top {
+  bottom: 100%;
+  margin-bottom: 8px;
+}
+
+.tooltip.bottom {
+  top: 100%;
+  margin-top: 8px;
+}
+
+.tooltip-text {
+  display: block;
+}
+
+@keyframes tooltip-show {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* 모바일에서는 툴팁 숨김 */
+@media (max-width: 768px) {
+  .tooltip {
+    display: none;
+  }
+}

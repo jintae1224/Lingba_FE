@@ -13,6 +13,7 @@ interface UseEditFolderProps {
 
 export function useEditFolder({ folderId, folderName }: UseEditFolderProps) {
   const [isEditOn, setIsEditOn] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editName, setEditName] = useState(folderName);
 
   // folderName이 바뀌면 editName 초기화
@@ -25,6 +26,7 @@ export function useEditFolder({ folderId, folderName }: UseEditFolderProps) {
       updateFolder(folderId, data.updates),
     onSettled: () => {
       setIsEditOn(false);
+      setIsEditModalOpen(false);
       setEditName("");
     },
   });
@@ -43,8 +45,15 @@ export function useEditFolder({ folderId, folderName }: UseEditFolderProps) {
     setIsEditOn(true);
   };
 
+  const handleEditModalOpen = (e?: React.MouseEvent | React.TouchEvent) => {
+    e?.stopPropagation();
+    e?.preventDefault();
+    setIsEditModalOpen(true);
+  };
+
   const handleEditClose = () => {
     setIsEditOn(false);
+    setIsEditModalOpen(false);
     setEditName(folderName);
   };
 
@@ -62,11 +71,32 @@ export function useEditFolder({ folderId, folderName }: UseEditFolderProps) {
     handleEditOn,
     handleEditClose,
 
+    // 모달 상태
+    isEditModalOpen,
+    handleEditModalOpen,
+
     // React Query 상태
     isEditLoading: isPending,
     isEditSuccess: isSuccess,
     isEditError: isError,
     editError: error,
     handleEditFolder,
+
+    // FolderCard용 모달 props - 모든 비즈니스 로직 포함
+    editModalProps: {
+      folderName: editName,
+      isLoading: isPending,
+      error: isError ? (error?.message || "편집에 실패했습니다.") : null,
+      isValid: editName.trim().length > 0,
+      hasChanges: editName.trim() !== folderName.trim(),
+      onChange: changeEditName,
+      onSubmit: (e: React.FormEvent) => {
+        e.preventDefault();
+        if (editName.trim().length > 0 && editName.trim() !== folderName.trim() && !isPending) {
+          handleEditFolder();
+        }
+      },
+      onClose: handleEditClose,
+    },
   };
 }

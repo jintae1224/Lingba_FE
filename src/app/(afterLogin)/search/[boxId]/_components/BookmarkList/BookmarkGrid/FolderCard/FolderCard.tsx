@@ -1,18 +1,15 @@
 "use client";
 
 import classNames from "classnames/bind";
+import Link from "next/link";
 
-import { useDeleteFolder } from "@/hooks/folder/useDeleteFolder";
-import { useEditFolder } from "@/hooks/folder/useEditFolder";
+import FolderIcon from "@/app/_components/Icons/FolderIcon";
+import { useBoxId } from "@/hooks/box/useBoxId";
 import type { Folder } from "@/types/folder";
+import formatUpdatedTime from "@/utils/time";
 
 import styles from "./FolderCard.module.css";
-import FolderDeleteModal from "./FolderDeleteModal/FolderDeleteModal";
-import FolderInfo from "./FolderInfo/FolderInfo";
 import FolderMenu from "./FolderMenu/FolderMenu";
-import FolderName from "./FolderName/FolderName";
-import FolderThumbnail from "./FolderThumbnail/FolderThumbnail";
-import FolderWrap from "./FolderWrap/FolderWrap";
 
 const cx = classNames.bind(styles);
 
@@ -21,75 +18,25 @@ interface FolderCardProps {
 }
 
 export default function FolderCard({ folder }: FolderCardProps) {
-  // 폴더 편집 hook
-  const {
-    isEditOn,
-    editName,
-    changeEditName,
-    isEditLoading,
-    handleEditOn,
-    handleEditClose,
-    handleEditFolder,
-  } = useEditFolder({
-    folderId: folder.id,
-    folderName: folder.name,
-  });
-
-  // 폴더 삭제 hook
-  const {
-    isDeleteOn,
-    handleDeleteOn,
-    handleDeleteClose,
-    deleteFolerName,
-    changeEditName: changeDeleteName,
-    isDeleteAble,
-    handleDeleteFolder,
-    isDeleteLoading,
-    isDeleteError,
-    deleteError,
-  } = useDeleteFolder({
-    folderId: folder.id,
-    folderName: folder.name,
-  });
+  const { boxId } = useBoxId();
+  const formattedTime = formatUpdatedTime(folder.updated_at);
 
   return (
-    <>
-      <FolderWrap isEditOn={isEditOn} folderId={folder.id}>
-        <FolderThumbnail />
-        <div className={cx("content")}>
-          <FolderName
-            isEditOn={isEditOn}
-            folderName={folder.name}
-            editName={editName}
-            changeEditName={changeEditName}
-            isEditLoading={isEditLoading}
-            handleEditFolder={handleEditFolder}
-            handleEditClose={handleEditClose}
-          />
-          {!isEditOn && !isDeleteOn && (
-            <FolderMenu
-              handleEditOn={handleEditOn}
-              handleDeleteOn={handleDeleteOn}
-            />
-          )}
-          {!isEditOn && !isDeleteOn && (
-            <FolderInfo updatedAt={folder.updated_at} />
-          )}
+    <Link className={cx("card")} href={`/search/${boxId}?f_id=${folder.id}`}>
+      <div className={cx("thumbnail")}>
+        <div className={cx("icon")}>
+          <FolderIcon className={cx("folder-icon")} />
         </div>
-      </FolderWrap>
-      {isDeleteOn && (
-        <FolderDeleteModal
-          folderName={folder.name}
-          handleDeleteClose={handleDeleteClose}
-          deleteFolerName={deleteFolerName}
-          changeEditName={changeDeleteName}
-          isDeleteAble={isDeleteAble}
-          isDeleteLoading={isDeleteLoading}
-          isDeleteError={isDeleteError}
-          deleteError={deleteError}
-          handleDeleteFolder={handleDeleteFolder}
-        />
-      )}
-    </>
+      </div>
+      <div className={cx("content")}>
+        <h3 className={cx("title")}>{folder.name}</h3>
+        <div className={cx("info")}>
+          <div className={cx("folder-info")}>
+            <span className={cx("updated-time")}>{formattedTime}</span>
+          </div>
+          <FolderMenu folder={folder} />
+        </div>
+      </div>
+    </Link>
   );
 }
