@@ -67,6 +67,9 @@ export default function BookmarkGrid({
       {hasNextPage && (
         <div ref={loadMoreRef} className={cx("load-more-trigger")} />
       )}
+
+      {/* 하단 blur 효과 */}
+      {hasNextPage && <div className={cx("blur-overlay")} />}
     </div>
   );
 }
