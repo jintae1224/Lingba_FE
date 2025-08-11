@@ -94,13 +94,8 @@ export function useBookmarkList() {
     [items]
   );
 
-  const sortedItems = useMemo(() => {
-    return [...items].sort((a, b) => {
-      if (a.type === "folder" && b.type === "link") return -1;
-      if (a.type === "link" && b.type === "folder") return 1;
-      return 0;
-    });
-  }, [items]);
+  // 백엔드에서 이미 정렬되어 오므로 별도 정렬 불필요
+  const sortedItems = useMemo(() => items, [items]);
 
   const handleFolderClick = useCallback(
     (folderId: string) => {
