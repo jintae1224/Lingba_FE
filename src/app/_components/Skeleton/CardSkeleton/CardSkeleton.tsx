@@ -2,8 +2,7 @@
 
 import classNames from "classnames/bind";
 
-import Skeleton from "../../Skeleton/Skeleton";
-
+import Skeleton from "../Skeleton";
 import styles from "./CardSkeleton.module.css";
 
 const cx = classNames.bind(styles);
