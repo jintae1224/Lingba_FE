@@ -104,13 +104,19 @@ export async function GET(request: NextRequest) {
       ...(links || []).map(link => ({ ...link, type: "link" as const }))
     ];
 
-    // position 우선, 그 다음 created_at으로 정렬
+    // 폴더 우선, 그 다음 position, 마지막으로 created_at으로 정렬
     allItems.sort((a, b) => {
-      // position이 있으면 position 우선
+      // 1. 타입 우선 정렬 (폴더가 링크보다 먼저)
+      if (a.type !== b.type) {
+        return a.type === "folder" ? -1 : 1;
+      }
+      
+      // 2. 같은 타입 내에서 position 우선 정렬
       if (a.position !== b.position) {
         return (a.position || 999999) - (b.position || 999999);
       }
-      // position이 같으면 created_at 최신순
+      
+      // 3. position이 같으면 created_at 최신순
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
 
