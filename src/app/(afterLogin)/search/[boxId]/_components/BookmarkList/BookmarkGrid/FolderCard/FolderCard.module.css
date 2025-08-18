@@ -1,26 +1,28 @@
 /* Card Container (from FolderWrap) */
 .card {
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  overflow: visible;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--gray-150);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
-  display: flex;
   flex-direction: column;
   width: 100%;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  background-color: var(--bg-primary);
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-200);
 }
 
 /* Thumbnail (from FolderThumbnail) */
 .thumbnail {
   aspect-ratio: 16/9;
-  background: linear-gradient(
-    135deg,
-    var(--primary-100) 0%,
-    var(--primary-200) 100%
-  );
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,28 +36,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
+  width: 52px;
+  height: 52px;
+
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card:hover .icon {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .folder-icon {
-  width: 24px;
-  height: 24px;
-  color: var(--primary-600);
+  width: 26px;
+  height: 26px;
+  transition: color 0.3s ease;
+  color: var(--primary-700);
 }
 
 /* Content Area */
 .content {
-  padding: 16px;
+  padding: 18px;
   position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   min-height: 0;
-  gap: 12px;
+  gap: 14px;
+  border-top: 1px solid var(--gray-200);
 }
 
 /* Folder Title (from FolderName) */
@@ -63,14 +70,16 @@
   font-size: var(--font-md);
   font-weight: 600;
   color: var(--gray-900);
-  line-height: 1.5;
-  height: calc(1.5em * 2);
+  line-height: 1.4;
+  height: calc(1.4em * 2);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   line-clamp: 2;
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
 }
 
 /* Info Section */
@@ -78,46 +87,104 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 6px;
-  font-size: var(--font-xs);
-  color: var(--gray-500);
+  gap: 8px;
   margin-top: auto;
 }
 
 .folder-info {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--primary-50);
+  border-radius: 8px;
+  flex: 1;
 }
 
 .updated-time {
-  color: var(--gray-500);
+  color: var(--primary-600);
+  font-size: var(--font-xs);
+  font-weight: 500;
+  letter-spacing: -0.005em;
 }
 
-/* Responsive Design */
+/* 768px 이하: 모바일 list 뷰 */
 @media (max-width: 768px) {
   .card {
-    width: 100%;
+    border-radius: 10px;
+  }
+
+  .thumbnail {
+    border-radius: 0;
+  }
+
+  .icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+
+  .folder-icon {
+    width: 22px;
+    height: 22px;
   }
 
   .content {
-    padding: 12px;
-    gap: 10px;
+    padding: 8px 12px;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    height: calc(1.3em * 2);
+    line-height: 1.3;
+    margin-bottom: 4px;
+  }
+
+  .info {
+    margin-top: 0;
+  }
+
+  .folder-info {
+    padding: 4px 8px;
+    border-radius: 6px;
+  }
+
+  .updated-time {
+    font-size: 11px;
   }
 }
 
 @media (max-width: 480px) {
   .card {
-    width: 100%;
+    border-radius: 8px;
   }
 
-  .content {
-    padding: 10px;
-    gap: 8px;
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+  }
+
+  .folder-icon {
+    width: 20px;
+    height: 20px;
   }
 
   .title {
     font-size: var(--font-sm);
-    height: calc(1.5em * 2);
+    height: calc(1.3em * 2);
+    line-height: 1.3;
+  }
+
+  .folder-info {
+    padding: 3px 6px;
+    border-radius: 4px;
+  }
+
+  .updated-time {
+    font-size: 10px;
   }
 }

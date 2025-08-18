@@ -1,21 +1,37 @@
 .card {
-  background: white;
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
+  background: var(--bg-primary);
+  border: 1px solid var(--gray-150);
+  border-radius: 12px;
   overflow: hidden;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   cursor: pointer;
+  backdrop-filter: blur(8px);
+  flex-direction: column;
 }
 
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: var(--gray-250);
+}
+
+/* Grid 모드 (기본) */
+.card.grid-mode {
+  flex-direction: column;
+}
+s
+
+/* List 모드 */
+.card.list-mode {
+  flex-direction: row;
+  height: 88px;
+}
 
 .thumbnail {
   aspect-ratio: 16/9;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--gray-100) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,95 +44,153 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .thumbnail-image {
+  transform: scale(1.02);
 }
 
 .default-thumbnail {
-  font-size: 32px;
-  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 .link-icon {
-  width: 32px;
-  height: 32px;
-  color: var(--gray-500);
-  transition: color 0.15s ease;
+  width: 36px;
+  height: 36px;
+  color: var(--primary-400);
+  transition: all 0.3s ease;
 }
 
+.card:hover .link-icon {
+  color: var(--primary-500);
+  transform: scale(1.1);
+}
 
 .content {
-  padding: 16px;
+  padding: 18px;
   position: relative;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
+  gap: 14px;
   min-height: 0;
+  border-top: 1px solid var(--gray-200);
 }
 
 .title {
   font-size: var(--font-md);
   font-weight: 600;
   color: var(--gray-900);
-  line-height: 1.5;
-  height: calc(1.5em * 2);
+  line-height: 1.4;
+  height: calc(1.4em * 2);
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  line-clamp: 2; /* 표준 속성 */
-  -webkit-line-clamp: 2; /* 벤더 프리픽스 */
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
 }
 
 .favicon-wrapper {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 8px 12px;
+  background: var(--gray-50);
+  border-radius: 8px;
+  margin-top: auto;
 }
 
 .favicon-wrapper > img {
   width: 16px;
   height: 16px;
-  border-radius: 4px;
+  border-radius: 3px;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .url {
   font-size: var(--font-xs);
-  color: var(--gray-500);
+  color: var(--gray-600);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: -0.005em;
 }
 
+/* 768px 이하: 모바일 list 뷰 */
 @media (max-width: 768px) {
   .card {
     width: 100%;
+    border-radius: 10px;
   }
-  
-  .content {
-    padding: 12px;
-    gap: 10px;
-  }
-}
 
-@media (max-width: 480px) {
-  .card {
-    width: 100%;
+  .link-icon {
+    width: 28px;
+    height: 28px;
   }
-  
+
   .content {
-    padding: 10px;
+    padding: 8px 12px;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
   }
 
   .title {
     font-size: var(--font-sm);
-    height: calc(1.5em * 2);
+    height: calc(1.3em * 2);
+    line-height: 1.3;
+  }
+
+  .favicon-wrapper {
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-top: 0;
   }
 
   .favicon-wrapper > img {
     width: 14px;
     height: 14px;
+  }
+
+  .url {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    border-radius: 8px;
+  }
+
+  .link-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    height: calc(1.3em * 2);
+    line-height: 1.3;
+  }
+
+  .favicon-wrapper {
+    padding: 3px 6px;
+    border-radius: 4px;
+  }
+
+  .favicon-wrapper > img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .url {
+    font-size: 10px;
   }
 }
