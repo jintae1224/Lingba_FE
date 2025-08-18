@@ -13,9 +13,12 @@ export async function createLink(
     body: JSON.stringify(data),
   });
 
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: 링크 생성 요청 실패`);
+  }
+
   return response.json();
 }
-
 
 // 링크 수정
 export async function updateLink(

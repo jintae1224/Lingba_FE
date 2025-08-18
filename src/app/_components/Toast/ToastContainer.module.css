@@ -1,0 +1,73 @@
+.toast-container {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.toast-container > * {
+  pointer-events: auto;
+}
+
+/* 위치별 스타일 */
+.position-top-right {
+  top: 24px;
+  right: 24px;
+}
+
+.position-top-center {
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.position-top-left {
+  top: 24px;
+  left: 24px;
+}
+
+.position-bottom-right {
+  bottom: 24px;
+  right: 24px;
+}
+
+.position-bottom-center {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.position-bottom-left {
+  bottom: 24px;
+  left: 24px;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .position-top-right,
+  .position-top-left {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+  }
+  
+  .position-bottom-right,
+  .position-bottom-left {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+  }
+  
+  .position-top-center {
+    top: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+  }
+  
+  .position-bottom-center {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+  }
+}

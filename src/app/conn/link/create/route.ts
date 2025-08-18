@@ -57,54 +57,81 @@ export async function POST(request: NextRequest) {
       // URL 파싱 실패 시 domain은 null로 유지
     }
 
-    // 웹사이트 정보 자동 추출 (title이나 description이 없는 경우에만)
+    // 웹사이트 정보 자동 추출
     let extractedTitle = title;
     let extractedDescription = description;
     let extractedFaviconUrl = favicon_url;
     let extractedThumbnailUrl = thumbnail_url;
 
-    if (!title || !description || !favicon_url || !thumbnail_url) {
-      try {
-        const firecrawlApiUrl = process.env.FIRECRAWL_API_URL;
-        const firecrawlApiToken = process.env.FIRECRAWL_API_TOKEN;
+    try {
+      const firecrawlApiUrl = process.env.FIRECRAWL_API_URL;
+      const firecrawlApiToken = process.env.FIRECRAWL_API_TOKEN;
 
-        if (firecrawlApiUrl && firecrawlApiToken) {
-          const response = await fetch(firecrawlApiUrl, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${firecrawlApiToken}`,
-            },
-            body: JSON.stringify({ url }),
-          });
+      if (!firecrawlApiUrl || !firecrawlApiToken) {
+        return NextResponse.json(
+          {
+            success: false,
+            message: "웹사이트 분석 서비스 설정이 필요합니다.",
+            data: null,
+          } as ApiResponse,
+          { status: 500 }
+        );
+      } else {
+        const response = await fetch(firecrawlApiUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${firecrawlApiToken}`,
+          },
+          body: JSON.stringify({ url }),
+        });
 
-          if (response.ok) {
-            const result = await response.json();
-            if (result.success && result.data) {
-              // 추출된 정보로 빈 필드 채우기
-              extractedTitle = title || result.data.title || null;
-              extractedDescription =
-                description || result.data.description || null;
-              extractedFaviconUrl =
-                favicon_url || result.data.metadata?.favicon || null;
-              extractedThumbnailUrl =
-                thumbnail_url ||
-                result.data.metadata?.ogImage ||
-                result.data.metadata?.["og:image"] ||
-                null;
-            }
-          } else {
-            console.warn(
-              "Firecrawl API 호출 실패:",
-              response.status,
-              response.statusText
-            );
-          }
+        if (!response.ok) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: `웹사이트 정보를 가져올 수 없습니다.`,
+              data: null,
+            } as ApiResponse,
+            { status: 502 }
+          );
         }
-      } catch (error) {
-        console.warn("웹사이트 정보 추출 중 오류:", error);
-        // 오류가 발생해도 링크 생성은 계속 진행
+
+        const result = await response.json();
+        if (!result.success || !result.data) {
+          return NextResponse.json(
+            {
+              success: false,
+              message: "웹사이트 정보 추출에 실패했습니다.",
+              data: null,
+            } as ApiResponse,
+            { status: 502 }
+          );
+        }
+
+        // 추출된 정보로 빈 필드 채우기
+        extractedTitle = title || result.data.title || null;
+        extractedDescription = description || result.data.description || null;
+        extractedFaviconUrl =
+          favicon_url || result.data.metadata?.favicon || null;
+        extractedThumbnailUrl =
+          thumbnail_url ||
+          result.data.metadata?.ogImage ||
+          result.data.metadata?.["og:image"] ||
+          null;
       }
+    } catch (error) {
+      console.error("웹사이트 정보 추출 중 오류:", error);
+
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "웹사이트 정보를 가져오는 중 오류가 발생했습니다. 잠시 후 다시 시도해주세요.",
+          data: null,
+        } as ApiResponse,
+        { status: 500 }
+      );
     }
 
     // 링크 생성
