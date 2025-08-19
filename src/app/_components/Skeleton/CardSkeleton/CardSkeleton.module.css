@@ -19,7 +19,7 @@
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
-  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--gray-100) 100%);
+  background: var(--gray-100);
 }
 
 .content {
