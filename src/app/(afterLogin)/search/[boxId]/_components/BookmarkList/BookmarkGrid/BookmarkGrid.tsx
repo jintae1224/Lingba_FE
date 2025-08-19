@@ -28,14 +28,10 @@ export default function BookmarkGrid({
     <div className={cx("content")}>
       <div className={cx("grid")}>
         {isAddOn && <FolderAddModal handleAddClose={handleAddClose} />}
-
         {isLoading ? (
           <>
             {Array.from({ length: 12 }, (_, index) => (
-              <CardSkeleton
-                key={`initial-loading-${index}`}
-                type={index % 3 === 0 ? "link" : "folder"}
-              />
+              <CardSkeleton key={`initial-loading-${index}`} />
             ))}
           </>
         ) : (
@@ -52,10 +48,7 @@ export default function BookmarkGrid({
             {isLoadingMore && (
               <>
                 {Array.from({ length: 6 }, (_, index) => (
-                  <CardSkeleton
-                    key={`loading-${index}`}
-                    type={index % 3 === 0 ? "link" : "folder"}
-                  />
+                  <CardSkeleton key={`loading-${index}`} />
                 ))}
               </>
             )}
