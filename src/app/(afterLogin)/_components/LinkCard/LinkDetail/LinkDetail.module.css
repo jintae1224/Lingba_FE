@@ -101,35 +101,75 @@
   flex-shrink: 0;
 }
 
-.action-button {
-  width: 40px;
-  height: 40px;
+/* Star Button Styles */
+.star-button {
+  width: 44px;
+  height: 44px;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--gray-100);
-  color: var(--gray-600);
+  color: var(--gray-500);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
+  overflow: hidden;
 }
 
-.action-button:hover {
+.star-button:hover {
   background: var(--gray-200);
   color: var(--gray-700);
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.action-button.bookmarked {
-  background: var(--primary-100);
-  color: var(--primary-600);
+.star-button.starred {
+  background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+  color: #FFF8DC;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  animation: starGlow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-.action-icon {
-  width: 18px;
-  height: 18px;
+.star-button.starred:hover {
+  background: linear-gradient(135deg, #FFE55C 0%, #FFB84D 100%);
+  color: white;
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 6px 30px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes starGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 8px 40px rgba(255, 215, 0, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
+  }
+}
+
+.star-icon {
+  width: 22px;
+  height: 22px;
+  transition: all 0.3s ease;
+}
+
+.star-button:hover .star-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.star-button.starred .star-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.star-button.starred:hover .star-icon {
+  transform: scale(1.15) rotate(-5deg);
 }
 
 /* Hero Section */
@@ -573,13 +613,23 @@
 
 /* Dark mode support (if needed) */
 @media (prefers-color-scheme: dark) {
-  .action-button {
+  .star-button {
     background: var(--gray-800);
-    color: var(--gray-300);
+    color: var(--gray-400);
   }
   
-  .action-button:hover {
+  .star-button:hover {
     background: var(--gray-700);
     color: var(--gray-200);
+  }
+
+  .star-button.starred {
+    background: linear-gradient(135deg, #B8860B 0%, #DAA520 100%);
+    color: #FFFACD;
+  }
+
+  .star-button.starred:hover {
+    background: linear-gradient(135deg, #DAA520 0%, #FFD700 100%);
+    color: white;
   }
 }

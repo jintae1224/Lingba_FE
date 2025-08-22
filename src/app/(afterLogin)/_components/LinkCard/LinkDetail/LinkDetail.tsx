@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
+import StarIcon from "@/app/_components/Icons/StarIcon";
 import { useLinkDetail } from "@/hooks/link/useLinkDetail";
 import formatUpdatedTime from "@/utils/time";
 import { getHostname } from "@/utils/url";
@@ -77,23 +78,14 @@ export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
           </div>
           <div className={cx("header-actions")}>
             <button
-              className={cx("action-button", { bookmarked: isBookmarked })}
+              className={cx("star-button", { starred: isBookmarked })}
               onClick={() => setIsBookmarked(!isBookmarked)}
-              title="북마크"
+              title={isBookmarked ? "즐겨찾기 해제" : "즐겨찾기 추가"}
             >
-              <svg
-                className={cx("action-icon")}
-                viewBox="0 0 24 24"
-                fill={isBookmarked ? "currentColor" : "none"}
-              >
-                <path
-                  d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <StarIcon 
+                className={cx("star-icon")} 
+                filled={isBookmarked} 
+              />
             </button>
           </div>
         </div>
@@ -254,7 +246,7 @@ export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
               {expandedSections.tags && (
                 <div className={cx("card-content")}>
                   <div className={cx("tags-container")}>
-                    {link.ai_tags.map((tag, index) => (
+                    {link.ai_tags.map((tag: string, index: number) => (
                       <span key={index} className={cx("tag")}>
                         {tag}
                       </span>
