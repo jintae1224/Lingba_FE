@@ -81,4 +81,4 @@
   max-height: 300px;
 }
 
-/* Body 스크롤 차단은 useBodyScrollLock 훅에서 처리 */
+/* Body 스크롤 차단은 useScrollLock 훅에서 처리 */

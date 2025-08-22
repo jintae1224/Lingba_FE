@@ -11,6 +11,7 @@ import {
 import { createPortal } from "react-dom";
 
 import XIcon from "@/app/_components/Icons/XIcon";
+import { useScrollLock } from "@/hooks/etc/useScrollLock";
 
 import styles from "./Sheet.module.css";
 
@@ -33,8 +34,11 @@ const Sheet = forwardRef<SheetHandle, SheetProps>(
     const [isMounted, setIsMounted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // Body scroll lock - Sheet에서는 비활성화 (콘텐츠 가시성을 위해)
-    // useBodyScrollLock({ enabled: isOpen });
+    // 배경 스크롤 방지 (새로운 useScrollLock 훅 사용)
+    useScrollLock({
+      enabled: isOpen,
+      allowedSelectors: ['[data-scroll-allowed]', '.sheet-content']
+    });
 
     // 외부에서 닫기 가능하도록 expose
     useImperativeHandle(ref, () => ({
@@ -63,32 +67,6 @@ const Sheet = forwardRef<SheetHandle, SheetProps>(
       }
     }, [isOpen]);
 
-    // 배경 스크롤 방지 (useBodyScrollLock 대신 직접 구현)
-    useEffect(() => {
-      if (!isOpen) return;
-
-      const preventScroll = (e: Event) => {
-        // Sheet 내부 스크롤은 허용
-        const target = e.target as HTMLElement;
-        const isSheetContent =
-          target.closest(".sheet-content") ||
-          target.closest("[data-scroll-allowed]");
-
-        if (!isSheetContent) {
-          e.preventDefault();
-        }
-      };
-
-      // 휠 이벤트 방지
-      document.addEventListener("wheel", preventScroll, { passive: false });
-      // 터치 이벤트 방지
-      document.addEventListener("touchmove", preventScroll, { passive: false });
-
-      return () => {
-        document.removeEventListener("wheel", preventScroll);
-        document.removeEventListener("touchmove", preventScroll);
-      };
-    }, [isOpen]);
 
     // ESC key handler
     useEffect(() => {

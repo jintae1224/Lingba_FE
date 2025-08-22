@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { createPortal } from "react-dom";
 
-import { useBodyScrollLock } from "@/hooks/etc/useBodyScrollLock";
+import { useScrollLock } from "@/hooks/etc/useScrollLock";
 
 import styles from "./Drawer.module.css";
 
@@ -33,8 +33,11 @@ const Drawer = forwardRef<DrawerHandle, DrawerProps>(
     const isDraggingRef = useRef<boolean>(false);
     const dragStartTargetRef = useRef<HTMLElement | null>(null);
 
-    // 배경 스크롤 완전 차단
-    useBodyScrollLock({ enabled: true });
+    // 배경 스크롤 완전 차단 (새로운 useScrollLock 사용)
+    useScrollLock({
+      enabled: true,
+      allowedSelectors: ['[data-scroll-allowed]', '.drawer-body']
+    });
 
     // 외부에서 닫기 가능하도록 expose
     useImperativeHandle(ref, () => ({
