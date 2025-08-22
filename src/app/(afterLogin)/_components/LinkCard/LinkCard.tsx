@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
-import LinkDetail from "@/app/_components/LinkDetail/LinkDetail";
 import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
+import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
 import type { Link } from "@/types/link";
 import { getHostname } from "@/utils/url";
 
