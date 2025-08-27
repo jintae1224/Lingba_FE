@@ -1,0 +1,128 @@
+.accordion {
+  border: 1px solid var(--gray-200);
+  border-radius: 12px;
+  background: var(--white);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.accordion:hover {
+  border-color: var(--gray-300);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.accordion-header {
+  width: 100%;
+  padding: 16px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s ease;
+
+  /* iOS Safari 탭 시 회색 하이라이트 제거 */
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+/* 마우스 환경에서만 hover */
+@media (hover: hover) and (pointer: fine) {
+  .accordion-header:hover {
+    background: var(--gray-25);
+  }
+}
+
+/* (선택) 터치 전용 active 효과 */
+@media (hover: none) and (pointer: coarse) {
+  .accordion-header:active {
+    background: var(--gray-50);
+  }
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.title {
+  font-size: var(--font-md);
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+  text-align: left;
+}
+
+.chevron {
+  width: 16px;
+  height: 16px;
+  color: var(--gray-500);
+  transition: transform 0.2s ease;
+}
+
+.chevron.expanded {
+  transform: rotate(180deg);
+}
+
+/* 패널 래퍼: height 전환 담당 */
+.accordion-panel {
+  overflow: hidden;
+  height: 0; /* 접힘 기본값 */
+  transition: height 0.22s ease;
+}
+
+/* 콘텐츠: 페이드 + 슬라이드 */
+.accordion-content {
+  padding: 20px;
+  border-top: 1px solid var(--gray-100);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.22s ease, transform 0.22s ease, border-color 0.2s ease;
+}
+
+/* 열렸을 때 내용 보이기 */
+.expanded .accordion-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 모션 최소화 환경 */
+@media (prefers-reduced-motion: reduce) {
+  .accordion-panel,
+  .accordion-content,
+  .chevron {
+    transition: none !important;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .accordion-header {
+    padding: 14px 16px;
+  }
+
+  .accordion-content {
+    padding: 16px 16px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+  }
+
+  .chevron {
+    width: 14px;
+    height: 14px;
+  }
+}
