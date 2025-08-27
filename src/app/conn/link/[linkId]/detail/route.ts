@@ -6,11 +6,11 @@ import { createClient } from "@/utils/supabase/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { linkId: string } }
+  { params }: { params: Promise<{ linkId: string }> }
 ) {
   try {
     const supabase = await createClient();
-    const { linkId } = params;
+    const { linkId } = await params;
     const boxId = request.nextUrl.searchParams.get("boxId");
 
     // 인증 확인

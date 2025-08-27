@@ -1,10 +1,5 @@
 import type { ApiResponse } from "@/types/api";
-import type {
-  CreateLinkRequest,
-  Link,
-  LinkDetail,
-  UpdateLinkRequest,
-} from "@/types/link";
+import type { CreateLinkRequest, Link, UpdateLinkRequest } from "@/types/link";
 
 // 링크 생성
 export async function createLink(
@@ -57,7 +52,7 @@ export async function getLinkDetail({
 }: {
   linkId: string;
   boxId: string;
-}): Promise<ApiResponse<LinkDetail>> {
+}): Promise<ApiResponse<Link>> {
   const response = await fetch(`/conn/link/${linkId}/detail?boxId=${boxId}`, {
     method: "GET",
   });

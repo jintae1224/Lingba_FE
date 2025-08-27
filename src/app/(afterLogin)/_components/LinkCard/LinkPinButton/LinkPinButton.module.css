@@ -1,0 +1,193 @@
+/* 핀 버튼 스타일 - 현대적이고 미니멀한 디자인 */
+.pin-button {
+  border: none;
+  background: var(--gray-100);
+  color: var(--gray-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Size 변형 */
+.pin-button.sm {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+}
+
+.pin-button.md {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+}
+
+.pin-button.lg {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+}
+
+.pin-button:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+  transform: translateY(-1px) scale(1.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* 북마크가 고정된 상태 - 따뜻한 블루 톤 */
+.pin-button.pinned {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+  animation: bookmarkGlow 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.pin-button.pinned:hover {
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+  color: white;
+  transform: translateY(-2px) scale(1.1);
+  box-shadow: 0 6px 30px rgba(59, 130, 246, 0.5);
+}
+
+/* 북마크 저장 애니메이션 - 부드러운 펄스 효과 */
+@keyframes bookmarkGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    transform: scale(1.15);
+    box-shadow: 0 8px 40px rgba(59, 130, 246, 0.6);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+  }
+}
+
+.pin-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 아이콘 크기 변형 */
+.pin-icon.sm {
+  width: 16px;
+  height: 16px;
+}
+
+.pin-icon.md {
+  width: 22px;
+  height: 22px;
+}
+
+.pin-icon.lg {
+  width: 26px;
+  height: 26px;
+}
+
+.pin-button:hover .pin-icon {
+  transform: scale(1.1);
+}
+
+.pin-button.pinned .pin-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.pin-button.pinned:hover .pin-icon {
+  transform: scale(1.15);
+}
+
+/* 핀이 눌러지는 효과 */
+.pin-button:active {
+  transform: translateY(1px) scale(0.95);
+  transition: all 0.1s ease;
+}
+
+.pin-button.pinned:active {
+  transform: translateY(0px) scale(0.98);
+}
+
+/* 접근성을 위한 포커스 스타일 */
+.pin-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.pin-button:focus:not(.pinned) {
+  box-shadow: 0 0 0 3px rgba(156, 163, 175, 0.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .pin-button.sm {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+  }
+
+  .pin-button.md {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+  }
+
+  .pin-button.lg {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+  }
+
+  .pin-icon.sm {
+    width: 14px;
+    height: 14px;
+  }
+
+  .pin-icon.md {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pin-icon.lg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pin-button.sm {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+  }
+
+  .pin-button.md {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+  }
+
+  .pin-button.lg {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .pin-icon.sm {
+    width: 12px;
+    height: 12px;
+  }
+
+  .pin-icon.md {
+    width: 16px;
+    height: 16px;
+  }
+
+  .pin-icon.lg {
+    width: 22px;
+    height: 22px;
+  }
+}
