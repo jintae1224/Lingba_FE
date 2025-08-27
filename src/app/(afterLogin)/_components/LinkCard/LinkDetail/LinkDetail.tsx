@@ -5,8 +5,8 @@ import Image from "next/image";
 import { useState } from "react";
 
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
-import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
 import StarIcon from "@/app/_components/Icons/StarIcon";
+import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
 import { useLinkDetail } from "@/hooks/link/useLinkDetail";
 import formatUpdatedTime from "@/utils/time";
 import { getHostname } from "@/utils/url";
@@ -82,10 +82,7 @@ export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
               onClick={() => setIsBookmarked(!isBookmarked)}
               title={isBookmarked ? "즐겨찾기 해제" : "즐겨찾기 추가"}
             >
-              <StarIcon 
-                className={cx("star-icon")} 
-                filled={isBookmarked} 
-              />
+              <StarIcon className={cx("star-icon")} filled={isBookmarked} />
             </button>
           </div>
         </div>
