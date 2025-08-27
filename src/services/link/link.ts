@@ -1,5 +1,10 @@
 import type { ApiResponse } from "@/types/api";
-import type { CreateLinkRequest, Link, UpdateLinkRequest } from "@/types/link";
+import type {
+  CreateLinkRequest,
+  Link,
+  LinkDetail,
+  UpdateLinkRequest,
+} from "@/types/link";
 
 // 링크 생성
 export async function createLink(
@@ -41,6 +46,25 @@ export async function deleteLink(linkId: string): Promise<ApiResponse<null>> {
   const response = await fetch(`/conn/link/${linkId}/delete`, {
     method: "DELETE",
   });
+
+  return response.json();
+}
+
+// 링크 단건 조회
+export async function getLinkDetail({
+  linkId,
+  boxId,
+}: {
+  linkId: string;
+  boxId: string;
+}): Promise<ApiResponse<LinkDetail>> {
+  const response = await fetch(`/conn/link/${linkId}/detail?boxId=${boxId}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: 링크 조회 요청 실패`);
+  }
 
   return response.json();
 }
