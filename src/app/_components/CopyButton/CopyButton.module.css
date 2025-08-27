@@ -1,0 +1,216 @@
+/* Copy Button 공통 컴포넌트 스타일 */
+.copy-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid var(--gray-300);
+  color: var(--gray-700);
+  background: var(--gray-200);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Size 변형 */
+.copy-button.sm {
+  padding: 4px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 6px;
+}
+
+.copy-button.md {
+  padding: 8px;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 8px;
+}
+
+.copy-button.lg {
+  padding: 12px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 10px;
+}
+
+/* Variant 변형 */
+.copy-button.default {
+  background: var(--gray-200);
+  border-color: var(--gray-300);
+}
+
+.copy-button.ghost {
+  background: transparent;
+  border-color: transparent;
+}
+
+.copy-button.filled {
+  background: var(--primary-500);
+  border-color: var(--primary-500);
+  color: white;
+}
+
+/* Hover 상태 */
+.copy-button:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button.default:hover {
+  background: var(--gray-300);
+  border-color: var(--gray-400);
+  color: var(--gray-800);
+}
+
+.copy-button.ghost:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-200);
+}
+
+.copy-button.filled:hover {
+  background: var(--primary-600);
+  border-color: var(--primary-600);
+}
+
+/* 복사 완료 상태 */
+.copy-button.copied {
+  background: var(--success-100);
+  border-color: var(--success-300);
+  color: var(--success-800);
+  animation: copySuccess 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.copy-button.copied:hover {
+  background: var(--success-200);
+  border-color: var(--success-400);
+  color: var(--success-900);
+}
+
+.copy-button.filled.copied {
+  background: var(--success-500);
+  border-color: var(--success-500);
+  color: white;
+}
+
+.copy-button.filled.copied:hover {
+  background: var(--success-600);
+  border-color: var(--success-600);
+}
+
+/* 아이콘 크기 */
+.copy-icon {
+  transition: all 0.3s ease;
+}
+
+.copy-icon.sm {
+  width: 12px;
+  height: 12px;
+}
+
+.copy-icon.md {
+  width: 14px;
+  height: 14px;
+}
+
+.copy-icon.lg {
+  width: 16px;
+  height: 16px;
+}
+
+/* 복사 성공 시 체크 아이콘 바운스 애니메이션 */
+.copy-button.copied .copy-icon {
+  animation: checkBounce 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 복사 성공 버튼 애니메이션 - 부드러운 바운스 */
+@keyframes copySuccess {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* 체크 아이콘 통통 튀는 바운스 애니메이션 */
+@keyframes checkBounce {
+  0% {
+    transform: translateY(0px);
+  }
+  20% {
+    transform: translateY(-8px);
+  }
+  40% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  60% {
+    transform: translateY(0px);
+  }
+  70% {
+    transform: translateY(-2px);
+  }
+  80% {
+    transform: translateY(0px);
+  }
+  90% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* 접근성을 위한 포커스 스타일 */
+.copy-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+.copy-button.copied:focus {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .copy-button.sm {
+    padding: 3px;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 4px;
+  }
+
+  .copy-button.md {
+    padding: 6px;
+    min-width: 28px;
+    min-height: 28px;
+    border-radius: 6px;
+  }
+
+  .copy-button.lg {
+    padding: 10px;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 8px;
+  }
+
+  .copy-icon.sm {
+    width: 10px;
+    height: 10px;
+  }
+
+  .copy-icon.md {
+    width: 12px;
+    height: 12px;
+  }
+
+  .copy-icon.lg {
+    width: 14px;
+    height: 14px;
+  }
+}
