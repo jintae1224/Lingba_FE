@@ -53,7 +53,7 @@ export async function getLinkDetail({
   linkId: string;
   boxId: string;
 }): Promise<ApiResponse<Link>> {
-  const response = await fetch(`/conn/link/${linkId}/detaidl?boxId=${boxId}`, {
+  const response = await fetch(`/conn/link/${linkId}/detail?boxId=${boxId}`, {
     method: "GET",
   });
 
