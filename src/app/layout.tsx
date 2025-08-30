@@ -40,6 +40,10 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
+        <script 
+          src="https://developers.kakao.com/sdk/js/kakao.js"
+          async
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${notoSansKR.variable}`}
