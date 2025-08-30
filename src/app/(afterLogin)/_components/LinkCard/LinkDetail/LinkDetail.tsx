@@ -8,6 +8,7 @@ import { getHostname } from "@/utils/url";
 
 import styles from "./LinkDetail.module.css";
 import LinkDetailContent from "./LinkDetailContent/LinkDetailContent";
+import LinkDetailFooter from "./LinkDetailFooter/LinkDetailFooter";
 import LinkDetailHeader from "./LinkDetailHeader/LinkDetailHeader";
 import LinkDetailHero from "./LinkDetailHero/LinkDetailHero";
 
@@ -67,6 +68,13 @@ export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
           updatedAt={link.updated_at}
         />
       </div>
+
+      <LinkDetailFooter
+        url={link.url}
+        title={link.title || undefined}
+        description={link.description || undefined}
+        thumbnailUrl={link.thumbnail_url || undefined}
+      />
     </div>
   );
 }
