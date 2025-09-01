@@ -2,16 +2,12 @@
 
 import classNames from "classnames/bind";
 
-import Skeleton from "../../Skeleton/Skeleton";
+import Skeleton from "../Skeleton";
 import styles from "./CardSkeleton.module.css";
 
 const cx = classNames.bind(styles);
 
-interface CardSkeletonProps {
-  type?: "folder" | "link";
-}
-
-export default function CardSkeleton({ type = "folder" }: CardSkeletonProps) {
+export default function CardSkeleton() {
   return (
     <div className={cx("card")}>
       {/* Thumbnail */}
@@ -24,22 +20,7 @@ export default function CardSkeleton({ type = "folder" }: CardSkeletonProps) {
         {/* Title */}
         <div className={cx("title-area")}>
           <Skeleton height="1.4em" borderRadius="3px" />
-          <Skeleton height="1.4em" width="60%" borderRadius="3px" />
         </div>
-
-        {/* URL for link cards */}
-        {type === "link" && (
-          <div className={cx("url-area")}>
-            <Skeleton height="1em" width="80%" borderRadius="3px" />
-          </div>
-        )}
-
-        {/* Extra spacing for folder cards to match height */}
-        {type === "folder" && (
-          <div className={cx("extra-space")}>
-            <Skeleton height="1em" width="0%" />
-          </div>
-        )}
       </div>
     </div>
   );

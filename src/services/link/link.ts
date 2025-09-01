@@ -44,3 +44,22 @@ export async function deleteLink(linkId: string): Promise<ApiResponse<null>> {
 
   return response.json();
 }
+
+// 링크 단건 조회
+export async function getLinkDetail({
+  linkId,
+  boxId,
+}: {
+  linkId: string;
+  boxId: string;
+}): Promise<ApiResponse<Link>> {
+  const response = await fetch(`/conn/link/${linkId}/detail?boxId=${boxId}`, {
+    method: "GET",
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: 링크 조회 요청 실패`);
+  }
+
+  return response.json();
+}
