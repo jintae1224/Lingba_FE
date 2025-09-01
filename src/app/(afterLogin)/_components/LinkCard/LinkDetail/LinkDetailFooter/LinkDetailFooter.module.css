@@ -1,0 +1,147 @@
+/* Footer */
+.footer {
+  flex-shrink: 0;
+  background: var(--bg-primary);
+  border-top: 1px solid var(--gray-200);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Link Button */
+.link-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Share Container */
+.share-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Floating Buttons */
+.floating-buttons {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.floating-button:hover {
+  transform: scale(1.05);
+}
+
+.floating-button:active {
+  transform: scale(0.95);
+}
+
+.floating-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Kakao 버튼에서는 LinkIcon을 copy icon으로 사용 */
+.floating-button.link svg {
+  width: 20px;
+  height: 20px;
+}
+
+.floating-button.kakao {
+  background: #FEE500;
+  color: #3C1E1E;
+}
+
+.floating-button.link {
+  background: var(--bg-primary);
+  color: var(--gray-600);
+  border: 1px solid var(--gray-200);
+}
+
+.floating-button.link:hover {
+  background: var(--gray-50);
+  color: var(--gray-700);
+}
+
+.floating-button.link.copied {
+  background: var(--green-100);
+  color: var(--green-700);
+  border: 1px solid var(--green-200);
+}
+
+.floating-button.link.copied:hover {
+  background: var(--green-200);
+  color: var(--green-800);
+}
+
+/* Share Button */
+.share-button {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.share-button:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.share-button:active {
+  transform: scale(0.95);
+}
+
+.share-button.active {
+  background: var(--gray-200);
+  color: var(--gray-700);
+}
+
+.share-icon {
+  width: 20px;
+  height: 20px;
+}
