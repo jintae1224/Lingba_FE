@@ -6,7 +6,6 @@ export interface Folder {
   user_id: string;
   box_id: string;
   parent_id?: string | null;
-  position?: number | null;
   is_expanded?: boolean | null;
   created_at?: string | null;
   updated_at?: string | null;
@@ -18,14 +17,12 @@ export interface CreateFolderRequest {
   color?: string;
   box_id: string;
   parent_id?: string;
-  position?: number;
 }
 
 // 폴더 수정 요청
 export interface UpdateFolderRequest {
   name?: string;
   color?: string;
-  position?: number;
   is_expanded?: boolean;
   parent_id?: string;
 }
