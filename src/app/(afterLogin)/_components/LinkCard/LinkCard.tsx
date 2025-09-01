@@ -72,7 +72,7 @@ export default function LinkCard({ link }: LinkCardProps) {
           title="링크 상세정보"
           onClose={handleCloseDetail}
         >
-          <LinkDetail linkId={link.id} boxId={link.box_id} />
+          <LinkDetail linkId={link.id} />
         </Sheet>
       )}
     </>

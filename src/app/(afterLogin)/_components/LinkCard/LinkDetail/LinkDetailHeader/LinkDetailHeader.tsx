@@ -12,6 +12,7 @@ interface LinkDetailHeaderProps {
   title: string | null | undefined;
   createdAt: string | null | undefined;
   hostname: string;
+  isPin: boolean;
 }
 
 export default function LinkDetailHeader({
@@ -19,6 +20,7 @@ export default function LinkDetailHeader({
   title,
   createdAt,
   hostname,
+  isPin,
 }: LinkDetailHeaderProps) {
   return (
     <div className={cx("header")}>
@@ -30,7 +32,7 @@ export default function LinkDetailHeader({
           </span>
         </div>
       </div>
-      <LinkPinButton isPin linkId={id} />
+      <LinkPinButton isPin={isPin} linkId={id} />
     </div>
   );
 }
