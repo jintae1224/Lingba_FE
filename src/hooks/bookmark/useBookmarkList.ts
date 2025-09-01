@@ -1,11 +1,12 @@
 "use client";
 
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
 import { bookmarkList } from "@/services/bookmark/bookmark";
-import type { BookmarkItem } from "@/types/bookmark";
+import type { BookmarkListResponse } from "@/types/bookmark";
 
 import { useBoxId } from "../box/useBoxId";
 import { useFolderId } from "../folder/useFolderId";
@@ -15,87 +16,61 @@ export function useBookmarkList() {
   const { folderId } = useFolderId();
   const router = useRouter();
 
-  const [items, setItems] = useState<BookmarkItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-  const [hasNextPage, setHasNextPage] = useState(false);
-  const [page, setPage] = useState(1);
-  const [error, setError] = useState<string | null>(null);
-
   const { ref: loadMoreRef, inView } = useInView({
     threshold: 0,
     rootMargin: "100px",
   });
 
-  const loadBookmarks = useCallback(
-    async (pageToLoad: number, isRefresh = false) => {
-      if (!boxId) return;
-
-      if (isRefresh) {
-        setIsLoading(true);
-        setError(null);
-      } else {
-        setIsLoadingMore(true);
-      }
-
-      try {
-        const response = await bookmarkList({
-          boxId,
-          parentId: folderId,
-          page: pageToLoad,
-          limit: 20,
-        });
-
-        if (isRefresh) {
-          setItems(response.items);
-        } else {
-          setItems((prev) => [...prev, ...response.items]);
-        }
-
-        setHasNextPage(response.pagination.hasNextPage);
-        setPage(pageToLoad);
-      } catch (err) {
-        console.error("Failed to load bookmarks:", err);
-        setError("Failed to load bookmarks");
-      } finally {
-        setIsLoading(false);
-        setIsLoadingMore(false);
-      }
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error,
+    refetch,
+  } = useInfiniteQuery<BookmarkListResponse, Error>({
+    queryKey: ["bookmarks", boxId, folderId],
+    queryFn: async ({ pageParam = 1 }) => {
+      if (!boxId) throw new Error("Box ID is required");
+      
+      return bookmarkList({
+        boxId,
+        parentId: folderId,
+        page: pageParam as number,
+        limit: 20,
+      });
     },
-    [boxId, folderId]
-  );
-
-  // 초기 로드
-  useEffect(() => {
-    loadBookmarks(1, true);
-  }, [boxId, loadBookmarks]);
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.pagination.hasNextPage ? allPages.length + 1 : undefined;
+    },
+    initialPageParam: 1,
+    enabled: !!boxId,
+    staleTime: 1000 * 60 * 5, // 5분간 fresh
+    gcTime: 1000 * 60 * 10, // 10분간 캐시 유지
+  });
 
   // 무한스크롤
   useEffect(() => {
-    if (inView && hasNextPage && !isLoadingMore && !isLoading) {
-      loadBookmarks(page + 1);
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
     }
-  }, [inView, hasNextPage, isLoadingMore, isLoading, page, loadBookmarks]);
+  }, [inView, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
-  const refresh = useCallback(() => {
-    setItems([]);
-    setPage(1);
-    setError(null);
-    loadBookmarks(1, true);
-  }, [loadBookmarks]);
+  // 모든 페이지의 아이템들을 평면화
+  const allItems = useMemo(() => {
+    return data?.pages.flatMap((page) => page.items) ?? [];
+  }, [data]);
 
   const folders = useMemo(
-    () => items.filter((item) => item.type === "folder"),
-    [items]
+    () => allItems.filter((item) => item.type === "folder"),
+    [allItems]
   );
 
   const links = useMemo(
-    () => items.filter((item) => item.type === "link"),
-    [items]
+    () => allItems.filter((item) => item.type === "link"),
+    [allItems]
   );
-
-  // 백엔드에서 이미 정렬되어 오므로 별도 정렬 불필요
-  const sortedItems = useMemo(() => items, [items]);
 
   const handleFolderClick = useCallback(
     (folderId: string) => {
@@ -107,18 +82,18 @@ export function useBookmarkList() {
 
   return {
     // 데이터
-    list: sortedItems,
+    list: allItems,
     folders,
     links,
 
     // 상태
     isLoading,
-    isLoadingMore,
-    hasNextPage,
-    error,
+    isLoadingMore: isFetchingNextPage,
+    hasNextPage: !!hasNextPage,
+    error: error as Error | null,
 
     // 액션
-    refresh,
+    refresh: refetch,
     loadMoreRef,
     handleFolderClick,
   };
