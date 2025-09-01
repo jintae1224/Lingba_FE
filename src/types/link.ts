@@ -43,3 +43,15 @@ export interface UpdateLinkRequest {
   thumbnail_url?: string;
   is_public?: boolean;
 }
+
+// 링크 pin 요청
+export interface TogglePinRequest {
+  linkId: string;
+  boxId: string;
+  currentPinState: boolean;
+}
+
+// 링크 pin response
+export interface TogglePinResponse {
+  isPin: boolean;
+}
