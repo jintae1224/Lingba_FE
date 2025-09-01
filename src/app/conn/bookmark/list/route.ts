@@ -98,25 +98,62 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    // 링크의 pin 여부 조회
+    let linksWithPin = links || [];
+    if (links && links.length > 0) {
+      const linkIds = links.map(link => link.id);
+      
+      const { data: pinData, error: pinError } = await supabase
+        .from("user_link_pin")
+        .select("link_id")
+        .in("link_id", linkIds)
+        .eq("user_id", user.id)
+        .eq("box_id", boxId);
+
+      if (pinError) {
+        console.error("Pin data fetch error:", pinError);
+      }
+
+      const pinnedLinkIds = new Set(pinData?.map(pin => pin.link_id) || []);
+      
+      linksWithPin = links.map(link => ({
+        ...link,
+        isPin: pinnedLinkIds.has(link.id)
+      }));
+    }
+
     // 폴더와 링크를 하나의 배열로 합치고 type 필드 추가
     const allItems = [
       ...(folders || []).map(folder => ({ ...folder, type: "folder" as const })),
-      ...(links || []).map(link => ({ ...link, type: "link" as const }))
+      ...linksWithPin.map(link => ({ ...link, type: "link" as const }))
     ];
 
-    // 폴더 우선, 그 다음 position, 마지막으로 created_at으로 정렬
+    // 정렬 순서: 폴더 → Pin된 링크 → 일반 링크 (각각 position → created_at 순)
     allItems.sort((a, b) => {
       // 1. 타입 우선 정렬 (폴더가 링크보다 먼저)
       if (a.type !== b.type) {
         return a.type === "folder" ? -1 : 1;
       }
       
-      // 2. 같은 타입 내에서 position 우선 정렬
+      // 2. 링크인 경우 pin 여부 우선 정렬 (pin된 것이 먼저)
+      if (a.type === "link" && b.type === "link") {
+        const aLink = a as typeof a & { isPin?: boolean };
+        const bLink = b as typeof b & { isPin?: boolean };
+        
+        const aPinned = aLink.isPin || false;
+        const bPinned = bLink.isPin || false;
+        
+        if (aPinned !== bPinned) {
+          return aPinned ? -1 : 1; // pin된 것이 먼저 오도록
+        }
+      }
+      
+      // 3. 같은 pin 상태(또는 폴더) 내에서 position 우선 정렬
       if (a.position !== b.position) {
         return (a.position || 999999) - (b.position || 999999);
       }
       
-      // 3. position이 같으면 created_at 최신순
+      // 4. position이 같으면 created_at 최신순
       return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
     });
 

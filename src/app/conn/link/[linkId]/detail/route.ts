@@ -88,10 +88,28 @@ export async function GET(
       );
     }
 
+    // 링크의 pin 여부 조회
+    const { data: pinData, error: pinError } = await supabase
+      .from("user_link_pin")
+      .select("id")
+      .eq("link_id", linkId)
+      .eq("box_id", boxId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (pinError) {
+      console.error("Pin data fetch error:", pinError);
+    }
+
+    const linkWithPin = {
+      ...link,
+      isPin: !!pinData
+    };
+
     return NextResponse.json({
       success: true,
       message: "Link fetched successfully",
-      data: link,
+      data: linkWithPin,
     } as ApiResponse<Link>);
   } catch (error) {
     console.error("API error:", error);
