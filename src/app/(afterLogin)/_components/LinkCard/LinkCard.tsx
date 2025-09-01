@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
 import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
+import LinkPinButton from "@/app/(afterLogin)/_components/LinkCard/LinkPinButton/LinkPinButton";
 import type { Link } from "@/types/link";
 import { getHostname } from "@/utils/url";
 
@@ -47,6 +48,13 @@ export default function LinkCard({ link }: LinkCardProps) {
               <LinkIcon className={cx("link-icon")} />
             </div>
           )}
+          <div className={cx("pin-button-wrapper")}>
+            <LinkPinButton 
+              isPin={link.isPin || false} 
+              linkId={link.id} 
+              size="sm" 
+            />
+          </div>
         </div>
         <div className={cx("content")}>
           <h3 className={cx("title")}>{link.title || getHostname(link.url)}</h3>
