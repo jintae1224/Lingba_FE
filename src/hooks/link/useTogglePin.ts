@@ -6,6 +6,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 
+import { useBoxId } from "@/hooks/box/useBoxId";
 import { useToast } from "@/providers/ToastProvider";
 import { toggleLinkPin } from "@/services/link/link";
 import { ApiResponse } from "@/types/api";
@@ -15,6 +16,7 @@ import type { Link, TogglePinRequest, TogglePinResponse } from "@/types/link";
 export function useTogglePin() {
   const queryClient = useQueryClient();
   const { error: showError } = useToast();
+  const { boxId } = useBoxId();
 
   const { mutate, isPending } = useMutation<
     ApiResponse<TogglePinResponse>, // 성공 타입
@@ -47,10 +49,9 @@ export function useTogglePin() {
 
   const togglePin = (
     linkId: string,
-    boxId: string,
     currentPinState: boolean
   ) => {
-    if (isPending) return; // 중복 클릭 방지
+    if (isPending || !boxId) return; // 중복 클릭 방지 및 boxId 체크
     const next = !currentPinState;
 
     // link detail optimistic update
