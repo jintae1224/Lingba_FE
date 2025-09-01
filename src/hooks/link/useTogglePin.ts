@@ -25,24 +25,54 @@ export function useTogglePin() {
   >({
     mutationKey: ["togglePin"],
     mutationFn: ({ linkId, boxId }) => toggleLinkPin({ linkId, boxId }),
-    onSuccess: (_data, { linkId, boxId }) => {
-      // 서버 진실과 동기화
-      queryClient.invalidateQueries({
-        queryKey: ["linkDetail", linkId, boxId],
-      });
-      // 북마크 리스트 캐시도 무효화 (리정렬 필요)
-      queryClient.invalidateQueries({
-        queryKey: ["bookmarks", boxId],
-      });
+    onSuccess: (response, { linkId, boxId }) => {
+      // LinkDetail 캐시를 서버 응답으로 업데이트 (refetch 없이)
+      queryClient.setQueryData<ApiResponse<Link>>(
+        ["linkDetail", linkId, boxId],
+        (old) => 
+          old 
+            ? { 
+                ...old, 
+                data: { ...old.data, isPin: response.data.isPin } 
+              }
+            : old
+      );
+      
+      // 북마크 리스트 optimistic update가 이미 정확하므로 추가 refetch 불필요
+      // 정렬이 필요한 경우는 사용자의 다음 액션에서 자연스럽게 동기화됨
     },
-    onError: (_err, { linkId, boxId }) => {
-      // 실패 시 캐시 무효화로 서버 상태와 동기화
-      queryClient.invalidateQueries({
-        queryKey: ["linkDetail", linkId, boxId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["bookmarks", boxId],
-      });
+    onError: (_err, { linkId, boxId, currentPinState }) => {
+      // 실패 시 optimistic update 롤백
+      queryClient.setQueryData<ApiResponse<Link>>(
+        ["linkDetail", linkId, boxId],
+        (old) => 
+          old 
+            ? { 
+                ...old, 
+                data: { ...old.data, isPin: currentPinState } 
+              }
+            : old
+      );
+      
+      // 북마크 리스트 optimistic update도 롤백
+      queryClient.setQueriesData<InfiniteData<BookmarkListResponse>>(
+        { queryKey: ["bookmarks", boxId], exact: false },
+        (old) =>
+          old
+            ? {
+                ...old,
+                pages: old.pages.map((page) => ({
+                  ...page,
+                  items: page.items.map((item) =>
+                    item.type === "link" && item.id === linkId
+                      ? { ...item, isPin: currentPinState }
+                      : item
+                  ),
+                })),
+              }
+            : old
+      );
+      
       showError("핀 변경에 실패했습니다");
     },
   });
