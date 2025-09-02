@@ -40,17 +40,17 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 폴더 쿼리 설정
+    // 폴더 쿼리 설정 - 최적화된 필드만 선택
     let folderQuery = supabase
       .from("user_folder")
-      .select("*")
+      .select("id, name, updated_at, position, created_at")
       .eq("user_id", user.id)
       .eq("box_id", boxId);
 
-    // 링크 쿼리 설정
+    // 링크 쿼리 설정 - 최적화된 필드만 선택
     let linkQuery = supabase
       .from("user_link")
-      .select("*")
+      .select("id, url, title, thumbnail_url, favicon_url, position, created_at")
       .eq("user_id", user.id)
       .eq("box_id", boxId);
 

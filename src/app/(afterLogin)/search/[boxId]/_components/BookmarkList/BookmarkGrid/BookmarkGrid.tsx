@@ -3,7 +3,7 @@
 import classNames from "classnames/bind";
 
 import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
-import { useBookmarkList } from "@/hooks/bookmark/useBookmarkList";
+import { useItemList } from "@/hooks/list/useItemList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
 import styles from "./BookmarkGrid.module.css";
@@ -22,7 +22,7 @@ export default function BookmarkGrid({
   handleAddClose,
 }: BookmarkGridProps) {
   const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } =
-    useBookmarkList();
+    useItemList();
 
   return (
     <div className={cx("content")}>

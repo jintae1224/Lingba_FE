@@ -10,8 +10,8 @@ import { useBoxId } from "@/hooks/box/useBoxId";
 import { useToast } from "@/providers/ToastProvider";
 import { toggleLinkPin } from "@/services/link/link";
 import { ApiResponse } from "@/types/api";
-import type { BookmarkListResponse } from "@/types/bookmark";
 import type { Link, TogglePinRequest, TogglePinResponse } from "@/types/link";
+import type { ListResponse } from "@/types/list";
 
 export function useTogglePin() {
   const queryClient = useQueryClient();
@@ -54,9 +54,9 @@ export function useTogglePin() {
             : old
       );
       
-      // 북마크 리스트 optimistic update도 롤백
-      queryClient.setQueriesData<InfiniteData<BookmarkListResponse>>(
-        { queryKey: ["bookmarks", boxId], exact: false },
+      // 리스트 optimistic update도 롤백
+      queryClient.setQueriesData<InfiniteData<ListResponse>>(
+        { queryKey: ["list", boxId], exact: false },
         (old) =>
           old
             ? {
@@ -91,8 +91,8 @@ export function useTogglePin() {
     );
 
     // bookmark list optimistic update
-    queryClient.setQueriesData<InfiniteData<BookmarkListResponse>>(
-      { queryKey: ["bookmarks", boxId], exact: false },
+    queryClient.setQueriesData<InfiniteData<ListResponse>>(
+      { queryKey: ["list", boxId], exact: false },
       (old) =>
         old
           ? {

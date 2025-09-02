@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { bookmarkList } from "@/services/bookmark/bookmark";
-import type { BookmarkListResponse } from "@/types/bookmark";
+import { listItems } from "@/services/list/list";
+import type { ListResponse } from "@/types/list";
 
 import { useBoxId } from "../box/useBoxId";
 import { useFolderId } from "../folder/useFolderId";
 
-export function useBookmarkList() {
+export function useItemList() {
   const { boxId } = useBoxId();
   const { folderId } = useFolderId();
   const router = useRouter();
@@ -29,12 +29,12 @@ export function useBookmarkList() {
     isLoading,
     error,
     refetch,
-  } = useInfiniteQuery<BookmarkListResponse, Error>({
-    queryKey: ["bookmarks", boxId, folderId],
+  } = useInfiniteQuery<ListResponse, Error>({
+    queryKey: ["list", boxId, folderId],
     queryFn: async ({ pageParam = 1 }) => {
       if (!boxId) throw new Error("Box ID is required");
       
-      return bookmarkList({
+      return listItems({
         boxId,
         parentId: folderId,
         page: pageParam as number,

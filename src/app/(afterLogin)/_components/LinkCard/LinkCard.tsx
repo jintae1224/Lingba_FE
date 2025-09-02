@@ -8,7 +8,7 @@ import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
 import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
 import LinkPinButton from "@/app/(afterLogin)/_components/LinkCard/LinkPinButton/LinkPinButton";
-import type { Link } from "@/types/link";
+import type { LinkList } from "@/types/list";
 import { getHostname } from "@/utils/url";
 
 import styles from "./LinkCard.module.css";
@@ -16,7 +16,7 @@ import styles from "./LinkCard.module.css";
 const cx = classNames.bind(styles);
 
 interface LinkCardProps {
-  link: Link;
+  link: LinkList;
 }
 
 export default function LinkCard({ link }: LinkCardProps) {
