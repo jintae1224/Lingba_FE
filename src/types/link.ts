@@ -16,6 +16,7 @@ export interface Link {
   created_at?: string | null;
   updated_at?: string | null;
   isPin?: boolean;
+  isOwner?: boolean;
 }
 
 // 링크 생성 요청
