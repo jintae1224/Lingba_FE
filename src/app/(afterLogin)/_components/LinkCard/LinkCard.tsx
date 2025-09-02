@@ -52,7 +52,7 @@ export default function LinkCard({ link }: LinkCardProps) {
             <LinkPinButton 
               isPin={link.isPin || false} 
               linkId={link.id} 
-              size="sm" 
+              size="md" 
             />
           </div>
         </div>
