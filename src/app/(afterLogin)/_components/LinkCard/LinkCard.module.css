@@ -72,6 +72,19 @@ s
   transform: scale(1.1);
 }
 
+.pin-button-wrapper {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 10;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .pin-button-wrapper {
+  opacity: 1;
+}
+
 .content {
   padding: 18px;
   position: relative;
@@ -136,6 +149,12 @@ s
     height: 28px;
   }
 
+  .pin-button-wrapper {
+    top: 6px;
+    right: 6px;
+    opacity: 1; /* 모바일에서는 항상 표시 */
+  }
+
   .content {
     padding: 8px 12px;
     gap: 8px;
@@ -173,6 +192,11 @@ s
   .link-icon {
     width: 24px;
     height: 24px;
+  }
+
+  .pin-button-wrapper {
+    top: 4px;
+    right: 4px;
   }
 
   .title {

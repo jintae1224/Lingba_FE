@@ -3,6 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getLinkDetail } from "@/services/link/link";
+import type { ApiResponse } from "@/types/api";
+import type { Link } from "@/types/link";
 
 export function useLinkDetail({
   linkId,
@@ -11,7 +13,7 @@ export function useLinkDetail({
   linkId: string | null;
   boxId: string | null;
 }) {
-  return useQuery({
+  return useQuery<ApiResponse<Link>, Error>({
     queryKey: ["linkDetail", linkId, boxId],
     queryFn: () => {
       if (!linkId || !boxId) {

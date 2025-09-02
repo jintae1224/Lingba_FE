@@ -79,7 +79,6 @@ export async function GET() {
               id: box.id,
               name: box.name,
               color: box.color,
-              position: box.position,
               is_default: box.is_default,
               user_id: box.user_id,
               created_at: box.created_at,

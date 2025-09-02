@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 
 import PinIcon from "@/app/_components/Icons/PinIcon";
+import { useTogglePin } from "@/hooks/link/useTogglePin";
 
 import styles from "./LinkPinButton.module.css";
 
@@ -17,15 +18,25 @@ export default function LinkPinButton({
   linkId,
   size = "md",
 }: LinkPinButtonProps) {
-  // TODO: 북마크 토글 기능 구현
-  const handleTogglePin = () => {
-    console.log("linkId", linkId);
+  const { togglePin, isToggling } = useTogglePin();
+
+  const handleTogglePin = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (isToggling) return;
+
+    togglePin(linkId, isPin);
   };
 
   return (
     <button
-      className={cx("pin-button", size, { pinned: isPin })}
+      className={cx("pin-button", size, {
+        pinned: isPin,
+        loading: isToggling,
+      })}
       onClick={handleTogglePin}
+      disabled={isToggling}
       title={isPin ? "북마크 제거" : "북마크 추가"}
     >
       <PinIcon className={cx("pin-icon", size)} filled={isPin} />

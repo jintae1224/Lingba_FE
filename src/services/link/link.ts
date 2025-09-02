@@ -1,5 +1,11 @@
 import type { ApiResponse } from "@/types/api";
-import type { CreateLinkRequest, Link, UpdateLinkRequest } from "@/types/link";
+import type {
+  CreateLinkRequest,
+  Link,
+  TogglePinRequest,
+  TogglePinResponse,
+  UpdateLinkRequest,
+} from "@/types/link";
 
 // 링크 생성
 export async function createLink(
@@ -59,6 +65,25 @@ export async function getLinkDetail({
 
   if (!response.ok) {
     throw new Error(`HTTP ${response.status}: 링크 조회 요청 실패`);
+  }
+
+  return response.json();
+}
+
+export async function toggleLinkPin({
+  linkId,
+  boxId,
+}: Pick<TogglePinRequest, "linkId" | "boxId">): Promise<ApiResponse<TogglePinResponse>> {
+  const response = await fetch(`/conn/link/${linkId}/pin`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ box_id: boxId }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: 핀 토글 요청 실패`);
   }
 
   return response.json();
