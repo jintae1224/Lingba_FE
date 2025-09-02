@@ -38,7 +38,7 @@ export function useTogglePin() {
             : old
       );
       
-      // 북마크 리스트 optimistic update가 이미 정확하므로 추가 refetch 불필요
+      // 리스트 optimistic update가 이미 정확하므로 추가 refetch 불필요
       // 정렬이 필요한 경우는 사용자의 다음 액션에서 자연스럽게 동기화됨
     },
     onError: (_err, { linkId, boxId, currentPinState }) => {
@@ -90,7 +90,7 @@ export function useTogglePin() {
       (old) => (old ? { ...old, data: { ...old.data, isPin: next } } : old)
     );
 
-    // bookmark list optimistic update
+    // list optimistic update
     queryClient.setQueriesData<InfiniteData<ListResponse>>(
       { queryKey: ["list", boxId], exact: false },
       (old) =>

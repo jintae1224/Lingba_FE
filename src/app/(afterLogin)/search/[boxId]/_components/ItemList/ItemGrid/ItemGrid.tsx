@@ -6,21 +6,21 @@ import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
 import { useItemList } from "@/hooks/list/useItemList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
-import styles from "./BookmarkGrid.module.css";
 import FolderAddModal from "./FolderCard/FolderAddModal/FolderAddModal";
 import FolderCard from "./FolderCard/FolderCard";
+import styles from "./ItemGrid.module.css";
 
 const cx = classNames.bind(styles);
 
-interface BookmarkGridProps {
+interface ItemGridProps {
   isAddOn: boolean;
   handleAddClose: () => void;
 }
 
-export default function BookmarkGrid({
+export default function ItemGrid({
   isAddOn,
   handleAddClose,
-}: BookmarkGridProps) {
+}: ItemGridProps) {
   const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } =
     useItemList();
 
