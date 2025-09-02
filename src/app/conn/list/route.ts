@@ -40,18 +40,61 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 폴더 쿼리 설정 - 최적화된 필드만 선택
+    // Box 접근 권한 확인 - 소유자인지 확인
+    const { data: boxData, error: boxError } = await supabase
+      .from("user_box")
+      .select("id, user_id")
+      .eq("id", boxId)
+      .single();
+
+    if (boxError || !boxData) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Box not found",
+          data: null,
+        } as ApiResponse,
+        { status: 404 }
+      );
+    }
+
+    // 소유자이거나 공유받은 사용자인지 확인
+    const isOwner = boxData.user_id === user.id;
+    let hasAccess = isOwner;
+
+    if (!isOwner) {
+      // 공유받은 사용자인지 확인
+      const { data: shareData } = await supabase
+        .from("box_shares")
+        .select("id")
+        .eq("box_id", boxId)
+        .eq("member_id", user.id)
+        .single();
+      
+      hasAccess = !!shareData;
+    }
+
+    if (!hasAccess) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Access denied to this box",
+          data: null,
+        } as ApiResponse,
+        { status: 403 }
+      );
+    }
+
+    // 폴더 쿼리 설정 - 최적화된 필드만 선택 + user_id 포함
     let folderQuery = supabase
       .from("user_folder")
-      .select("id, name, updated_at, position, created_at")
-      .eq("user_id", user.id)
+      .select("id, name, updated_at, position, created_at, user_id")
       .eq("box_id", boxId);
 
-    // 링크 쿼리 설정 - 최적화된 필드만 선택
+    // 링크 쿼리 설정 - 최적화된 필드만 선택 + user_id 포함
     let linkQuery = supabase
       .from("user_link")
-      .select("id, url, title, thumbnail_url, favicon_url, position, created_at")
-      .eq("user_id", user.id)
+      .select("id, url, title, thumbnail_url, favicon_url, position, created_at, user_id")
       .eq("box_id", boxId);
 
     // parent_id 필터링
@@ -122,10 +165,18 @@ export async function GET(request: NextRequest) {
       }));
     }
 
-    // 폴더와 링크를 하나의 배열로 합치고 type 필드 추가
+    // 폴더와 링크를 하나의 배열로 합치고 type 필드 + isOwner 필드 추가
     const allItems = [
-      ...(folders || []).map(folder => ({ ...folder, type: "folder" as const })),
-      ...linksWithPin.map(link => ({ ...link, type: "link" as const }))
+      ...(folders || []).map(folder => ({ 
+        ...folder, 
+        type: "folder" as const,
+        isOwner: folder.user_id === user.id
+      })),
+      ...linksWithPin.map(link => ({ 
+        ...link, 
+        type: "link" as const,
+        isOwner: link.user_id === user.id
+      }))
     ];
 
     // 정렬 순서: 폴더 → Pin된 링크 → 일반 링크 (각각 position → created_at 순)
@@ -161,7 +212,12 @@ export async function GET(request: NextRequest) {
     const total = allItems.length;
     const totalPages = Math.ceil(total / limit);
     const offset = (page - 1) * limit;
-    const paginatedItems = allItems.slice(offset, offset + limit);
+    const paginatedItems = allItems.slice(offset, offset + limit).map(item => {
+      // user_id는 클라이언트로 전송하지 않음 (보안상 이유)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { user_id: _, ...itemWithoutUserId } = item;
+      return itemWithoutUserId;
+    });
 
     const response = {
       items: paginatedItems,
@@ -177,11 +233,11 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Bookmarks fetched successfully",
+      message: "List items fetched successfully",
       data: response,
     } as ApiResponse);
   } catch (error) {
-    console.error("Bookmark list API error:", error);
+    console.error("List API error:", error);
     return NextResponse.json(
       {
         success: false,

@@ -103,13 +103,18 @@ export async function GET(
 
     const linkWithPin = {
       ...link,
-      isPin: !!pinData
+      isPin: !!pinData,
+      isOwner: link.user_id === user.id
     };
+
+    // user_id는 클라이언트로 전송하지 않음 (보안상 이유)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { user_id: _, ...linkWithoutUserId } = linkWithPin;
 
     return NextResponse.json({
       success: true,
       message: "Link fetched successfully",
-      data: linkWithPin,
+      data: linkWithoutUserId,
     } as ApiResponse<Link>);
   } catch (error) {
     console.error("API error:", error);
