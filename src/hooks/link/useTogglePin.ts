@@ -10,8 +10,8 @@ import { useBoxId } from "@/hooks/box/useBoxId";
 import { useToast } from "@/providers/ToastProvider";
 import { toggleLinkPin } from "@/services/link/link";
 import { ApiResponse } from "@/types/api";
-import type { BookmarkListResponse } from "@/types/bookmark";
 import type { Link, TogglePinRequest, TogglePinResponse } from "@/types/link";
+import type { ListResponse } from "@/types/list";
 
 export function useTogglePin() {
   const queryClient = useQueryClient();
@@ -38,7 +38,7 @@ export function useTogglePin() {
             : old
       );
       
-      // 북마크 리스트 optimistic update가 이미 정확하므로 추가 refetch 불필요
+      // 리스트 optimistic update가 이미 정확하므로 추가 refetch 불필요
       // 정렬이 필요한 경우는 사용자의 다음 액션에서 자연스럽게 동기화됨
     },
     onError: (_err, { linkId, boxId, currentPinState }) => {
@@ -54,9 +54,9 @@ export function useTogglePin() {
             : old
       );
       
-      // 북마크 리스트 optimistic update도 롤백
-      queryClient.setQueriesData<InfiniteData<BookmarkListResponse>>(
-        { queryKey: ["bookmarks", boxId], exact: false },
+      // 리스트 optimistic update도 롤백
+      queryClient.setQueriesData<InfiniteData<ListResponse>>(
+        { queryKey: ["list", boxId], exact: false },
         (old) =>
           old
             ? {
@@ -90,9 +90,9 @@ export function useTogglePin() {
       (old) => (old ? { ...old, data: { ...old.data, isPin: next } } : old)
     );
 
-    // bookmark list optimistic update
-    queryClient.setQueriesData<InfiniteData<BookmarkListResponse>>(
-      { queryKey: ["bookmarks", boxId], exact: false },
+    // list optimistic update
+    queryClient.setQueriesData<InfiniteData<ListResponse>>(
+      { queryKey: ["list", boxId], exact: false },
       (old) =>
         old
           ? {

@@ -7,15 +7,15 @@ import Breadcrumb from "@/app/_components/Breadcrumb/Breadcrumb";
 import Button from "@/app/_components/Button/Button";
 import FolderIcon from "@/app/_components/Icons/FolderIcon";
 
-import styles from "./BookmarkHeader.module.css";
+import styles from "./ItemHeader.module.css";
 
 const cx = classNames.bind(styles);
 
-interface BookmarkHeaderProps {
+interface ItemHeaderProps {
   handleAddOn: () => void;
 }
 
-export default function BookmarkHeader({ handleAddOn }: BookmarkHeaderProps) {
+export default function ItemHeader({ handleAddOn }: ItemHeaderProps) {
   const searchParams = useSearchParams();
   const folderId = searchParams.get("f_id");
   
