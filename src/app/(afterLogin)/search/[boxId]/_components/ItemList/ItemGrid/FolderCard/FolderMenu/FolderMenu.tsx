@@ -8,7 +8,7 @@ import TrashIcon from "@/app/_components/Icons/TrashIcon";
 import { useDropdown } from "@/hooks/etc/useDropdown";
 import { useDeleteFolder } from "@/hooks/folder/useDeleteFolder";
 import { useEditFolder } from "@/hooks/folder/useEditFolder";
-import type { Folder } from "@/types/folder";
+import type { FolderList } from "@/types/list";
 
 import FolderDeleteModal from "../FolderDeleteModal/FolderDeleteModal";
 import FolderEditModal from "../FolderEditModal/FolderEditModal";
@@ -18,7 +18,7 @@ const cx = classNames.bind(styles);
 
 interface FolderMenuProps {
   // 폴더 정보
-  folder: Folder;
+  folder: FolderList;
 }
 
 export default function FolderMenu({ folder }: FolderMenuProps) {

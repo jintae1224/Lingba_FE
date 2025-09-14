@@ -12,10 +12,11 @@ export interface Link {
   favicon_url?: string | null;
   thumbnail_url?: string | null;
   domain?: string | null;
-  position?: number | null;
   is_public?: boolean | null;
   created_at?: string | null;
   updated_at?: string | null;
+  isPin?: boolean;
+  isOwner?: boolean;
 }
 
 // 링크 생성 요청
@@ -29,7 +30,6 @@ export interface CreateLinkRequest {
   ai_tags?: string[];
   favicon_url?: string;
   thumbnail_url?: string;
-  position?: number;
 }
 
 // 링크 수정 요청
@@ -42,6 +42,17 @@ export interface UpdateLinkRequest {
   ai_tags?: string[];
   favicon_url?: string;
   thumbnail_url?: string;
-  position?: number;
   is_public?: boolean;
+}
+
+// 링크 pin 요청
+export interface TogglePinRequest {
+  linkId: string;
+  boxId: string;
+  currentPinState: boolean;
+}
+
+// 링크 pin response
+export interface TogglePinResponse {
+  isPin: boolean;
 }

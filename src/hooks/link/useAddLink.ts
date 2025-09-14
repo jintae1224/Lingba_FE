@@ -61,7 +61,7 @@ export function useAddLink({
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: ["bookmarks", boxId, parent_id],
+              queryKey: ["list", boxId, parent_id],
             });
             showSuccess("링크가 성공적으로 추가되었습니다!");
 

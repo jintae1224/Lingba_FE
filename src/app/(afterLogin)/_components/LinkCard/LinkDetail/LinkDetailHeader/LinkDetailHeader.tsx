@@ -12,6 +12,7 @@ interface LinkDetailHeaderProps {
   title: string | null | undefined;
   createdAt: string | null | undefined;
   hostname: string;
+  isPin: boolean;
 }
 
 export default function LinkDetailHeader({
@@ -19,18 +20,15 @@ export default function LinkDetailHeader({
   title,
   createdAt,
   hostname,
+  isPin,
 }: LinkDetailHeaderProps) {
   return (
     <div className={cx("header")}>
       <div className={cx("header-content")}>
+        <LinkPinButton isPin={isPin} linkId={id} />
         <h1 className={cx("title")}>{title || hostname}</h1>
-        <div className={cx("header-meta")}>
-          <span className={cx("created-date")}>
-            {formatUpdatedTime(createdAt)}
-          </span>
-        </div>
       </div>
-      <LinkPinButton isPin linkId={id} />
+      <span className={cx("created-date")}>{formatUpdatedTime(createdAt)}</span>
     </div>
   );
 }

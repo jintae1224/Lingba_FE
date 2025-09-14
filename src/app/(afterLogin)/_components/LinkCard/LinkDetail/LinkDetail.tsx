@@ -3,6 +3,7 @@
 import classNames from "classnames/bind";
 
 import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
+import { useBoxId } from "@/hooks/box/useBoxId";
 import { useLinkDetail } from "@/hooks/link/useLinkDetail";
 import { getHostname } from "@/utils/url";
 
@@ -16,11 +17,22 @@ const cx = classNames.bind(styles);
 
 interface LinkDetailProps {
   linkId: string;
-  boxId: string;
 }
 
-export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
-  const { data: response, isLoading, error } = useLinkDetail({ linkId, boxId });
+export default function LinkDetail({ linkId }: LinkDetailProps) {
+  const { boxId } = useBoxId();
+  const { data: response, isLoading, error } = useLinkDetail({ 
+    linkId, 
+    boxId: boxId || "" 
+  });
+
+  if (!boxId) {
+    return (
+      <div className={cx("container")}>
+        <p>Box ID를 찾을 수 없습니다</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
@@ -49,6 +61,7 @@ export default function LinkDetail({ linkId, boxId }: LinkDetailProps) {
           title={link.title}
           createdAt={link.created_at}
           hostname={hostname}
+          isPin={link.isPin || false}
         />
 
         <LinkDetailHero

@@ -42,33 +42,42 @@ export async function GET(
     }
 
     // 박스 접근 권한 확인 (소유자 또는 멤버)
-    const { data: boxOwner } = await supabase
-      .from("user_box")
-      .select("id")
-      .eq("id", boxId)
-      .eq("user_id", user.id)
-      .maybeSingle();
+    const [boxOwnerResult, boxShareResult] = await Promise.all([
+      // 소유자 확인
+      supabase
+        .from("user_box")
+        .select("id")
+        .eq("id", boxId)
+        .eq("user_id", user.id)
+        .maybeSingle(),
+      // 공유받은 사용자 확인
+      supabase
+        .from("box_shares")
+        .select("id")
+        .eq("box_id", boxId)
+        .eq("member_id", user.id)
+        .maybeSingle(),
+    ]);
 
-    const { data: boxMember } = await supabase
-      .from("box_shares")
-      .select("box_id")
-      .eq("box_id", boxId)
-      .eq("member_id", user.id)
-      .maybeSingle();
+    const { data: boxOwner } = boxOwnerResult;
+    const { data: boxMember } = boxShareResult;
 
-    if (!boxOwner && !boxMember) {
+    const isOwner = !!boxOwner;
+    const isSharedMember = !!boxMember;
+    const hasAccess = isOwner || isSharedMember;
+
+    if (!hasAccess) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Forbidden: You do not have permission to access this resource.",
+          message: "Box not found or access denied",
           data: null,
         } as ApiResponse,
-        { status: 403 }
+        { status: 404 }
       );
     }
 
-    // 링크 조회 (같은 박스 안에 있는 링크)
+    // 링크 조회
     const { data: link, error } = await supabase
       .from("user_link")
       .select("*")
@@ -88,10 +97,33 @@ export async function GET(
       );
     }
 
+    // 링크의 pin 여부 조회
+    const { data: pinData, error: pinError } = await supabase
+      .from("user_link_pin")
+      .select("id")
+      .eq("link_id", linkId)
+      .eq("box_id", boxId)
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (pinError) {
+      console.error("Pin data fetch error:", pinError);
+    }
+
+    const linkWithPin = {
+      ...link,
+      isPin: !!pinData,
+      isOwner: link.user_id === user.id,
+    };
+
+    // user_id는 클라이언트로 전송하지 않음 (보안상 이유)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { user_id: _, ...linkWithoutUserId } = linkWithPin;
+
     return NextResponse.json({
       success: true,
       message: "Link fetched successfully",
-      data: link,
+      data: linkWithoutUserId,
     } as ApiResponse<Link>);
   } catch (error) {
     console.error("API error:", error);

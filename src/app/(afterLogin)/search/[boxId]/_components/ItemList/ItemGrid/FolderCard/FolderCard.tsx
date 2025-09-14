@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import FolderIcon from "@/app/_components/Icons/FolderIcon";
 import { useBoxId } from "@/hooks/box/useBoxId";
-import type { Folder } from "@/types/folder";
+import type { FolderList } from "@/types/list";
 import formatUpdatedTime from "@/utils/time";
 
 import styles from "./FolderCard.module.css";
@@ -14,7 +14,7 @@ import FolderMenu from "./FolderMenu/FolderMenu";
 const cx = classNames.bind(styles);
 
 interface FolderCardProps {
-  folder: Folder;
+  folder: FolderList;
 }
 
 export default function FolderCard({ folder }: FolderCardProps) {

@@ -7,7 +7,8 @@ import { useRef, useState } from "react";
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
 import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
-import type { Link } from "@/types/link";
+import LinkPinButton from "@/app/(afterLogin)/_components/LinkCard/LinkPinButton/LinkPinButton";
+import type { LinkList } from "@/types/list";
 import { getHostname } from "@/utils/url";
 
 import styles from "./LinkCard.module.css";
@@ -15,7 +16,7 @@ import styles from "./LinkCard.module.css";
 const cx = classNames.bind(styles);
 
 interface LinkCardProps {
-  link: Link;
+  link: LinkList;
 }
 
 export default function LinkCard({ link }: LinkCardProps) {
@@ -47,6 +48,13 @@ export default function LinkCard({ link }: LinkCardProps) {
               <LinkIcon className={cx("link-icon")} />
             </div>
           )}
+          <div className={cx("pin-button-wrapper")}>
+            <LinkPinButton 
+              isPin={link.isPin || false} 
+              linkId={link.id} 
+              size="md" 
+            />
+          </div>
         </div>
         <div className={cx("content")}>
           <h3 className={cx("title")}>{link.title || getHostname(link.url)}</h3>
@@ -72,7 +80,7 @@ export default function LinkCard({ link }: LinkCardProps) {
           title="링크 상세정보"
           onClose={handleCloseDetail}
         >
-          <LinkDetail linkId={link.id} boxId={link.box_id} />
+          <LinkDetail linkId={link.id} />
         </Sheet>
       )}
     </>
