@@ -25,14 +25,10 @@ export default function LinkDetailHeader({
   return (
     <div className={cx("header")}>
       <div className={cx("header-content")}>
+        <LinkPinButton isPin={isPin} linkId={id} />
         <h1 className={cx("title")}>{title || hostname}</h1>
-        <div className={cx("header-meta")}>
-          <span className={cx("created-date")}>
-            {formatUpdatedTime(createdAt)}
-          </span>
-        </div>
       </div>
-      <LinkPinButton isPin={isPin} linkId={id} />
+      <span className={cx("created-date")}>{formatUpdatedTime(createdAt)}</span>
     </div>
   );
 }
