@@ -18,11 +18,15 @@ const cx = classNames.bind(styles);
 
 export default function LinkDetail() {
   const searchParams = useSearchParams();
-  const linkId = searchParams.get('linkId');
+  const linkId = searchParams.get("linkId");
   const { boxId } = useBoxId();
-  const { data: response, isLoading, error } = useLinkDetail({ 
-    linkId: linkId || "", 
-    boxId: boxId || "" 
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useLinkDetail({
+    linkId: linkId || "",
+    boxId: boxId || "",
   });
 
   if (!linkId) {
@@ -66,7 +70,6 @@ export default function LinkDetail() {
         <LinkDetailHeader
           id={link.id}
           title={link.title}
-          createdAt={link.created_at}
           hostname={hostname}
           isPin={link.isPin || false}
         />
