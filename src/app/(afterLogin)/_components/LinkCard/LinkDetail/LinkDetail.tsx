@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames/bind";
+import { useSearchParams } from "next/navigation";
 
 import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
 import { useBoxId } from "@/hooks/box/useBoxId";
@@ -15,16 +16,22 @@ import LinkDetailHero from "./LinkDetailHero/LinkDetailHero";
 
 const cx = classNames.bind(styles);
 
-interface LinkDetailProps {
-  linkId: string;
-}
-
-export default function LinkDetail({ linkId }: LinkDetailProps) {
+export default function LinkDetail() {
+  const searchParams = useSearchParams();
+  const linkId = searchParams.get('linkId');
   const { boxId } = useBoxId();
   const { data: response, isLoading, error } = useLinkDetail({ 
-    linkId, 
+    linkId: linkId || "", 
     boxId: boxId || "" 
   });
+
+  if (!linkId) {
+    return (
+      <div className={cx("container")}>
+        <p>링크를 찾을 수 없습니다</p>
+      </div>
+    );
+  }
 
   if (!boxId) {
     return (
