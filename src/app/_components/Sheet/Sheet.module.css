@@ -5,12 +5,19 @@
   left: 0;
   right: 0;
   bottom: 0;
+  height: 100vh;
+  height: 100dvh; /* Safari 동적 viewport height 지원 */
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(4px);
   z-index: 9998;
   display: flex;
   justify-content: flex-end;
   animation: overlay-in 0.2s ease-out;
+  /* iOS Safari에서 fixed 요소의 깜빡임 방지 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 @keyframes overlay-in {
@@ -30,11 +37,17 @@
   width: 100%;
   max-width: 600px;
   height: 100vh;
+  height: 100dvh; /* Safari 동적 viewport height 지원 */
   box-shadow: -4px 0 24px rgba(0, 0, 0, 0.12);
   border-left: 1px solid var(--gray-200);
   display: flex;
   flex-direction: column;
   animation: slide-in 0.3s ease-out;
+  /* iOS Safari에서 fixed 요소의 깜빡임 방지 */
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 @keyframes slide-in {
