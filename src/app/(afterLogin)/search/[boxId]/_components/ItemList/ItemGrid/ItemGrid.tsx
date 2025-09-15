@@ -50,6 +50,7 @@ export default function ItemGrid({ isAddOn, handleAddClose }: ItemGridProps) {
                   <Link
                     key={item.id}
                     href={`?linkId=${item.id}`}
+                    scroll={false}
                     style={{ textDecoration: 'none', color: 'inherit' }}
                   >
                     <LinkCard link={item} />

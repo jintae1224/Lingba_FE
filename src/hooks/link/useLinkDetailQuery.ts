@@ -14,7 +14,10 @@ export function useLinkDetailQuery() {
     const params = new URLSearchParams(searchParams.toString());
     params.delete('linkId');
     const queryString = params.toString();
-    router.push(queryString ? `${pathname}?${queryString}` : pathname);
+    router.push(
+      queryString ? `${pathname}?${queryString}` : pathname,
+      { scroll: false }
+    );
   };
 
   return {
