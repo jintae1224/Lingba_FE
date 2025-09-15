@@ -3,8 +3,10 @@
   flex-shrink: 0;
   background: var(--bg-primary);
   border-top: 1px solid var(--gray-200);
-  padding: 16px 24px;
-  padding-bottom: calc(16px + env(safe-area-inset-bottom)); /* Safari safe area 고려 */
+  padding: 16px 12px;
+  padding-bottom: calc(
+    16px + env(safe-area-inset-bottom)
+  ); /* Safari safe area 고려 */
   display: flex;
   align-items: center;
   gap: 12px;
@@ -86,8 +88,8 @@
 }
 
 .floating-button.kakao {
-  background: #FEE500;
-  color: #3C1E1E;
+  background: #fee500;
+  color: #3c1e1e;
 }
 
 .floating-button.link {
