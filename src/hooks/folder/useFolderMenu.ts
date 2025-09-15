@@ -62,9 +62,14 @@ export function useFolderMenu({ onClose }: UseFolderMenuProps = {}) {
   });
 
   // Sheet handlers
-  const handleSheetOpen = (e: React.MouseEvent | React.TouchEvent) => {
+  const handleSheetOpen = (e: React.MouseEvent | React.TouchEvent, folder?: FolderList) => {
     e.preventDefault();
     e.stopPropagation();
+    if (folder) {
+      setCurrentFolder(folder);
+      setEditName(folder.name);
+      setEditError(null);
+    }
     setIsSheetOpen(true);
     setShowDeleteConfirm(false);
   };
@@ -89,12 +94,6 @@ export function useFolderMenu({ onClose }: UseFolderMenuProps = {}) {
 
 
   // Edit handlers
-  const startEdit = (folder: FolderList) => {
-    setCurrentFolder(folder);
-    setEditName(folder.name);
-    setEditError(null);
-  };
-
   const resetEditState = () => {
     setCurrentFolder(null);
     setEditName("");
@@ -149,7 +148,6 @@ export function useFolderMenu({ onClose }: UseFolderMenuProps = {}) {
     // Edit 상태
     currentFolder,
     editName,
-    startEdit,
     changeEditName,
     handleEditSubmit,
     isEditLoading: editFolderMutation.isPending,
