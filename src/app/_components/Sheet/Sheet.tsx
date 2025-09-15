@@ -10,7 +10,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import XIcon from "@/app/_components/Icons/XIcon";
+import ChevronDownIcon from "@/app/_components/Icons/ChevronDownIcon";
 import { useScrollLock } from "@/hooks/etc/useScrollLock";
 
 import styles from "./Sheet.module.css";
@@ -112,9 +112,9 @@ const Sheet = forwardRef<SheetHandle, SheetProps>(
           onClick={(e) => e.stopPropagation()}
         >
           <div className={cx("header")}>
-            {title && <h2 className={cx("title")}>{title}</h2>}
-            <button className={cx("close")} onClick={handleCloseClick}>
-              <XIcon />
+            <button className={cx("back-button")} onClick={handleCloseClick}>
+              <ChevronDownIcon className={cx("chevron-left")} />
+              {title && <span className={cx("title")}>{title}</span>}
             </button>
           </div>
 
