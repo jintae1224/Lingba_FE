@@ -1,0 +1,93 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.underline {
+  width: 80px;
+  height: 15px;
+  color: #4633ff;
+}
+
+.description {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.share-content {
+  margin-top: 0;
+}
+
+.share-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* 데스크톱 share-grid */
+@media (min-width: 1024px) {
+  .share-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .header {
+    gap: 8px;
+  }
+
+  .share-section {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .title {
+    font-size: var(--font-lg);
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .share-grid {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    gap: 6px;
+  }
+
+  .title {
+    font-size: var(--font-lg);
+  }
+
+  .hero-description {
+    font-size: 13px;
+  }
+
+  .share-grid {
+    gap: 16px;
+  }
+}
