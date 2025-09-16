@@ -47,8 +47,12 @@ export default function ShareList() {
 
       {!members || members.length === 0 ? (
         <div className={cx("empty")}>
-          <p className={cx("empty-text")}>아직 공유한 사람이 없습니다.</p>
-          <p className={cx("empty-subtext")}>위에서 팀원을 초대해보세요!</p>
+          <p className={cx("empty-text")}>아직 공유한 사람이 없습니다</p>
+          <p className={cx("empty-subtext")}>
+            초대 링크를 생성하여 팀원들과 북마크를 공유해보세요!
+            <br />
+            함께 사용하면 더욱 효율적인 북마크 관리가 가능합니다.
+          </p>
         </div>
       ) : (
         <div className={cx("list")}>
