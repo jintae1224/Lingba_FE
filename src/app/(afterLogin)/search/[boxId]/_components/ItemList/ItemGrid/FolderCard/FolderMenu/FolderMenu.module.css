@@ -1,0 +1,66 @@
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.menu-button:hover {
+  background-color: var(--color-gray-100);
+}
+
+.menu-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-gray-600);
+}
+
+.folder-sheet {
+  width: 100%;
+  max-width: 400px;
+}
+
+.sheet-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.slide-container {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+.slide-container.edit-mode {
+  transform: translateX(0);
+}
+
+.slide-container.delete-mode {
+  transform: translateX(-50%);
+}
+
+.edit-form,
+.delete-form {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+@media (max-width: 480px) {
+  .folder-sheet {
+    max-width: 100%;
+  }
+}
