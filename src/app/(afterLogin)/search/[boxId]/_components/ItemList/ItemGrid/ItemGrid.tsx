@@ -2,38 +2,28 @@
 
 import classNames from "classnames/bind";
 import Link from "next/link";
-import { useRef } from "react";
 
-import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
+import Sheet from "@/app/_components/Sheet/Sheet";
 import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
 import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
 import { useLinkDetailQuery } from "@/hooks/link/useLinkDetailQuery";
 import { useItemList } from "@/hooks/list/useItemList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
-import FolderAddModal from "./FolderCard/FolderAddModal/FolderAddModal";
 import FolderCard from "./FolderCard/FolderCard";
 import styles from "./ItemGrid.module.css";
 
 const cx = classNames.bind(styles);
 
-interface ItemGridProps {
-  isAddOn: boolean;
-  handleAddClose: () => void;
-}
-
-export default function ItemGrid({ isAddOn, handleAddClose }: ItemGridProps) {
-  const sheetRef = useRef<SheetHandle>(null);
-
+export default function ItemGrid() {
   const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } =
     useItemList();
 
-  const { isDetailOpen, closeDetail } = useLinkDetailQuery();
+  const { isDetailOpen, closeDetail, sheetRef } = useLinkDetailQuery();
 
   return (
     <div className={cx("content")}>
       <div className={cx("grid")}>
-        {isAddOn && <FolderAddModal handleAddClose={handleAddClose} />}
         {isLoading ? (
           <>
             {Array.from({ length: 24 }, (_, index) => (
