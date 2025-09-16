@@ -8,7 +8,6 @@
   grid-auto-rows: 1fr;
   gap: 16px;
   width: 100%;
-  max-width: none;
 }
 
 /* Link 태그가 grid item으로 올바르게 동작하도록 */
