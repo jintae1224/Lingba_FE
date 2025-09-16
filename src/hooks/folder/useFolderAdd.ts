@@ -18,8 +18,6 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
   const { folderId: parentId } = useFolderId();
   const queryClient = useQueryClient();
 
-  // Sheet 관리
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
   const sheetRef = useRef<SheetHandle>(null);
 
   // Add 상태
@@ -31,7 +29,6 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
     mutationFn: createFolder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
-      // 브레드크럼 갱신 (폴더 구조 변경으로 인해)
       queryClient.invalidateQueries({ queryKey: ["breadcrumb", boxId] });
     },
     onError: (error) => {
@@ -39,27 +36,16 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
     },
   });
 
-  // Sheet handlers
-  const handleSheetOpen = (e?: React.MouseEvent | React.TouchEvent) => {
-    e?.preventDefault();
-    e?.stopPropagation();
-    setIsSheetOpen(true);
-    setAddError(null);
-  };
-
-  const handleSheetClose = () => {
-    setIsSheetOpen(false);
-    setAddName("");
-    setAddError(null);
-  };
-
-  const handleCloseSheet = () => {
-    sheetRef.current?.close();
-  };
 
   // Add handlers
   const changeAddName = (e: ChangeEvent<HTMLInputElement>) => {
     setAddName(e.target.value);
+    setAddError(null); // 입력 시 에러 초기화
+  };
+
+  const resetForm = () => {
+    setAddName("");
+    setAddError(null);
   };
 
   const isValid = addName.trim().length > 0;
@@ -74,7 +60,7 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
         box_id: boxId || "",
         parent_id: parentId || undefined,
       });
-      handleCloseSheet();
+      resetForm();
       onClose?.();
     } catch (error) {
       setAddError(
@@ -84,19 +70,13 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
   };
 
   return {
-    // Sheet 상태
-    isSheetOpen,
     sheetRef,
-    handleSheetOpen,
-    handleSheetClose,
-    handleCloseSheet,
-
-    // Add 상태
     addName,
     changeAddName,
     handleSubmit,
     isAddLoading: createFolderMutation.isPending,
     addError,
     isValid,
+    resetForm,
   };
 }
