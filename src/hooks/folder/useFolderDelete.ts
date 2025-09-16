@@ -8,68 +8,49 @@ import { deleteFolder } from "@/services/folder/folder";
 import type { FolderList } from "@/types/list";
 
 interface UseFolderDeleteProps {
+  folder: FolderList | null;
   onClose?: () => void;
 }
 
-export function useFolderDelete({ onClose }: UseFolderDeleteProps = {}) {
+export function useFolderDelete({ folder, onClose }: UseFolderDeleteProps) {
   const params = useParams();
   const boxId = params.boxId as string;
   const queryClient = useQueryClient();
 
   // Delete 상태
-  const [currentFolder, setCurrentFolder] = useState<FolderList | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
 
   // 폴더 삭제 mutation
-  const deleteFolderMutation = useMutation({
-    mutationFn: deleteFolder,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
-      // 링크 목록도 갱신 (폴더 삭제 시 링크들이 이동할 수 있음)
-      queryClient.invalidateQueries({ queryKey: ["links", boxId] });
-    },
-    onError: (error) => {
-      console.error("Failed to delete folder:", error);
-      setDeleteError(error instanceof Error ? error.message : "폴더 삭제에 실패했습니다.");
-    },
-  });
-
-  // 폴더 설정 함수 (외부에서 호출)
-  const setFolder = (folder: FolderList) => {
-    setCurrentFolder(folder);
-    setDeleteError(null);
-  };
-
-  // 상태 초기화 함수
-  const resetDeleteState = () => {
-    setCurrentFolder(null);
-    setDeleteError(null);
-  };
+  const { mutate: deleteFolderMutate, isPending } = useMutation({
+      mutationFn: deleteFolder,
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
+        queryClient.invalidateQueries({ queryKey: ["links", boxId] });
+        onClose?.();
+      },
+      onError: (error) => {
+        console.error("Failed to delete folder:", error);
+        setDeleteError(
+          error instanceof Error ? error.message : "폴더 삭제에 실패했습니다."
+        );
+      },
+    });
 
   // Delete handlers
-  const handleDeleteSubmit = async () => {
-    if (!currentFolder || deleteFolderMutation.isPending) return;
-
-    try {
-      await deleteFolderMutation.mutateAsync(currentFolder.id);
-      resetDeleteState();
-      onClose?.();
-    } catch {
-      // 에러는 mutation의 onError에서 처리됨
-    }
+  const handleDelete = () => {
+    if (!folder || isPending) return;
+    deleteFolderMutate(folder.id);
   };
 
   return {
     // 상태
-    currentFolder,
+    folder,
     deleteError,
 
     // 액션
-    setFolder,
-    handleDeleteSubmit,
-    resetDeleteState,
+    handleDelete,
 
     // 계산된 값
-    isDeleteLoading: deleteFolderMutation.isPending,
+    isPending,
   };
 }

@@ -9,21 +9,21 @@ import type { UpdateFolderRequest } from "@/types/folder";
 import type { FolderList } from "@/types/list";
 
 interface UseFolderEditProps {
+  folder: FolderList | null;
   onClose?: () => void;
 }
 
-export function useFolderEdit({ onClose }: UseFolderEditProps = {}) {
+export function useFolderEdit({ folder, onClose }: UseFolderEditProps) {
   const params = useParams();
   const boxId = params.boxId as string;
   const queryClient = useQueryClient();
 
-  // Edit 상태
-  const [editName, setEditName] = useState("");
-  const [currentFolder, setCurrentFolder] = useState<FolderList | null>(null);
+  // Edit 상태 - folder를 초기값으로 사용
+  const [editName, setEditName] = useState(folder?.name || "");
   const [editError, setEditError] = useState<string | null>(null);
 
   // 폴더 편집 mutation
-  const editFolderMutation = useMutation({
+  const { mutate: updateFolderMutate, isPending } = useMutation({
     mutationFn: ({
       folderId,
       data,
@@ -33,6 +33,7 @@ export function useFolderEdit({ onClose }: UseFolderEditProps = {}) {
     }) => updateFolder(folderId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
+      onClose?.();
     },
     onError: (error) => {
       console.error("Failed to update folder:", error);
@@ -40,62 +41,40 @@ export function useFolderEdit({ onClose }: UseFolderEditProps = {}) {
     },
   });
 
-  // 폴더 설정 함수 (외부에서 호출)
-  const setFolder = (folder: FolderList) => {
-    setCurrentFolder(folder);
-    setEditName(folder.name);
-    setEditError(null);
-  };
-
-  // 상태 초기화 함수
-  const resetEditState = () => {
-    setCurrentFolder(null);
-    setEditName("");
-    setEditError(null);
-  };
-
   // Edit handlers
-  const changeEditName = (e: ChangeEvent<HTMLInputElement>) => {
+  const changeName = (e: ChangeEvent<HTMLInputElement>) => {
     setEditName(e.target.value);
     setEditError(null); // 입력 시 에러 초기화
   };
 
-  const handleEditSubmit = async (e: React.FormEvent) => {
+  const handleEdit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!currentFolder || !editName.trim() || editFolderMutation.isPending) return;
-    if (editName.trim() === currentFolder.name.trim()) return;
+    if (!folder || !editName.trim() || isPending) return;
+    if (editName.trim() === folder.name.trim()) return;
 
-    try {
-      await editFolderMutation.mutateAsync({
-        folderId: currentFolder.id,
-        data: { name: editName.trim() }
-      });
-      resetEditState();
-      onClose?.();
-    } catch {
-      // 에러는 mutation의 onError에서 처리됨
-    }
+    updateFolderMutate({
+      folderId: folder.id,
+      data: { name: editName.trim() }
+    });
   };
 
   // 계산된 값들
-  const isEditValid = editName.trim().length > 0;
-  const hasEditChanges = currentFolder ? editName.trim() !== currentFolder.name.trim() : false;
+  const isValid = editName.trim().length > 0;
+  const hasChanges = folder ? editName.trim() !== folder.name.trim() : false;
 
   return {
     // 상태
-    currentFolder,
-    editName,
-    editError,
+    folder,
+    name: editName,
+    error: editError,
 
     // 액션
-    setFolder,
-    changeEditName,
-    handleEditSubmit,
-    resetEditState,
+    changeName,
+    handleEdit,
 
     // 계산된 값
-    isEditLoading: editFolderMutation.isPending,
-    isEditValid,
-    hasEditChanges,
+    isPending,
+    isValid,
+    hasChanges,
   };
 }

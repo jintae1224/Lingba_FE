@@ -25,17 +25,21 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
   const [addError, setAddError] = useState<string | null>(null);
 
   // 폴더 생성 mutation
-  const createFolderMutation = useMutation({
+  const { mutate: createFolderMutate, isPending } = useMutation({
     mutationFn: createFolder,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
       queryClient.invalidateQueries({ queryKey: ["breadcrumb", boxId] });
+      resetForm();
+      onClose?.();
     },
     onError: (error) => {
       console.error("Failed to create folder:", error);
+      setAddError(
+        error instanceof Error ? error.message : "폴더 생성에 실패했습니다."
+      );
     },
   });
-
 
   // Add handlers
   const changeAddName = (e: ChangeEvent<HTMLInputElement>) => {
@@ -50,23 +54,15 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
 
   const isValid = addName.trim().length > 0;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid || createFolderMutation.isPending) return;
+    if (!isValid || isPending) return;
 
-    try {
-      await createFolderMutation.mutateAsync({
-        name: addName.trim(),
-        box_id: boxId || "",
-        parent_id: parentId || undefined,
-      });
-      resetForm();
-      onClose?.();
-    } catch (error) {
-      setAddError(
-        error instanceof Error ? error.message : "폴더 생성에 실패했습니다."
-      );
-    }
+    createFolderMutate({
+      name: addName.trim(),
+      box_id: boxId || "",
+      parent_id: parentId || undefined,
+    });
   };
 
   return {
@@ -74,7 +70,7 @@ export function useFolderAdd({ onClose }: UseFolderAddProps = {}) {
     addName,
     changeAddName,
     handleSubmit,
-    isAddLoading: createFolderMutation.isPending,
+    isPending,
     addError,
     isValid,
     resetForm,
