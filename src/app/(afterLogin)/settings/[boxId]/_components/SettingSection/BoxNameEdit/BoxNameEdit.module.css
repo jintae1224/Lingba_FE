@@ -1,0 +1,159 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.info {
+  flex: 1;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.input {
+  padding: 10px 14px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 10px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: white;
+  outline: none;
+  width: 100%;
+  max-width: 300px;
+  transition: all 0.2s ease;
+  font-weight: 400;
+}
+
+.input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: white;
+}
+
+.input:disabled {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  padding: 10px 20px;
+  background: #f8fafc;
+  color: #374151;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  min-width: 80px;
+  letter-spacing: -0.01em;
+}
+
+.button:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+  border-color: rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.button.save {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-color: #3b82f6;
+}
+
+.button.save:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-color: #2563eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.2);
+}
+
+.button.save:disabled {
+  background: #e5e7eb;
+  color: #9ca3af;
+  border-color: #d1d5db;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button.cancel {
+  background: white;
+  color: #6b7280;
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.button.cancel:hover {
+  background: #f9fafb;
+  color: #374151;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .item:hover {
+    margin: 0 -12px;
+    padding: 16px 12px;
+  }
+
+  .button {
+    align-self: stretch;
+    text-align: center;
+    min-width: auto;
+  }
+
+  .input {
+    max-width: 100%;
+  }
+
+  .button-group {
+    width: 100%;
+    flex-direction: row;
+  }
+
+  .button-group button {
+    flex: 1;
+  }
+}
