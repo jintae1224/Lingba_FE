@@ -28,7 +28,7 @@ export default function SettingsPage() {
   return (
     <div className={cx("container")}>
       <ShareSection />
-      <SettingSection />
+      <SettingSection box={currentBox} />
     </div>
   );
 }
