@@ -17,7 +17,7 @@ export const useBoxDelete = ({ boxId, isDefaultBox }: UseBoxDeleteProps) => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   // Box 삭제 Mutation
-  const deleteBoxMutation = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (boxId: string) => deleteBox(boxId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["boxes"] });
@@ -39,11 +39,11 @@ export const useBoxDelete = ({ boxId, isDefaultBox }: UseBoxDeleteProps) => {
     setShowDeleteConfirm(true);
   };
 
-  const handleDeleteConfirm = () => {
-    deleteBoxMutation.mutate(boxId);
+  const handleConfirm = () => {
+    mutate(boxId);
   };
 
-  const handleDeleteCancel = () => {
+  const handleCancel = () => {
     setShowDeleteConfirm(false);
   };
 
@@ -54,10 +54,10 @@ export const useBoxDelete = ({ boxId, isDefaultBox }: UseBoxDeleteProps) => {
 
     // 액션
     handleDelete,
-    handleDeleteConfirm,
-    handleDeleteCancel,
+    handleConfirm,
+    handleCancel,
 
     // 로딩 상태
-    isDeleting: deleteBoxMutation.isPending,
+    isDeleting: isPending,
   };
 };
