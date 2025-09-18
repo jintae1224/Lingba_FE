@@ -156,4 +156,12 @@
   .button-group button {
     flex: 1;
   }
+
+  .title {
+    font-size: var(--font-sm);
+  }
+
+  .description {
+    font-size: var(--font-xs);
+  }
 }

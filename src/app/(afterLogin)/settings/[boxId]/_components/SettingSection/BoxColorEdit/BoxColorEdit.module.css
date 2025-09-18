@@ -186,4 +186,12 @@
   .color-picker {
     width: 100%;
   }
+
+  .title {
+    font-size: var(--font-sm);
+  }
+
+  .description {
+    font-size: var(--font-xs);
+  }
 }

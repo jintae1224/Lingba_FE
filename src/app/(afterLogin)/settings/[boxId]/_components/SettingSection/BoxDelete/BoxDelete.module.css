@@ -181,13 +181,13 @@
   }
 
   .title {
-    font-size: var(--font-md);
+    font-size: var(--font-sm);
     margin-bottom: 4px;
     white-space: nowrap;
   }
 
   .description {
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
   }
 
   .item {
@@ -195,6 +195,14 @@
     align-items: flex-start;
     gap: 16px;
     padding: 20px;
+  }
+
+  .item-title {
+    font-size: var(--font-sm);
+  }
+
+  .item-description {
+    font-size: var(--font-xs);
   }
 
   .button {

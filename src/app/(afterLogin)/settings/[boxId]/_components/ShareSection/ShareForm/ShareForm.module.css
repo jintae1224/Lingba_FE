@@ -194,12 +194,12 @@
   }
 
   .title {
-    font-size: var(--font-md);
+    font-size: var(--font-sm);
     margin-bottom: 4px;
   }
 
   .description {
-    font-size: var(--font-sm);
+    font-size: var(--font-xs);
   }
 
   .form {

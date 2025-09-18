@@ -20,12 +20,7 @@ export default function SettingSection({ box }: SettingSectionProps) {
     <>
       <div className={cx("section")}>
         <div className={cx("header")}>
-          <div className={cx("title-wrapper")}>
-            <h2 className={cx("title")}>박스 설정</h2>
-          </div>
-          <p className={cx("description")}>
-            박스 이름과 색상을 자유롭게 바꿔보세요
-          </p>
+          <p className={cx("title")}>박스 설정</p>
         </div>
         <div className={cx("content")}>
           <BoxNameEdit box={box} />
