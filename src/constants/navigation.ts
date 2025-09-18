@@ -19,12 +19,6 @@ export const NAVIGATION_ITEMS: NavigationItem[] = [
     icon: "search",
   },
   {
-    id: "share",
-    label: "공유",
-    href: "/share",
-    icon: "share",
-  },
-  {
     id: "settings",
     label: "설정",
     href: "/settings",

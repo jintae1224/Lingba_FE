@@ -1,0 +1,31 @@
+
+.share-content {
+  margin-top: 0;
+}
+
+.share-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+/* 데스크톱 share-grid */
+@media (min-width: 1024px) {
+  .share-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .share-grid {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-grid {
+    gap: 32px;
+  }
+}

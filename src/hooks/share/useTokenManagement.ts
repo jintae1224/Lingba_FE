@@ -66,8 +66,13 @@ export const useTokenManagement = ({
     });
   };
 
-  // 토큰 폐기 핸들러
-  const handleDiscardToken = () => {
+  // 토큰 폐기 확인 시작
+  const handleDeleteClick = () => {
+    setShowDeleteConfirm(true);
+  };
+
+  // 토큰 폐기 확인
+  const handleConfirmDiscard = () => {
     if (!boxId) return;
 
     discardTokenMutation.mutate(boxId, {
@@ -75,6 +80,11 @@ export const useTokenManagement = ({
         alert(error.message);
       },
     });
+  };
+
+  // 토큰 폐기 취소
+  const handleCancelDiscard = () => {
+    setShowDeleteConfirm(false);
   };
 
   // 클립보드 복사
@@ -103,11 +113,12 @@ export const useTokenManagement = ({
 
     // 상태
     showDeleteConfirm,
-    setShowDeleteConfirm,
 
     // 액션
     handleIssueToken,
-    handleDiscardToken,
+    handleDeleteClick,
+    handleConfirmDiscard,
+    handleCancelDiscard,
     copyToClipboard,
     formatDate,
 
