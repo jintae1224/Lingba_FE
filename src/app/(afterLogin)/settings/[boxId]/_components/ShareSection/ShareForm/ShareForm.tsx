@@ -5,7 +5,6 @@ import CopyIcon from "@/app/_components/Icons/CopyIcon";
 import { useTokenManagement } from "@/hooks/share/useTokenManagement";
 
 import styles from "./ShareForm.module.css";
-import TokenDeleteModal from "./TokenDeleteModal/TokenDeleteModal";
 
 const cx = classNames.bind(styles);
 
@@ -18,9 +17,10 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
     activeToken,
     isLoadingToken,
     showDeleteConfirm,
-    setShowDeleteConfirm,
     handleIssueToken,
-    handleDiscardToken,
+    handleDeleteClick,
+    handleConfirmDiscard,
+    handleCancelDiscard,
     copyToClipboard,
     formatDate,
     isIssuing,
@@ -75,15 +75,38 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
           </div>
 
           <div className={cx("invitation-actions")}>
-            <Button
-              variant="secondary"
-              size="small"
-              onClick={() => setShowDeleteConfirm(true)}
-              disabled={isDiscarding}
-              className={cx("delete-action")}
-            >
-              토큰 폐기
-            </Button>
+            {showDeleteConfirm ? (
+              <div className={cx("confirm-group")}>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={handleConfirmDiscard}
+                  disabled={isDiscarding}
+                  className={cx("confirm-button", "danger")}
+                >
+                  {isDiscarding ? "폐기하는 중..." : "폐기하기"}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="small"
+                  onClick={handleCancelDiscard}
+                  disabled={isDiscarding}
+                  className={cx("confirm-button", "cancel")}
+                >
+                  취소
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="secondary"
+                size="small"
+                onClick={handleDeleteClick}
+                disabled={isDiscarding}
+                className={cx("delete-action")}
+              >
+                토큰 폐기
+              </Button>
+            )}
           </div>
         </div>
       ) : (
@@ -99,13 +122,6 @@ export default function ShareForm({ onSuccess }: ShareFormProps) {
           </Button>
         </div>
       )}
-
-      <TokenDeleteModal
-        isOpen={showDeleteConfirm && !!activeToken}
-        onClose={() => setShowDeleteConfirm(false)}
-        onConfirm={handleDiscardToken}
-        isDeleting={isDiscarding}
-      />
     </div>
   );
 }

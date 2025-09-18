@@ -1,21 +1,17 @@
-/* Notion-style clean design */
+/* Modern card design */
 .container {
   background: var(--bg-primary);
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  margin-bottom: 16px;
-  transition: box-shadow 0.15s ease;
-}
-
-.container:hover {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--gray-300);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
 }
 
 .header {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 16px 20px;
+  gap: 16px;
+  padding: 24px 24px 20px;
   border-bottom: 1px solid var(--gray-200);
 }
 
@@ -25,11 +21,14 @@
 }
 
 .title {
-  font-size: var(--font-md);
-  font-weight: 600;
+  font-size: var(--font-lg);
+  font-weight: 700;
   color: var(--gray-900);
-  margin: 0 0 4px 0;
+  margin: 0 0 6px 0;
   line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .description {
@@ -40,7 +39,7 @@
 }
 
 .form {
-  padding: 16px 20px 20px;
+  padding: 24px;
 }
 
 .spinner {
@@ -63,7 +62,7 @@
 
 /* 로딩 섹션 스타일 */
 .loading-section {
-  padding: 16px 20px 20px;
+  padding: 24px;
 }
 
 .loading-content {
@@ -81,7 +80,7 @@
 
 /* 기존 초대 코드 표시 스타일 */
 .existing-invitation {
-  padding: 16px 20px 20px;
+  padding: 24px;
 }
 
 .existing-header {
@@ -92,9 +91,12 @@
 }
 
 .existing-title {
-  font-size: var(--font-sm);
-  font-weight: 600;
+  font-size: var(--font-md);
+  font-weight: 700;
   color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .code-section {
@@ -113,22 +115,33 @@
 .code-container {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 12px;
+  gap: 10px;
+  padding: 12px 16px;
   background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: 6px;
-  transition: all 0.15s ease;
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--success) 0%,
+    var(--primary-500) 100%
+  );
 }
 
 .code-container button {
   width: auto !important;
   flex-shrink: 0;
-}
-
-.code-container:hover {
-  background: var(--gray-100);
-  border-color: var(--gray-300);
 }
 
 .code {
@@ -159,36 +172,84 @@
 }
 
 .invitation-actions {
-  margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px solid var(--gray-200);
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-150);
 }
 
 .delete-action {
   color: var(--red-600) !important;
   border-color: var(--red-200) !important;
+  background: white !important;
 }
 
 .delete-action:hover {
-  background: var(--red-50) !important;
+  color: var(--red-700) !important;
   border-color: var(--red-300) !important;
+  background: var(--red-50) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+}
+
+.delete-action:active {
+  transform: translateY(0);
+  background: var(--red-100) !important;
+}
+
+.confirm-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.confirm-button.danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.confirm-button.danger:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+.confirm-button.danger:disabled {
+  background: #fecaca !important;
+  color: #f87171 !important;
+  border-color: #fca5a5 !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.confirm-button.cancel {
+  background: white !important;
+  color: #6b7280 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.confirm-button.cancel:hover {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
   .container {
-    border-radius: 6px;
-    margin-bottom: 12px;
+    border-radius: 12px;
   }
 
   .header {
-    padding: 14px 16px;
-    gap: 10px;
+    padding: 20px 20px 16px;
+    gap: 12px;
   }
 
   .title {
     font-size: var(--font-sm);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
 
   .description {
@@ -196,15 +257,15 @@
   }
 
   .form {
-    padding: 14px 16px 16px;
+    padding: 20px;
   }
 
   .existing-invitation {
-    padding: 14px 16px 16px;
+    padding: 20px;
   }
 
   .loading-section {
-    padding: 14px 16px 16px;
+    padding: 20px;
   }
 
   .loading-content {
@@ -248,5 +309,18 @@
     font-size: var(--font-xs) !important;
     padding: 6px 10px !important;
     min-height: 32px !important;
+  }
+
+  .confirm-group {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .confirm-button {
+    font-size: var(--font-xs) !important;
+    padding: 8px 12px !important;
+    min-height: 32px !important;
+    width: 100%;
   }
 }
