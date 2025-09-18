@@ -21,8 +21,8 @@ export function useCurrentBox() {
     // 에러 상태 초기화
     setError(null);
 
-    // 모든 박스 관련 페이지에서 boxId 추출 (main, search, share, settings)
-    const boxIdMatch = pathname.match(/^\/(main|search|share|settings)\/(.+)$/);
+    // 모든 박스 관련 페이지에서 boxId 추출 (main, search, share, settings, mypage)
+    const boxIdMatch = pathname.match(/^\/(main|search|share|settings|mypage)\/(.+)$/);
 
     if (boxIdMatch) {
       // 특정 박스 페이지인 경우
