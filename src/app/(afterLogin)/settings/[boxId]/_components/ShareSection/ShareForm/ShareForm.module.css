@@ -180,6 +180,60 @@
 .delete-action {
   color: var(--red-600) !important;
   border-color: var(--red-200) !important;
+  background: white !important;
+}
+
+.delete-action:hover {
+  color: var(--red-700) !important;
+  border-color: var(--red-300) !important;
+  background: var(--red-50) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+}
+
+.delete-action:active {
+  transform: translateY(0);
+  background: var(--red-100) !important;
+}
+
+.confirm-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.confirm-button.danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.confirm-button.danger:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+.confirm-button.danger:disabled {
+  background: #fecaca !important;
+  color: #f87171 !important;
+  border-color: #fca5a5 !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.confirm-button.cancel {
+  background: white !important;
+  color: #6b7280 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.confirm-button.cancel:hover {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
 }
 
 /* 반응형 */
@@ -255,5 +309,18 @@
     font-size: var(--font-xs) !important;
     padding: 6px 10px !important;
     min-height: 32px !important;
+  }
+
+  .confirm-group {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .confirm-button {
+    font-size: var(--font-xs) !important;
+    padding: 8px 12px !important;
+    min-height: 32px !important;
+    width: 100%;
   }
 }
