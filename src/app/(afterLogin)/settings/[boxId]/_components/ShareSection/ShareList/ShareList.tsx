@@ -1,25 +1,14 @@
 import classNames from "classnames/bind";
 
-import Button from "@/app/_components/Button/Button";
-import TrashIcon from "@/app/_components/Icons/TrashIcon";
-import { useShareManagement } from "@/hooks/share/useShareManagement";
+import { useShareMemberList } from "@/hooks/share/useShareMemberList";
 
-import MemberDeleteModal from "./MemberDeleteModal/MemberDeleteModal";
 import styles from "./ShareList.module.css";
+import ShareMember from "./ShareMember/ShareMember";
 
 const cx = classNames.bind(styles);
 
 export default function ShareList() {
-  const {
-    members,
-    isLoadingMembers,
-    membersError,
-    deleteConfirmShare,
-    handleDeleteShare,
-    openDeleteConfirm,
-    closeDeleteConfirm,
-    isDeleting,
-  } = useShareManagement();
+  const { members, isLoadingMembers, membersError } = useShareMemberList();
 
   if (isLoadingMembers) {
     return (
@@ -57,46 +46,10 @@ export default function ShareList() {
       ) : (
         <div className={cx("list")}>
           {members.map((member) => (
-            <div key={member.id} className={cx("item")}>
-              <div className={cx("user-info")}>
-                <div
-                  className={cx("user-avatar")}
-                  style={{
-                    backgroundColor: member.color || "#6b7280",
-                    color: "#ffffff",
-                  }}
-                >
-                  {member.nickname?.[0] || "U"}
-                </div>
-                <div className={cx("user-details")}>
-                  <div className={cx("user-name")}>
-                    {member.nickname || "알 수 없음"}
-                  </div>
-                </div>
-              </div>
-
-              <div className={cx("actions")}>
-                <Button
-                  variant="icon"
-                  onClick={() => openDeleteConfirm(member)}
-                  className={cx("delete-action")}
-                  title="멤버 방출"
-                >
-                  <TrashIcon />
-                </Button>
-              </div>
-            </div>
+            <ShareMember key={member.id} member={member} />
           ))}
         </div>
       )}
-
-      <MemberDeleteModal
-        isOpen={!!deleteConfirmShare}
-        memberName={deleteConfirmShare?.nickname || ""}
-        onClose={closeDeleteConfirm}
-        onConfirm={() => deleteConfirmShare && handleDeleteShare(deleteConfirmShare.user_id)}
-        isRemoving={isDeleting}
-      />
     </div>
   );
 }

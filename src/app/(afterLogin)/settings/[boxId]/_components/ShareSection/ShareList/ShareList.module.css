@@ -54,97 +54,9 @@
   line-height: 1.5;
 }
 
-.empty-action {
-  margin-top: 16px;
-  padding: 12px 24px;
-  background: var(--primary-500);
-  color: white;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.empty-action:hover {
-  background: var(--primary-600);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-
-.empty-action::before {
-  content: "✨";
-  font-size: var(--font-sm);
-}
 
 .list {
   padding: 16px 24px 20px;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.item:last-child {
-  border-bottom: none;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex: 1;
-  min-width: 0;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--gray-500);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: var(--font-sm);
-  flex-shrink: 0;
-  text-transform: uppercase;
-  box-shadow: var(--shadow-sm);
-  border: 2px solid white;
-}
-
-.user-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1px;
-  min-width: 0;
-  flex: 1;
-}
-
-.user-name {
-  font-size: var(--font-md);
-  font-weight: 600;
-  color: var(--gray-900);
-  line-height: 1.3;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.actions {
-  flex-shrink: 0;
-}
-
-.delete-action {
-  color: var(--red-600) !important;
-  border-color: var(--red-200) !important;
 }
 
 /* 모바일 반응형 */
@@ -168,36 +80,15 @@
     padding: 32px 16px;
   }
 
+  .list {
+    padding: 16px;
+  }
+
   .empty-text {
     font-size: var(--font-sm);
   }
 
   .empty-subtext {
     font-size: var(--font-xs);
-  }
-
-  .item {
-    padding: 12px 0;
-    gap: 12px;
-  }
-
-  .user-info {
-    gap: 10px;
-  }
-
-  .user-avatar {
-    width: 32px;
-    height: 32px;
-    font-size: var(--font-xs);
-  }
-
-  .user-name {
-    font-size: var(--font-xs);
-  }
-
-  .delete-action {
-    font-size: var(--font-xs) !important;
-    padding: 6px 10px !important;
-    min-height: 32px !important;
   }
 }
