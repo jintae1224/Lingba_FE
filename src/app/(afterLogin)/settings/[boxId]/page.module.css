@@ -10,12 +10,12 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .container {
-    gap: 18px;
+    gap: 40px;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    gap: 12px;
+    gap: 32px;
   }
 }

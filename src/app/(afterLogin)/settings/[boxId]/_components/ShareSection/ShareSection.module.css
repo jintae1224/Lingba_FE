@@ -20,12 +20,12 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .share-grid {
-    gap: 20px;
+    gap: 40px;
   }
 }
 
 @media (max-width: 480px) {
   .share-grid {
-    gap: 16px;
+    gap: 32px;
   }
 }
