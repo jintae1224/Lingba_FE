@@ -32,7 +32,7 @@ export const getUserProfile = async (): Promise<UserProfile> => {
 export const updateProfile = async (data: {
   nickname?: string;
   color?: string;
-}): Promise<UserProfile> => {
+}): Promise<void> => {
   const response = await fetch("/conn/user/profile", {
     method: "PATCH",
     headers: {
@@ -47,15 +47,12 @@ export const updateProfile = async (data: {
   }
 
   const result: ApiResponse<UserProfile> = await response.json();
+
   if (!result.success) {
     throw new Error(result.message || "프로필 수정 중 오류가 발생했습니다.");
   }
 
-  if (!result.data) {
-    throw new Error("프로필 수정에 실패했습니다.");
-  }
-
-  return result.data;
+  // 서버에서 data를 null로 보내므로 성공 시 아무것도 반환하지 않음
 };
 
 /**
@@ -64,7 +61,7 @@ export const updateProfile = async (data: {
 export const updateSettings = async (data: {
   gender?: "male" | "female" | "other";
   age_group?: "10s" | "20s" | "30s" | "40s" | "50s" | "60plus";
-}): Promise<UserProfile> => {
+}): Promise<void> => {
   const response = await fetch("/conn/user/settings", {
     method: "PATCH",
     headers: {
@@ -79,15 +76,12 @@ export const updateSettings = async (data: {
   }
 
   const result: ApiResponse<UserProfile> = await response.json();
+
   if (!result.success) {
     throw new Error(result.message || "설정 수정 중 오류가 발생했습니다.");
   }
 
-  if (!result.data) {
-    throw new Error("설정 수정에 실패했습니다.");
-  }
-
-  return result.data;
+  // 서버에서 data를 null로 보내므로 성공 시 아무것도 반환하지 않음
 };
 
 /**
