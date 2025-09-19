@@ -1,6 +1,7 @@
 "use client";
 
 import classNames from "classnames/bind";
+import Image from "next/image";
 
 import EditIcon from "@/app/_components/Icons/EditIcon";
 import { AGE_OPTIONS, GENDER_OPTIONS } from "@/constants/signup";
@@ -43,6 +44,35 @@ export default function InfoSection({ user }: InfoSectionProps) {
           <div className={cx("item")}>
             <div className={cx("info")}>
               <div className={cx("info-header")}>
+                <h3 className={cx("title")}>로그인 방식</h3>
+              </div>
+            </div>
+            <div className={cx("provider-badge", user.provider)}>
+              {user.provider === "google" && (
+                <Image
+                  src="/images/google-icon.svg"
+                  width={16}
+                  height={16}
+                  alt="Google"
+                />
+              )}
+              {user.provider === "kakao" && (
+                <Image
+                  src="/images/kakao-icon.svg"
+                  width={16}
+                  height={16}
+                  alt="Kakao"
+                />
+              )}
+              <span className={cx("provider-name")}>
+                {user.provider === "google" ? "Google" : "Kakao"}
+              </span>
+            </div>
+          </div>
+
+          <div className={cx("item")}>
+            <div className={cx("info")}>
+              <div className={cx("info-header")}>
                 <h3 className={cx("title")}>성별</h3>
                 <button
                   className={cx("edit-btn")}
@@ -53,8 +83,8 @@ export default function InfoSection({ user }: InfoSectionProps) {
                 </button>
               </div>
               <p className={cx("description")}>
-                {GENDER_OPTIONS.find((opt) => opt.value === user.gender)?.label ||
-                  "-"}
+                {GENDER_OPTIONS.find((opt) => opt.value === user.gender)
+                  ?.label || "-"}
               </p>
             </div>
             <button className={cx("button")} onClick={openGenderSheet}>
@@ -75,8 +105,8 @@ export default function InfoSection({ user }: InfoSectionProps) {
                 </button>
               </div>
               <p className={cx("description")}>
-                {AGE_OPTIONS.find((opt) => opt.value === user.age_group)?.label ||
-                  "-"}
+                {AGE_OPTIONS.find((opt) => opt.value === user.age_group)
+                  ?.label || "-"}
               </p>
             </div>
             <button className={cx("button")} onClick={openAgeGroupSheet}>

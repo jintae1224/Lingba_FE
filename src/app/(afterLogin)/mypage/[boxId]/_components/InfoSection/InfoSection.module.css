@@ -124,6 +124,34 @@
   box-shadow: none;
 }
 
+
+.provider-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.provider-badge.google {
+  background: white;
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+}
+
+.provider-badge.kakao {
+  background: #fee500;
+  color: #3c1e1e;
+  border: 1px solid #f5d800;
+}
+
+.provider-name {
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .section {
     border-radius: 12px;
@@ -169,5 +197,20 @@
     width: 28px;
     height: 28px;
     flex-shrink: 0;
+  }
+
+  .provider-badge {
+    padding: 4px 8px;
+    font-size: var(--font-xs);
+    gap: 6px;
+  }
+
+  .provider-badge img {
+    width: 14px;
+    height: 14px;
+  }
+
+  .item:first-child {
+    align-items: center;
   }
 }

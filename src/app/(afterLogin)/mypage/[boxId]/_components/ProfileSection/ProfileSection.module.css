@@ -29,12 +29,9 @@
   gap: 16px;
 }
 
-.header .badge + .name {
-  margin-left: -8px;
-}
 
 .name {
-  font-size: var(--font-2xl);
+  font-size: var(--font-xl);
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -102,29 +99,6 @@
   flex-shrink: 0;
 }
 
-.badge {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  background: var(--bg-primary);
-  border: 1px solid var(--gray-200);
-  padding: 10px;
-  margin-top: 2px;
-}
-
-.badge.google {
-  background: var(--bg-primary);
-  border-color: var(--gray-200);
-}
-
-.badge.kakao {
-  background: #fee500;
-  border-color: #fee500;
-}
 
 @media (max-width: 768px) {
   .card {
@@ -147,9 +121,6 @@
     align-items: center;
   }
 
-  .header .badge + .name {
-    margin-left: -6px;
-  }
 
   .name {
     font-size: var(--font-lg);
@@ -174,11 +145,4 @@
     padding: 4px 8px;
   }
 
-  .badge {
-    width: 26px;
-    height: 26px;
-    padding: 7px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
 }

@@ -1,7 +1,6 @@
 "use client";
 
 import classNames from "classnames/bind";
-import Image from "next/image";
 
 import Avatar from "@/app/_components/Avatar/Avatar";
 import BoxIcon from "@/app/_components/Icons/BoxIcon";
@@ -50,24 +49,6 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
 
           <div className={cx("info")}>
             <div className={cx("header")}>
-              <div className={cx("badge", user.provider)}>
-                {user.provider === "google" && (
-                  <Image
-                    src="/images/google-icon.svg"
-                    width={18}
-                    height={18}
-                    alt="Google"
-                  />
-                )}
-                {user.provider === "kakao" && (
-                  <Image
-                    src="/images/kakao-icon.svg"
-                    width={18}
-                    height={18}
-                    alt="Kakao"
-                  />
-                )}
-              </div>
               <h3 className={cx("name")}>{user.nickname}</h3>
               <button
                 className={cx("edit-btn")}
