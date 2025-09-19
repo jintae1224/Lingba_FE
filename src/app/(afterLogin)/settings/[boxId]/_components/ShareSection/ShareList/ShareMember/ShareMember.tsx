@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import Avatar from "@/app/_components/Avatar/Avatar";
 import TrashIcon from "@/app/_components/Icons/TrashIcon";
 import { useShareMemberActions } from "@/hooks/share/useShareMemberActions";
 import { ShareMember as ShareMemberData } from "@/hooks/share/useShareMemberList";
@@ -24,15 +25,11 @@ export default function ShareMember({ member }: ShareMemberProps) {
   return (
     <div className={cx("item")}>
       <div className={cx("user-info")}>
-        <div
-          className={cx("user-avatar")}
-          style={{
-            backgroundColor: member.color || "#6b7280",
-            color: "#ffffff",
-          }}
-        >
-          {member.nickname?.[0] || "U"}
-        </div>
+        <Avatar
+          nickname={member.nickname || "알 수 없음"}
+          color={member.color}
+          size="md"
+        />
         <div className={cx("user-details")}>
           <div className={cx("user-name")}>
             {member.nickname || "알 수 없음"}

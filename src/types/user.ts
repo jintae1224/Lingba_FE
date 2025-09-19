@@ -1,5 +1,9 @@
-export type Gender = "male" | "female" | "other";
-export type AgeGroup = "10s" | "20s" | "30s" | "40s" | "50s" | "60plus";
+import { USER_COLORS } from "@/constants/colors";
+import { AGE_OPTIONS,GENDER_OPTIONS } from "@/constants/signup";
+
+export type Gender = typeof GENDER_OPTIONS[number]["value"];
+export type AgeGroup = typeof AGE_OPTIONS[number]["value"];
+export type UserColor = typeof USER_COLORS[number];
 
 export interface SignupData {
   nickname: string;
@@ -18,4 +22,6 @@ export interface UserProfile {
   provider: string;
   color: string;
   visited_box?: string | null;
+  box_count: number;
+  link_count: number;
 }
