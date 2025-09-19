@@ -27,7 +27,7 @@ export default function MyPage() {
   }
 
   return (
-    <main className={cx("content")}>
+    <main className={cx("container")}>
       <ProfileSection user={user} />
       <InfoSection user={user} />
       <DangerZone
