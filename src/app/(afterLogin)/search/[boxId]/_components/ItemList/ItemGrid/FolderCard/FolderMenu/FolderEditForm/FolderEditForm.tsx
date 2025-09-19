@@ -82,22 +82,27 @@ export default function FolderEditForm({
                   </span>
                 </div>
                 <div className={cx("delete-actions")}>
-                  <button
+                  <Button
+                    variant="secondary"
+                    size="small"
                     type="button"
                     onClick={() => setShowDeleteConfirm(false)}
-                    className={cx("cancel-button")}
                     disabled={isDeleteLoading}
+                    className={cx("cancel-button")}
                   >
                     취소
-                  </button>
-                  <button
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="small"
                     type="button"
                     onClick={handleDelete}
-                    className={cx("confirm-delete-button")}
                     disabled={isDeleteLoading}
+                    loading={isDeleteLoading}
+                    className={cx("confirm-delete-button")}
                   >
-                    {isDeleteLoading ? "삭제 중..." : "삭제"}
-                  </button>
+                    삭제
+                  </Button>
                 </div>
               </div>
             )}
