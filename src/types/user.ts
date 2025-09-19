@@ -22,4 +22,6 @@ export interface UserProfile {
   provider: string;
   color: string;
   visited_box?: string | null;
+  box_count: number;
+  link_count: number;
 }

@@ -48,10 +48,37 @@ export async function GET() {
       return NextResponse.json(response, { status: 500 });
     }
 
+    // 박스 수 조회
+    const { count: boxCount, error: boxCountError } = await supabase
+      .from("user_box")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id);
+
+    if (boxCountError) {
+      console.error("박스 수 조회 오류:", boxCountError);
+    }
+
+    // 링크 수 조회
+    const { count: linkCount, error: linkCountError } = await supabase
+      .from("user_link")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id);
+
+    if (linkCountError) {
+      console.error("링크 수 조회 오류:", linkCountError);
+    }
+
+    // UserProfile 타입에 맞게 데이터 구성
+    const userProfile: UserProfile = {
+      ...userData,
+      box_count: boxCount || 0,
+      link_count: linkCount || 0,
+    };
+
     const response: ApiResponse<UserProfile> = {
       success: true,
       message: "사용자 정보 조회 성공",
-      data: userData,
+      data: userProfile,
     };
     return NextResponse.json(response);
   } catch (error) {
