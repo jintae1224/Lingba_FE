@@ -67,8 +67,8 @@ export const useUserAgeGroupEdit = ({
     onClose?.();
   };
 
-  const handleAgeGroupChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedAgeGroup(e.target.value as AgeGroup);
+  const handleAgeGroupSelect = (ageGroup: AgeGroup) => {
+    setSelectedAgeGroup(ageGroup);
   };
 
   const handleKeyDown = createKeyHandler({
@@ -88,7 +88,7 @@ export const useUserAgeGroupEdit = ({
     isChanged,
     handleSave,
     handleCancel,
-    handleAgeGroupChange,
+    handleAgeGroupSelect,
     handleKeyDown,
   };
 };

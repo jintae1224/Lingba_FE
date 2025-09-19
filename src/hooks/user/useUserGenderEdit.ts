@@ -68,8 +68,8 @@ export const useUserGenderEdit = ({
     onClose?.();
   };
 
-  const handleGenderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedGender(e.target.value as Gender);
+  const handleGenderSelect = (gender: Gender) => {
+    setSelectedGender(gender);
   };
 
   const handleKeyDown = createKeyHandler({
@@ -89,7 +89,7 @@ export const useUserGenderEdit = ({
     isChanged,
     handleSave,
     handleCancel,
-    handleGenderChange,
+    handleGenderSelect,
     handleKeyDown,
   };
 };
