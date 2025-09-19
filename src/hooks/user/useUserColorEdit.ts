@@ -1,31 +1,36 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useUser } from "@/hooks/user/useUser";
 import { updateProfile } from "@/services/user/user";
-import { useUserStore } from "@/stores/userStore";
-import { UserProfile } from "@/types/user";
+import { createKeyHandler } from "@/utils/common/keyboard";
 
-export const useUserColorEdit = () => {
+interface UseUserColorEditOptions {
+  onClose?: () => void;
+}
+
+export const useUserColorEdit = ({ onClose }: UseUserColorEditOptions = {}) => {
   const queryClient = useQueryClient();
-  const { user, setUser } = useUserStore();
+  const { user } = useUser();
 
   // 편집 상태 관리
-  const [isEditing, setIsEditing] = useState(false);
   const [selectedColor, setSelectedColor] = useState(user?.color || "#8B5CF6");
 
+  // user 변경 시 selectedColor 업데이트
+  useEffect(() => {
+    if (user?.color) {
+      setSelectedColor(user.color);
+    }
+  }, [user?.color]);
+
   // 색상 수정 mutation
-  const {
-    mutate: updateColorMutate,
-    mutateAsync: updateColorAsync,
-    isPending: isUpdating,
-    error: updateError,
-  } = useMutation({
+  const { mutateAsync: updateColorAsync, isPending: isUpdating } = useMutation({
     mutationFn: (data: { color: string }) => updateProfile(data),
-    onSuccess: (updatedUser: UserProfile) => {
-      // React Query 캐시 무효화
+    onSuccess: () => {
+      // React Query 캐시 무효화 (서버에서 최신 데이터 가져옴)
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      // Zustand 스토어 업데이트
-      setUser(updatedUser);
+      // 성공 시 닫기
+      onClose?.();
     },
   });
 
@@ -33,16 +38,18 @@ export const useUserColorEdit = () => {
   const handleSave = async () => {
     if (isUpdating) return false;
 
+    // 변경사항이 없으면 성공으로 처리
+    if (selectedColor === user?.color) {
+      return true;
+    }
+
     try {
       await updateColorAsync({
         color: selectedColor,
       });
-      setIsEditing(false);
-      alert("색상이 수정되었습니다.");
       return true;
     } catch (error) {
       console.error("색상 수정 에러:", error);
-      alert("색상 수정에 실패했습니다. 다시 시도해주세요.");
       return false;
     }
   };
@@ -51,36 +58,31 @@ export const useUserColorEdit = () => {
     if (user) {
       setSelectedColor(user.color);
     }
-    setIsEditing(false);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
+    onClose?.();
   };
 
   const handleColorSelect = (color: string) => {
     setSelectedColor(color);
   };
 
-  return {
-    // 현재 색상
-    currentColor: user?.color || "#8B5CF6",
+  const handleKeyDown = createKeyHandler({
+    onEnter: handleSave,
+    onEscape: handleCancel,
+  });
 
-    // 편집 상태
-    isEditing,
+  // 유효성 검사
+  const isValid = selectedColor !== null && selectedColor !== "";
+  const isChanged = selectedColor !== user?.color;
+
+  return {
+    currentColor: user?.color || "#8B5CF6",
     selectedColor,
     isProcessing: isUpdating,
-
-    // 색상 수정 (직접 호출)
-    updateColor: updateColorMutate,
-    updateColorAsync,
-    isUpdating,
-    updateError,
-
-    // 편집 핸들러들
-    handleEdit,
+    isValid,
+    isChanged,
     handleSave,
     handleCancel,
     handleColorSelect,
+    handleKeyDown,
   };
 };

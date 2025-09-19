@@ -1,53 +1,62 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import { useUser } from "@/hooks/user/useUser";
 import { updateProfile } from "@/services/user/user";
-import { useUserStore } from "@/stores/userStore";
-import { UserProfile } from "@/types/user";
+import { createKeyHandler } from "@/utils/common/keyboard";
 
-export const useUserNicknameEdit = () => {
+interface UseUserNicknameEditOptions {
+  onClose?: () => void;
+}
+
+export const useUserNicknameEdit = ({
+  onClose,
+}: UseUserNicknameEditOptions = {}) => {
   const queryClient = useQueryClient();
-  const { user, setUser } = useUserStore();
+  const { user } = useUser();
 
   // 편집 상태 관리
-  const [isEditing, setIsEditing] = useState(false);
   const [nickname, setNickname] = useState(user?.nickname || "");
 
+  // user 변경 시 nickname 업데이트
+  useEffect(() => {
+    if (user?.nickname) {
+      setNickname(user.nickname);
+    }
+  }, [user?.nickname]);
+
   // 닉네임 수정 mutation
-  const {
-    mutate: updateNicknameMutate,
-    mutateAsync: updateNicknameAsync,
-    isPending: isUpdating,
-    error: updateError,
-  } = useMutation({
-    mutationFn: (data: { nickname: string }) => updateProfile(data),
-    onSuccess: (updatedUser: UserProfile) => {
-      // React Query 캐시 무효화
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      // Zustand 스토어 업데이트
-      setUser(updatedUser);
-    },
-  });
+  const { mutateAsync: updateNicknameAsync, isPending: isUpdating } =
+    useMutation({
+      mutationFn: (data: { nickname: string }) => updateProfile(data),
+      onSuccess: () => {
+        // React Query 캐시 무효화 (서버에서 최신 데이터 가져옴)
+        queryClient.invalidateQueries({ queryKey: ["user"] });
+        // 성공 시 닫기
+        onClose?.();
+      },
+    });
 
   // 편집 핸들러들
   const handleSave = async () => {
     if (isUpdating) return false;
 
     if (!nickname.trim()) {
-      alert("닉네임을 입력해주세요.");
       return false;
+    }
+
+    // 변경사항이 없으면 성공으로 처리
+    if (nickname.trim() === user?.nickname) {
+      return true;
     }
 
     try {
       await updateNicknameAsync({
         nickname: nickname.trim(),
       });
-      setIsEditing(false);
-      alert("닉네임이 수정되었습니다.");
       return true;
     } catch (error) {
       console.error("닉네임 수정 에러:", error);
-      alert("닉네임 수정에 실패했습니다. 다시 시도해주세요.");
       return false;
     }
   };
@@ -56,36 +65,30 @@ export const useUserNicknameEdit = () => {
     if (user) {
       setNickname(user.nickname);
     }
-    setIsEditing(false);
-  };
-
-  const handleEdit = () => {
-    setIsEditing(true);
+    onClose?.();
   };
 
   const handleNicknameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNickname(e.target.value);
   };
 
-  return {
-    // 현재 닉네임
-    currentNickname: user?.nickname || "",
+  const handleKeyDown = createKeyHandler({
+    onEnter: handleSave,
+    onEscape: handleCancel,
+  });
 
-    // 편집 상태
-    isEditing,
+  // 유효성 검사
+  const isValid = nickname.trim().length > 0;
+  const isChanged = nickname.trim() !== user?.nickname;
+
+  return {
     nickname,
     isProcessing: isUpdating,
-
-    // 닉네임 수정 (직접 호출)
-    updateNickname: updateNicknameMutate,
-    updateNicknameAsync,
-    isUpdating,
-    updateError,
-
-    // 편집 핸들러들
-    handleEdit,
+    isValid,
+    isChanged,
     handleSave,
     handleCancel,
     handleNicknameChange,
+    handleKeyDown,
   };
 };
