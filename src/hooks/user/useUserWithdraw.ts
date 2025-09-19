@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { useUser } from "@/hooks/user/useUser";
 import { withdrawAccount } from "@/services/user/user";
-import { useUserStore } from "@/stores/userStore";
 
 export const useUserWithdraw = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { user, isLoading, error, clearUser } = useUserStore();
+  const { user, isLoading, error } = useUser();
 
   // 회원 탈퇴 mutation
   const {
@@ -20,8 +20,6 @@ export const useUserWithdraw = () => {
     onSuccess: () => {
       // 모든 캐시 제거
       queryClient.clear();
-      // Zustand 스토어 클리어
-      clearUser();
     },
   });
 
@@ -65,6 +63,6 @@ export const useUserWithdraw = () => {
     handleWithdraw,
 
     // 유틸리티
-    clearUserData: clearUser,
+    clearUserData: () => queryClient.removeQueries({ queryKey: ["user"] }),
   };
 };

@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
+import { useUser } from "@/hooks/user/useUser";
 import { updateSettings } from "@/services/user/user";
-import { useUserStore } from "@/stores/userStore";
-import { AgeGroup, Gender, UserProfile } from "@/types/user";
+import { AgeGroup, Gender } from "@/types/user";
 
 export const useUserSettings = () => {
   const queryClient = useQueryClient();
-  const { user, setUser } = useUserStore();
+  const { user } = useUser();
 
   // 편집 상태 관리
   const [isEditing, setIsEditing] = useState(false);
@@ -21,12 +21,11 @@ export const useUserSettings = () => {
     isPending: isUpdating,
     error: updateError,
   } = useMutation({
-    mutationFn: (data: { gender?: Gender; age_group?: AgeGroup }) => updateSettings(data),
-    onSuccess: (updatedUser: UserProfile) => {
-      // React Query 캐시 무효화
+    mutationFn: (data: { gender?: Gender; age_group?: AgeGroup }) =>
+      updateSettings(data),
+    onSuccess: () => {
+      // React Query 캐시 무효화 (서버에서 최신 데이터 가져옴)
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      // Zustand 스토어 업데이트
-      setUser(updatedUser);
     },
   });
 
@@ -71,10 +70,12 @@ export const useUserSettings = () => {
 
   return {
     // 현재 설정
-    currentSettings: user ? {
-      gender: user.gender,
-      ageGroup: user.age_group,
-    } : null,
+    currentSettings: user
+      ? {
+          gender: user.gender,
+          ageGroup: user.age_group,
+        }
+      : null,
 
     // 편집 상태
     isEditing,
@@ -90,8 +91,10 @@ export const useUserSettings = () => {
 
     // 편의 메서드
     updateGender: (gender: Gender) => updateSettingsMutate({ gender }),
-    updateAgeGroup: (age_group: AgeGroup) => updateSettingsMutate({ age_group }),
-    updateBoth: (gender: Gender, age_group: AgeGroup) => updateSettingsMutate({ gender, age_group }),
+    updateAgeGroup: (age_group: AgeGroup) =>
+      updateSettingsMutate({ age_group }),
+    updateBoth: (gender: Gender, age_group: AgeGroup) =>
+      updateSettingsMutate({ gender, age_group }),
 
     // 편집 핸들러들
     handleEdit,

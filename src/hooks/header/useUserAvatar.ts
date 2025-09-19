@@ -1,7 +1,7 @@
 import { useRouter } from "next/navigation";
 
 import { useCurrentBox } from "@/hooks/box/useCurrentBox";
-import { useUserStore } from "@/stores/userStore";
+import { useUser } from "@/hooks/user/useUser";
 
 /**
  * 헤더 사용자 아바타 로직을 관리하는 hook
@@ -9,7 +9,7 @@ import { useUserStore } from "@/stores/userStore";
  */
 export const useUserAvatar = () => {
   const router = useRouter();
-  const { user } = useUserStore();
+  const { user } = useUser();
   const { currentBox } = useCurrentBox();
 
   const handleAvatarClick = () => {

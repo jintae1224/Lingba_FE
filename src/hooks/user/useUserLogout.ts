@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 
+import { useUser } from "@/hooks/user/useUser";
 import { logout } from "@/services/user/user";
-import { useUserStore } from "@/stores/userStore";
 
 export const useUserLogout = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { user, isLoading, error, clearUser } = useUserStore();
+  const { user, isLoading, error } = useUser();
 
   // 로그아웃 mutation
   const {
@@ -20,8 +20,6 @@ export const useUserLogout = () => {
     onSuccess: () => {
       // 모든 캐시 제거
       queryClient.clear();
-      // Zustand 스토어 클리어
-      clearUser();
     },
   });
 
@@ -57,6 +55,6 @@ export const useUserLogout = () => {
     handleLogout,
 
     // 유틸리티
-    clearUserData: clearUser,
+    clearUserData: () => queryClient.removeQueries({ queryKey: ["user"] }),
   };
 };
