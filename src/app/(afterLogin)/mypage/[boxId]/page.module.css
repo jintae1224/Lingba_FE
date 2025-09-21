@@ -4,7 +4,13 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
-  padding: 18px 0;
+  padding-top: 24px;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .header {
@@ -33,15 +39,41 @@
   font-weight: 400;
 }
 
+/* PC: 1024px 이상에서만 가로 배치 */
+@media (min-width: 1024px) {
+  .main-content {
+    flex-direction: row;
+    gap: 32px;
+    align-items: flex-start;
+  }
+
+  /* ProfileSection: 35%, InfoSection: 65% */
+  .main-content > :first-child {
+    flex: 0 1 35%;
+    max-width: 35%;
+    min-width: 0;
+  }
+
+  .main-content > :last-child {
+    flex: 0 1 65%;
+    max-width: 65%;
+    min-width: 0;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
+    gap: 40px;
+    padding-top: 16px;
+  }
+
+  .main-content {
     gap: 40px;
   }
 
   .title {
     font-size: var(--font-sm);
   }
-
 }
 
 @media (max-width: 480px) {
