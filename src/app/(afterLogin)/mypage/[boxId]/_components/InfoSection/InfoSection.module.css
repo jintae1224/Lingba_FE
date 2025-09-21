@@ -18,7 +18,7 @@
 }
 
 .content {
-  padding: 16px 24px 20px;
+  padding: 14px 24px;
 }
 
 .item {
@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 10px 0;
+  padding: 20px 0;
   border-bottom: 1px solid var(--gray-100);
 }
 
@@ -42,7 +42,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 4px;
 }
 
 .title {
@@ -75,16 +74,8 @@
   color: var(--gray-600);
 }
 
-.edit-btn:hover {
-  background: var(--gray-100);
-  color: var(--gray-700);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .edit-btn:active {
   transform: translateY(0);
-  box-shadow: none;
 }
 
 .button {
@@ -102,17 +93,8 @@
   letter-spacing: -0.01em;
 }
 
-.button:hover {
-  background: var(--gray-200);
-  color: var(--gray-800);
-  border-color: var(--gray-300);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-sm);
-}
-
 .button:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
 }
 
 .button:disabled {
@@ -123,7 +105,6 @@
   transform: none;
   box-shadow: none;
 }
-
 
 .provider-badge {
   display: inline-flex;
@@ -171,7 +152,7 @@
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    padding: 8px 0;
+    padding: 16px 0;
   }
 
   .title {
@@ -181,11 +162,6 @@
   .info {
     flex: 1;
     min-width: 0;
-  }
-
-  .item:hover {
-    margin: 0 -8px;
-    padding: 8px 8px;
   }
 
   .button {
