@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
         const { data: userData, error: fetchError } = await supabase
           .from("users")
           .select("nickname")
-          .eq("email", user.email!)
+          .eq("id", user.id)
           .single();
         // 회원가입이 완료된 사용자라면 메인 페이지로 리다이렉트
         if (!fetchError && userData) {

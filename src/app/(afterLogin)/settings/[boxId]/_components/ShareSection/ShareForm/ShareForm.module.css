@@ -1,0 +1,326 @@
+/* Modern card design */
+.container {
+  background: var(--bg-primary);
+  border: 1px solid var(--gray-300);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 24px 20px;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 6px 0;
+  line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.description {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.form {
+  padding: 24px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* 로딩 섹션 스타일 */
+.loading-section {
+  padding: 24px;
+}
+
+.loading-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.loading-text {
+  font-size: var(--font-sm);
+}
+
+/* 기존 초대 코드 표시 스타일 */
+.existing-invitation {
+  padding: 24px;
+}
+
+.existing-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.existing-title {
+  font-size: var(--font-md);
+  font-weight: 700;
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.code-section {
+  margin-bottom: 12px;
+}
+
+.code-label {
+  font-size: var(--font-xs);
+  font-weight: 500;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.code-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.code-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--success) 0%,
+    var(--primary-500) 100%
+  );
+}
+
+.code-container button {
+  width: auto !important;
+  flex-shrink: 0;
+}
+
+.code {
+  flex: 1;
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", monospace;
+  font-size: var(--font-xs);
+  color: var(--gray-800);
+  word-break: break-all;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.expiry-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--font-xs);
+  color: var(--gray-500);
+}
+
+.expiry-label {
+  font-weight: 500;
+}
+
+.expiry-date {
+  color: var(--gray-800);
+}
+
+.invitation-actions {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--gray-150);
+}
+
+.delete-action {
+  color: var(--red-600) !important;
+  border-color: var(--red-200) !important;
+  background: white !important;
+}
+
+.delete-action:hover {
+  color: var(--red-700) !important;
+  border-color: var(--red-300) !important;
+  background: var(--red-50) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.1);
+}
+
+.delete-action:active {
+  transform: translateY(0);
+  background: var(--red-100) !important;
+}
+
+.confirm-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.confirm-button.danger {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  color: white !important;
+  border-color: #dc2626 !important;
+}
+
+.confirm-button.danger:hover {
+  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%) !important;
+  border-color: #b91c1c !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
+}
+
+.confirm-button.danger:disabled {
+  background: #fecaca !important;
+  color: #f87171 !important;
+  border-color: #fca5a5 !important;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.confirm-button.cancel {
+  background: white !important;
+  color: #6b7280 !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.confirm-button.cancel:hover {
+  background: #f9fafb !important;
+  color: #374151 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .container {
+    border-radius: 12px;
+  }
+
+  .header {
+    padding: 20px 20px 16px;
+    gap: 12px;
+  }
+
+  .title {
+    font-size: var(--font-sm);
+    margin-bottom: 4px;
+  }
+
+  .description {
+    font-size: var(--font-xs);
+  }
+
+  .form {
+    padding: 20px;
+  }
+
+  .existing-invitation {
+    padding: 20px;
+  }
+
+  .loading-section {
+    padding: 20px;
+  }
+
+  .loading-content {
+    padding: 16px;
+    gap: 8px;
+  }
+
+  .loading-text {
+    font-size: var(--font-xs);
+  }
+
+  .existing-title {
+    font-size: var(--font-xs);
+  }
+
+  .code-label {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
+
+  .code-container {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .code {
+    font-size: 11px;
+  }
+
+  .expiry-info {
+    font-size: 10px;
+    gap: 4px;
+  }
+
+  .invitation-actions {
+    margin-top: 12px;
+    padding-top: 10px;
+  }
+
+  .delete-action {
+    font-size: var(--font-xs) !important;
+    padding: 6px 10px !important;
+    min-height: 32px !important;
+  }
+
+  .confirm-group {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .confirm-button {
+    font-size: var(--font-xs) !important;
+    padding: 8px 12px !important;
+    min-height: 32px !important;
+    width: 100%;
+  }
+}

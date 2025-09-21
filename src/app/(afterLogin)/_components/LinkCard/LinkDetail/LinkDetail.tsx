@@ -1,8 +1,8 @@
 "use client";
 
 import classNames from "classnames/bind";
+import { useSearchParams } from "next/navigation";
 
-import LoadingSpinner from "@/app/_components/LoadingSpinner/LoadingSpinner";
 import { useBoxId } from "@/hooks/box/useBoxId";
 import { useLinkDetail } from "@/hooks/link/useLinkDetail";
 import { getHostname } from "@/utils/url";
@@ -12,42 +12,32 @@ import LinkDetailContent from "./LinkDetailContent/LinkDetailContent";
 import LinkDetailFooter from "./LinkDetailFooter/LinkDetailFooter";
 import LinkDetailHeader from "./LinkDetailHeader/LinkDetailHeader";
 import LinkDetailHero from "./LinkDetailHero/LinkDetailHero";
+import LinkDetailNotFound from "./LinkDetailNotFound/LinkDetailNotFound";
+import LinkDetailSkeleton from "./LinkDetailSkeleton/LinkDetailSkeleton";
 
 const cx = classNames.bind(styles);
 
-interface LinkDetailProps {
-  linkId: string;
-}
-
-export default function LinkDetail({ linkId }: LinkDetailProps) {
+export default function LinkDetail() {
+  const searchParams = useSearchParams();
+  const linkId = searchParams.get("linkId");
   const { boxId } = useBoxId();
-  const { data: response, isLoading, error } = useLinkDetail({ 
-    linkId, 
-    boxId: boxId || "" 
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useLinkDetail({
+    linkId: linkId || "",
+    boxId: boxId || "",
   });
 
-  if (!boxId) {
-    return (
-      <div className={cx("container")}>
-        <p>Box ID를 찾을 수 없습니다</p>
-      </div>
-    );
-  }
-
+  // 로딩 상태
   if (isLoading) {
-    return (
-      <div className={cx("container")}>
-        <LoadingSpinner />
-      </div>
-    );
+    return <LinkDetailSkeleton />;
   }
 
+  // 에러 상태 또는 링크가 존재하지 않는 경우
   if (error || !response?.success || !response.data) {
-    return (
-      <div className={cx("container")}>
-        <p>에러발생</p>
-      </div>
-    );
+    return <LinkDetailNotFound />;
   }
 
   const link = response.data;
@@ -59,7 +49,6 @@ export default function LinkDetail({ linkId }: LinkDetailProps) {
         <LinkDetailHeader
           id={link.id}
           title={link.title}
-          createdAt={link.created_at}
           hostname={hostname}
           isPin={link.isPin || false}
         />
