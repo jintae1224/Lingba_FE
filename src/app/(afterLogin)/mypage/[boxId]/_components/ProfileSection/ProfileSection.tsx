@@ -105,7 +105,7 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
               disabled={isLoggingOut}
               aria-label="로그아웃"
             >
-              <PowerIcon width="16" height="16" />
+              <PowerIcon />
             </button>
           </div>
         </div>
