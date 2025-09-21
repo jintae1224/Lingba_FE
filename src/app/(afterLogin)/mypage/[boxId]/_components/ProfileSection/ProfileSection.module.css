@@ -1,45 +1,74 @@
-.card {
+/* Profile Section - InfoSection과 동일한 구조 */
+.profile-section {
   background: var(--bg-primary);
   border: 1px solid var(--gray-300);
-  border-radius: 20px;
-  padding: 32px;
-  background: linear-gradient(
-    135deg,
-    var(--gray-50) 0%,
-    var(--bg-primary) 100%
-  );
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  min-width: 0;
+  width: 100%;
 }
 
-.main {
+.section-title {
+  font-size: var(--font-lg);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  padding: 28px 24px 24px;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+.content {
+  padding: 8px 24px;
+}
+
+.item {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.item:last-child {
+  border-bottom: none;
 }
 
 .info {
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.header {
+.info-header {
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
 }
 
-
-.name {
-  font-size: var(--font-xl);
-  font-weight: 700;
+.title {
+  font-size: var(--font-md);
+  font-weight: 600;
   color: var(--text-primary);
   margin: 0;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  height: 28px;
-  display: flex;
-  align-items: center;
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
+  margin: 0;
+  line-height: 1.4;
+  font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .edit-btn {
@@ -56,59 +85,125 @@
   color: var(--gray-600);
 }
 
-.edit-btn:hover {
-  background: var(--gray-100);
-  color: var(--gray-700);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
 .edit-btn:active {
   transform: translateY(0);
-  box-shadow: none;
 }
 
-.stats {
-  display: flex;
-  gap: 12px;
+/* Profile Item - Avatar and Nickname combined */
+.profile-item {
   align-items: center;
-  margin-top: 4px;
+  gap: 16px;
 }
 
-.stat {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  background: var(--gray-100);
-  border-radius: 16px;
-  font-size: var(--font-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  transition: all 0.2s ease;
-}
-
-.stat:hover {
-  background: var(--gray-200);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.stat-icon {
-  color: var(--text-tertiary);
+.profile-item .avatar-container {
   flex-shrink: 0;
 }
 
+.avatar-container {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 50%;
+  padding-top: 8px;
+}
 
+.avatar-container:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 4px;
+}
+
+/* Stats Item */
+.stats-item .info {
+  flex: 1;
+}
+
+.stats-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--gray-600);
+  min-width: 0;
+  flex-shrink: 1;
+}
+
+.stat-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--gray-400);
+}
+
+.stat-text {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.stat-divider {
+  color: var(--gray-300);
+  user-select: none;
+}
+
+/* Logout Button */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--red-50);
+  color: var(--red-700);
+  border: 1px solid var(--red-200);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+}
+
+.logout-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-  .card {
-    border-radius: 16px;
-    padding: 20px 16px;
+  .profile-section {
+    border-radius: 12px;
   }
 
-  .main {
+  .section-title {
+    padding: 20px 16px 16px;
+    font-size: var(--font-sm);
+  }
+
+  .content {
+    padding: 8px 16px;
+  }
+
+  .item {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
     gap: 12px;
-    align-items: center;
+    padding: 18px 0;
+  }
+
+  .title {
+    font-size: var(--font-sm);
   }
 
   .info {
@@ -116,33 +211,56 @@
     min-width: 0;
   }
 
-  .header {
-    gap: 12px;
-    align-items: center;
+  .avatar-container {
+    padding-top: 6px;
   }
 
-
-  .name {
-    font-size: var(--font-lg);
-    min-width: 0;
-    flex: 1;
-    height: 22px;
-  }
-
-  .edit-btn {
+  .logout-btn {
+    display: flex;
     width: 28px;
     height: 28px;
     flex-shrink: 0;
   }
 
-  .stats {
-    gap: 6px;
+  .edit-btn {
+    display: flex;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .profile-item {
+    align-items: center;
+  }
+
+  .stats-content {
     flex-wrap: wrap;
+    gap: 8px;
   }
 
-  .stat {
+  .stat-item {
     font-size: var(--font-xs);
-    padding: 4px 8px;
   }
 
+  .stat-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+
+/* Focus States */
+.edit-btn:focus-visible,
+.logout-btn:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .avatar-container,
+  .edit-btn,
+  .logout-btn {
+    transition: none;
+  }
 }
