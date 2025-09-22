@@ -108,6 +108,39 @@
   letter-spacing: -0.005em;
 }
 
+/* Menu Button */
+.menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+  color: var(--gray-500);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.menu-button:hover {
+  background: var(--gray-100);
+  color: var(--gray-700);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.menu-button:active {
+  transform: scale(1);
+}
+
+.menu-icon {
+  width: 16px;
+  height: 16px;
+}
+
 /* 768px 이하: 모바일 list 뷰 */
 @media (max-width: 768px) {
   .card {
