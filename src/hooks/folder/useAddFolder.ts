@@ -24,8 +24,15 @@ export function useAddFolder({ onClose }: UseAddFolderProps) {
   const { mutateAsync, isPending, error } = useMutation({
     mutationFn: (data: CreateFolderRequest) => createFolder(data),
     onSuccess: () => {
+      // 폴더 목록 갱신
       queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
-      queryClient.invalidateQueries({ queryKey: ["breadcrumb", boxId] });
+      // 현재 폴더의 아이템 리스트 갱신 (새로 생성된 폴더가 목록에 나타나야 함)
+      queryClient.invalidateQueries({ queryKey: ["list", boxId, parent_id] });
+      // 해당 boxId와 관련된 모든 breadcrumb 갱신
+      queryClient.invalidateQueries({
+        queryKey: ["breadcrumb", boxId],
+        exact: false
+      });
       onClose();
       setFolderName("");
     },
