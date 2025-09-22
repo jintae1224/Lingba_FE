@@ -2,6 +2,7 @@
 
 import classNames from "classnames/bind";
 
+import Button from "@/app/_components/Button/Button";
 import { useUserWithdraw } from "@/hooks/user/useUserWithdraw";
 
 import styles from "./DangerZone.module.css";
@@ -20,13 +21,14 @@ export default function DangerZone() {
             없습니다.
           </p>
         </div>
-        <button
-          className={cx("button", "danger")}
+        <Button
+          variant="danger"
+          size="small"
           onClick={handleWithdraw}
-          disabled={isWithdrawing}
+          loading={isWithdrawing}
         >
-          {isWithdrawing ? "탈퇴하는 중..." : "회원탈퇴"}
-        </button>
+          회원탈퇴
+        </Button>
       </div>
     </div>
   );

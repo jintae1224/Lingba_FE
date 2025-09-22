@@ -4,7 +4,6 @@ import classNames from "classnames/bind";
 
 import Avatar from "@/app/_components/Avatar/Avatar";
 import BoxIcon from "@/app/_components/Icons/BoxIcon";
-import EditIcon from "@/app/_components/Icons/EditIcon";
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import PowerIcon from "@/app/_components/Icons/PowerIcon";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
@@ -57,13 +56,6 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
             <div className={cx("info")}>
               <div className={cx("info-header")}>
                 <h3 className={cx("title")}>{user.nickname}</h3>
-                <button
-                  className={cx("edit-btn")}
-                  onClick={openNicknameSheet}
-                  aria-label="닉네임 편집"
-                >
-                  <EditIcon width="16" height="16" />
-                </button>
               </div>
               <p className={cx("description")}>
                 클릭하여 프로필 색상을 변경하세요

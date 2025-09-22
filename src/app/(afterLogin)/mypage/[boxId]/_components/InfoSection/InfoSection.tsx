@@ -3,7 +3,7 @@
 import classNames from "classnames/bind";
 import Image from "next/image";
 
-import EditIcon from "@/app/_components/Icons/EditIcon";
+import Button from "@/app/_components/Button/Button";
 import { AGE_OPTIONS, GENDER_OPTIONS } from "@/constants/signup";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { UserProfile } from "@/types/user";
@@ -74,44 +74,30 @@ export default function InfoSection({ user }: InfoSectionProps) {
             <div className={cx("info")}>
               <div className={cx("info-header")}>
                 <h3 className={cx("title")}>성별</h3>
-                <button
-                  className={cx("edit-btn")}
-                  onClick={openGenderSheet}
-                  aria-label="성별 편집"
-                >
-                  <EditIcon width="16" height="16" />
-                </button>
               </div>
               <p className={cx("description")}>
                 {GENDER_OPTIONS.find((opt) => opt.value === user.gender)
                   ?.label || "-"}
               </p>
             </div>
-            <button className={cx("button")} onClick={openGenderSheet}>
+            <Button variant="secondary" size="small" onClick={openGenderSheet}>
               변경
-            </button>
+            </Button>
           </div>
 
           <div className={cx("item")}>
             <div className={cx("info")}>
               <div className={cx("info-header")}>
                 <h3 className={cx("title")}>연령대</h3>
-                <button
-                  className={cx("edit-btn")}
-                  onClick={openAgeGroupSheet}
-                  aria-label="연령대 편집"
-                >
-                  <EditIcon width="16" height="16" />
-                </button>
               </div>
               <p className={cx("description")}>
                 {AGE_OPTIONS.find((opt) => opt.value === user.age_group)
                   ?.label || "-"}
               </p>
             </div>
-            <button className={cx("button")} onClick={openAgeGroupSheet}>
+            <Button variant="secondary" size="small" onClick={openAgeGroupSheet}>
               변경
-            </button>
+            </Button>
           </div>
         </div>
       </section>

@@ -71,23 +71,6 @@
   white-space: nowrap;
 }
 
-.edit-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  color: var(--gray-600);
-}
-
-.edit-btn:active {
-  transform: translateY(0);
-}
 
 /* Profile Item - Avatar and Nickname combined */
 .profile-item {
@@ -222,12 +205,6 @@
     flex-shrink: 0;
   }
 
-  .edit-btn {
-    display: flex;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-  }
 
   .profile-item {
     align-items: center;
@@ -250,7 +227,6 @@
 
 
 /* Focus States */
-.edit-btn:focus-visible,
 .logout-btn:focus-visible {
   outline: 2px solid var(--primary-500);
   outline-offset: 2px;
@@ -259,7 +235,6 @@
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   .avatar-container,
-  .edit-btn,
   .logout-btn {
     transition: none;
   }
