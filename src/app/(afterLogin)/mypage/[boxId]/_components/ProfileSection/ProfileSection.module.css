@@ -1,166 +1,46 @@
-/* Profile Section - InfoSection과 동일한 구조 */
-.profile-section {
+/* Modern Toss/Notion Style Profile Section - Height Matched */
+
+.section {
   background: var(--bg-primary);
   border: 1px solid var(--gray-300);
   border-radius: 16px;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
-  min-width: 0;
-  width: 100%;
-}
-
-.section-title {
-  font-size: var(--font-lg);
-  font-weight: 700;
-  color: var(--gray-900);
-  margin: 0;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
-  padding: 28px 24px 24px;
-  border-bottom: 1px solid var(--gray-300);
-}
-
-.content {
-  padding: 8px 24px;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.item:last-child {
-  border-bottom: none;
-}
-
-.info {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.info-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: var(--font-md);
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 8px 0;
-  letter-spacing: -0.01em;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.description {
-  font-size: var(--font-sm);
-  color: var(--gray-500);
-  margin: 0;
-  line-height: 1.4;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-
-/* Profile Item - Avatar and Nickname combined */
-.profile-item {
-  align-items: center;
-  gap: 16px;
-}
-
-.profile-item .avatar-container {
-  flex-shrink: 0;
-}
-
-.avatar-container {
-  cursor: pointer;
   transition: all 0.2s ease;
-  border-radius: 50%;
-  padding-top: 8px;
 }
 
-.avatar-container:focus-visible {
-  outline: 2px solid var(--primary-500);
-  outline-offset: 4px;
+.section:hover {
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Stats Item */
-.stats-item .info {
-  flex: 1;
-}
-
-.stats-content {
+/* Header */
+.header {
+  padding: 28px 24px 0;
   display: flex;
+  justify-content: flex-end;
   align-items: center;
-  gap: 12px;
-  margin-top: 4px;
-  overflow: hidden;
-  min-width: 0;
+  height: 24px; /* InfoSection의 section-title 하단 여백과 맞춤 */
 }
 
-.stat-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--gray-600);
-  min-width: 0;
-  flex-shrink: 1;
-}
-
-.stat-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--gray-400);
-}
-
-.stat-text {
-  font-size: var(--font-sm);
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.stat-divider {
-  color: var(--gray-300);
-  user-select: none;
-}
-
-.button-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  align-self: stretch;
-}
-
-/* Logout Button */
 .logout-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  background: var(--red-50);
-  color: var(--red-700);
-  border: 1px solid var(--red-200);
+  background: var(--gray-50);
+  border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
+  transition: all 0.15s ease;
+  color: var(--gray-600);
 }
 
-.logout-btn:active {
-  transform: translateY(0);
+.logout-btn:hover {
+  background: var(--red-50);
+  color: var(--red-600);
+  transform: translateY(-1px);
 }
 
 .logout-btn:disabled {
@@ -169,84 +49,262 @@
   transform: none;
 }
 
-/* Responsive Design */
+.logout-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Content */
+.content {
+  padding: 0px 24px 12px; /* 위쪽 여백 최적화 */
+}
+
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0px 16px 24px; /* 위쪽 여백 최적화 */
+  border-bottom: 1px solid var(--gray-100);
+}
+
+/* Avatar */
+.avatar-container {
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.avatar-container:hover {
+  transform: scale(1.02);
+}
+
+.avatar-container::after {
+  content: "색상 변경";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.avatar-container:hover::after {
+  opacity: 1;
+}
+
+/* Name Area */
+.name-area {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.name {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Edit Button */
+.edit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: var(--gray-100);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  color: var(--gray-600);
+  flex-shrink: 0;
+}
+
+.edit-btn:hover {
+  background: var(--gray-200);
+  color: var(--gray-700);
+  transform: scale(1.05);
+}
+
+.edit-btn:active {
+  transform: scale(1);
+}
+
+.edit-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.edit-btn span {
+  display: none;
+}
+
+/* Stats */
+.stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 0; /* InfoSection item과 동일한 padding */
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  cursor: default;
+}
+
+.stat:hover {
+  background: var(--gray-50);
+}
+
+.stat-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--primary-500);
+  flex-shrink: 0;
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-label {
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--gray-600);
+  line-height: 1;
+}
+
+.stat-value {
+  font-size: var(--font-xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--gray-150);
+  flex-shrink: 0;
+  align-self: center;
+}
+
+/* Mobile (768px 이하) */
 @media (max-width: 768px) {
-  .profile-section {
+  .section {
     border-radius: 12px;
   }
 
-  .section-title {
-    padding: 20px 16px 16px;
-    font-size: var(--font-sm);
+  .header {
+    padding: 20px 16px 0;
   }
 
   .content {
-    padding: 8px 16px;
+    padding: 0px 16px 8px 16px;
   }
 
-  .item {
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 18px 0;
-  }
-
-  .title {
-    font-size: var(--font-sm);
-  }
-
-  .info {
-    flex: 1;
-    min-width: 0;
+  .profile-main {
+    padding: 16px 0px 24px;
   }
 
   .avatar-container {
-    padding-top: 6px;
+    margin-bottom: 14px;
   }
 
-  .button-container {
-    align-self: center;
+  .name {
+    font-size: var(--font-xl);
+  }
+
+  .edit-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+  }
+
+  .edit-btn svg {
+    width: 13px;
+    height: 13px;
   }
 
   .logout-btn {
-    display: flex;
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
   }
 
-
-  .profile-item {
-    align-items: center;
+  .logout-btn svg {
+    width: 15px;
+    height: 15px;
   }
 
-  .stats-content {
-    flex-wrap: wrap;
-    gap: 8px;
+  .stats {
+    padding: 16px 0;
   }
 
-  .stat-item {
-    font-size: var(--font-xs);
+  .stat {
+    padding: 8px 10px;
+    gap: 10px;
   }
 
   .stat-icon {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .stat-value {
+    font-size: var(--font-lg);
+  }
+
+  .stat-label {
+    font-size: var(--font-sm);
+  }
+
+  .stat-divider {
+    height: 30px;
   }
 }
 
-
 /* Focus States */
-.logout-btn:focus-visible {
+.logout-btn:focus-visible,
+.edit-btn:focus-visible,
+.avatar-container:focus-visible {
   outline: 2px solid var(--primary-500);
   outline-offset: 2px;
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
+  .section,
   .avatar-container,
-  .logout-btn {
+  .logout-btn,
+  .edit-btn,
+  .stat {
     transition: none;
   }
 }

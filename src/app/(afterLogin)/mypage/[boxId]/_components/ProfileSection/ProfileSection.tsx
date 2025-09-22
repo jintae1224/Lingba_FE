@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 
 import Avatar from "@/app/_components/Avatar/Avatar";
 import BoxIcon from "@/app/_components/Icons/BoxIcon";
+import EditIcon from "@/app/_components/Icons/EditIcon";
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import PowerIcon from "@/app/_components/Icons/PowerIcon";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
@@ -38,72 +39,65 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
     closeSheet: closeNicknameSheet,
   } = useSheetQuery({ sheetType: 'user-nickname' });
 
+
   return (
     <>
-      <section className={cx("profile-section")}>
-        <h2 className={cx("section-title")}>프로필</h2>
+      <div className={cx("section")}>
+        <div className={cx("header")}>
+          <button
+            className={cx("logout-btn")}
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            aria-label="로그아웃"
+          >
+            <PowerIcon />
+          </button>
+        </div>
 
         <div className={cx("content")}>
-          <div className={cx("item", "profile-item")}>
+          <div className={cx("profile-main")}>
             <div className={cx("avatar-container")} onClick={openColorSheet}>
               <Avatar
                 nickname={user.nickname}
                 color={user.color}
                 size="lg"
-                onClick={openColorSheet}
               />
             </div>
-            <div className={cx("info")}>
-              <div className={cx("info-header")}>
-                <h3 className={cx("title")}>{user.nickname}</h3>
-              </div>
-              <p className={cx("description")}>
-                클릭하여 프로필 색상을 변경하세요
-              </p>
-            </div>
-          </div>
-          <div className={cx("item", "stats-item")}>
-            <div className={cx("info")}>
-              <div className={cx("info-header")}>
-                <h3 className={cx("title")}>통계</h3>
-              </div>
-              <div className={cx("stats-content")}>
-                <div className={cx("stat-item")}>
-                  <BoxIcon className={cx("stat-icon")} />
-                  <span className={cx("stat-text")}>
-                    박스 {user.box_count}개
-                  </span>
-                </div>
-                <span className={cx("stat-divider")}>·</span>
-                <div className={cx("stat-item")}>
-                  <LinkIcon className={cx("stat-icon")} />
-                  <span className={cx("stat-text")}>
-                    링크 {user.link_count}개
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className={cx("item", "logout-item")}>
-            <div className={cx("info")}>
-              <div className={cx("info-header")}>
-                <h3 className={cx("title")}>로그아웃</h3>
-              </div>
-              <p className={cx("description")}>현재 계정에서 로그아웃합니다</p>
-            </div>
-            <div className={cx("button-container")}>
+
+            <div className={cx("name-area")}>
+              <h1 className={cx("name")}>{user.nickname}</h1>
               <button
-                className={cx("logout-btn")}
-                onClick={handleLogout}
-                disabled={isLoggingOut}
-                aria-label="로그아웃"
+                className={cx("edit-btn")}
+                onClick={openNicknameSheet}
+                aria-label="프로필 편집"
               >
-                <PowerIcon />
+                <EditIcon width="14" height="14" />
+                <span>편집</span>
               </button>
             </div>
           </div>
+
+          <div className={cx("stats")}>
+            <div className={cx("stat")}>
+              <BoxIcon className={cx("stat-icon")} />
+              <div className={cx("stat-info")}>
+                <span className={cx("stat-label")}>박스</span>
+                <span className={cx("stat-value")}>{user.box_count}</span>
+              </div>
+            </div>
+
+            <div className={cx("stat-divider")} />
+
+            <div className={cx("stat")}>
+              <LinkIcon className={cx("stat-icon")} />
+              <div className={cx("stat-info")}>
+                <span className={cx("stat-label")}>링크</span>
+                <span className={cx("stat-value")}>{user.link_count}</span>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
 
       {isColorSheetOpen && (
         <ColorEditSheet
