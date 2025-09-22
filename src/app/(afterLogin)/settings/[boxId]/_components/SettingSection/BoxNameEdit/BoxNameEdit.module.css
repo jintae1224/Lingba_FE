@@ -61,15 +61,21 @@
 /* 반응형 */
 @media (max-width: 768px) {
   .item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 16px 0;
   }
 
   .item:hover {
     margin: 0 -12px;
     padding: 16px 12px;
+  }
+
+  .info {
+    flex: 1;
+    min-width: 0;
   }
 
   .input {

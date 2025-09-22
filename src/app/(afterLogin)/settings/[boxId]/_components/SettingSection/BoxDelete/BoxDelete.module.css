@@ -131,10 +131,16 @@
   }
 
   .item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 20px;
+  }
+
+  .info {
+    flex: 1;
+    min-width: 0;
   }
 
   .item-title {
@@ -146,7 +152,6 @@
   }
 
   .button-group {
-    width: 100%;
     flex-direction: row;
   }
 
