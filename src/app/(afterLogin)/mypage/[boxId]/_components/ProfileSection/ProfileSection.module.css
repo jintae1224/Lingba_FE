@@ -67,7 +67,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 0px 16px 16px; /* 위쪽 여백 최적화 */
+  padding: 0px 16px 24px; /* 위쪽 여백 최적화 */
   border-bottom: 1px solid var(--gray-100);
 }
 
@@ -238,7 +238,7 @@
   }
 
   .profile-main {
-    padding: 16px 0;
+    padding: 16px 0px 24px;
   }
 
   .avatar-container {
