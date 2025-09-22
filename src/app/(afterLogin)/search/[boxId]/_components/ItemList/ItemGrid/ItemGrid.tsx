@@ -11,18 +11,12 @@ import { useLinkDetailQuery } from "@/hooks/link/useLinkDetailQuery";
 import { useItemList } from "@/hooks/list/useItemList";
 
 import LinkCard from "../../../../../_components/LinkCard/LinkCard";
-import FolderAddModal from "./FolderCard/FolderAddModal/FolderAddModal";
 import FolderCard from "./FolderCard/FolderCard";
 import styles from "./ItemGrid.module.css";
 
 const cx = classNames.bind(styles);
 
-interface ItemGridProps {
-  isAddOn: boolean;
-  handleAddClose: () => void;
-}
-
-export default function ItemGrid({ isAddOn, handleAddClose }: ItemGridProps) {
+export default function ItemGrid() {
   const sheetRef = useRef<SheetHandle>(null);
 
   const { list, isLoading, isLoadingMore, hasNextPage, loadMoreRef } =
@@ -33,7 +27,6 @@ export default function ItemGrid({ isAddOn, handleAddClose }: ItemGridProps) {
   return (
     <div className={cx("content")}>
       <div className={cx("grid")}>
-        {isAddOn && <FolderAddModal handleAddClose={handleAddClose} />}
         {isLoading ? (
           <>
             {Array.from({ length: 24 }, (_, index) => (
