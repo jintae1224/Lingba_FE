@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import Button from "@/app/_components/Button/Button";
 import { USER_COLORS } from "@/constants/colors";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { Box } from "@/types/box";
@@ -31,9 +32,9 @@ export default function BoxColorEdit({ box }: BoxColorEditProps) {
             <span className={cx("description")}>현재 색상</span>
           </div>
         </div>
-        <button className={cx("button")} onClick={openSheet}>
+        <Button variant="secondary" size="small" onClick={openSheet}>
           변경
-        </button>
+        </Button>
       </div>
       <BoxColorEditSheet
         box={box}

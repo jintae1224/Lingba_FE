@@ -48,71 +48,29 @@
   flex: 1;
 }
 
-.item-title {
-  font-size: 16px;
+.title {
+  font-size: var(--font-md);
   font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 4px;
+  color: var(--text-primary);
+  margin: 0 0 8px 0;
   letter-spacing: -0.01em;
 }
 
-.item-description {
-  font-size: 14px;
-  color: #6b7280;
+.description {
+  font-size: var(--font-sm);
+  color: var(--gray-500);
   margin: 0;
   line-height: 1.4;
   font-weight: 400;
 }
 
-.button {
-  padding: 10px 20px;
-  background: #f8fafc;
-  color: #374151;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  min-width: 120px;
-  letter-spacing: -0.01em;
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
 }
 
-.button:hover {
-  background: #e2e8f0;
-  color: #1e293b;
-  border-color: rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.button.danger {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-  color: white;
-  border-color: #dc2626;
-}
-
-.button.danger:hover {
-  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-  border-color: #b91c1c;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
-}
-
-.button.danger:disabled {
-  background: #fecaca;
-  color: #f87171;
-  border-color: #fca5a5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
 
 /* 반응형 */
 @media (max-width: 768px) {
@@ -132,23 +90,27 @@
   }
 
   .item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 20px;
   }
 
-  .item-title {
+  .info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .title {
     font-size: var(--font-sm);
   }
 
-  .item-description {
+  .description {
     font-size: var(--font-xs);
   }
 
-  .button {
-    align-self: stretch;
-    text-align: center;
-    min-width: auto;
+  .button-container {
+    align-self: center;
   }
 }

@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import Button from "@/app/_components/Button/Button";
 import { useBoxDelete } from "@/hooks/settings/useBoxDelete";
 import { Box } from "@/types/box";
 
@@ -36,30 +37,33 @@ export default function BoxDelete({ box }: BoxDeleteProps) {
         </div>
         {showDeleteConfirm ? (
           <div className={cx("button-group")}>
-            <button
-              className={cx("button", "danger")}
+            <Button
+              variant="danger"
+              size="small"
               onClick={handleConfirm}
-              disabled={isDeleting}
+              loading={isDeleting}
             >
-              {isDeleting ? "삭제하는 중..." : "정말 삭제할게요"}
-            </button>
-            <button
-              className={cx("button", "cancel")}
+              정말 삭제할게요
+            </Button>
+            <Button
+              variant="secondary"
+              size="small"
               onClick={handleCancel}
               disabled={isDeleting}
             >
               취소
-            </button>
+            </Button>
           </div>
         ) : (
-          <button
-            className={cx("button", "danger")}
+          <Button
+            variant="danger"
+            size="small"
             onClick={handleDelete}
             disabled={isDefaultBox}
             title={isDefaultBox ? "기본 박스는 삭제할 수 없어요" : ""}
           >
             삭제
-          </button>
+          </Button>
         )}
       </div>
       {isDefaultBox && (

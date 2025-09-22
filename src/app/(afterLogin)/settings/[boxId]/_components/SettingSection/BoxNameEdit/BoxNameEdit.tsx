@@ -1,5 +1,6 @@
 import classNames from "classnames/bind";
 
+import Button from "@/app/_components/Button/Button";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { Box } from "@/types/box";
 
@@ -13,7 +14,9 @@ interface BoxNameEditProps {
 }
 
 export default function BoxNameEdit({ box }: BoxNameEditProps) {
-  const { isOpen, sheetRef, openSheet, closeSheet } = useSheetQuery({ sheetType: 'box-name' });
+  const { isOpen, sheetRef, openSheet, closeSheet } = useSheetQuery({
+    sheetType: "box-name",
+  });
 
   return (
     <>
@@ -22,9 +25,9 @@ export default function BoxNameEdit({ box }: BoxNameEditProps) {
           <h3 className={cx("title")}>박스 이름</h3>
           <p className={cx("description")}>{box.name}</p>
         </div>
-        <button className={cx("button")} onClick={openSheet}>
+        <Button variant="secondary" size="small" onClick={openSheet}>
           편집
-        </button>
+        </Button>
       </div>
       <BoxNameEditSheet
         box={box}

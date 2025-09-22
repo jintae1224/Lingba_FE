@@ -51,7 +51,7 @@
   font-size: 16px;
   font-weight: 600;
   color: #1a1a1a;
-  margin-bottom: 4px;
+  margin-bottom: 8px;
   letter-spacing: -0.01em;
 }
 
@@ -68,67 +68,7 @@
   gap: 8px;
 }
 
-.button {
-  padding: 10px 20px;
-  background: #f8fafc;
-  color: #374151;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  outline: none;
-  min-width: 80px;
-  letter-spacing: -0.01em;
-}
 
-.button:hover {
-  background: #e2e8f0;
-  color: #1e293b;
-  border-color: rgba(0, 0, 0, 0.12);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.button:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.button.danger {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-  color: white;
-  border-color: #dc2626;
-}
-
-.button.danger:hover {
-  background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
-  border-color: #b91c1c;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.2);
-}
-
-.button.danger:disabled {
-  background: #fecaca;
-  color: #f87171;
-  border-color: #fca5a5;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.button.cancel {
-  background: white;
-  color: #6b7280;
-  border-color: rgba(0, 0, 0, 0.08);
-}
-
-.button.cancel:hover {
-  background: #f9fafb;
-  color: #374151;
-  border-color: rgba(0, 0, 0, 0.12);
-}
 
 .danger-zone {
   background: linear-gradient(135deg, rgba(220, 38, 38, 0.02) 0%, rgba(185, 28, 28, 0.02) 100%);
@@ -191,10 +131,16 @@
   }
 
   .item {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
-    gap: 16px;
+    justify-content: space-between;
+    gap: 12px;
     padding: 20px;
+  }
+
+  .info {
+    flex: 1;
+    min-width: 0;
   }
 
   .item-title {
@@ -205,19 +151,8 @@
     font-size: var(--font-xs);
   }
 
-  .button {
-    align-self: stretch;
-    text-align: center;
-    min-width: auto;
-  }
-
   .button-group {
-    width: 100%;
     flex-direction: row;
-  }
-
-  .button-group button {
-    flex: 1;
   }
 
   .warning {
