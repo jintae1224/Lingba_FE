@@ -80,9 +80,11 @@ export default function InfoSection({ user }: InfoSectionProps) {
                   ?.label || "-"}
               </p>
             </div>
-            <Button variant="secondary" size="small" onClick={openGenderSheet}>
-              변경
-            </Button>
+            <div className={cx("button-container")}>
+              <Button variant="secondary" size="small" onClick={openGenderSheet}>
+                변경
+              </Button>
+            </div>
           </div>
 
           <div className={cx("item")}>
@@ -95,9 +97,11 @@ export default function InfoSection({ user }: InfoSectionProps) {
                   ?.label || "-"}
               </p>
             </div>
-            <Button variant="secondary" size="small" onClick={openAgeGroupSheet}>
-              변경
-            </Button>
+            <div className={cx("button-container")}>
+              <Button variant="secondary" size="small" onClick={openAgeGroupSheet}>
+                변경
+              </Button>
+            </div>
           </div>
         </div>
       </section>

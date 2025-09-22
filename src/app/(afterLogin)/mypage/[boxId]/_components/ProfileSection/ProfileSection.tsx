@@ -91,14 +91,16 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
               </div>
               <p className={cx("description")}>현재 계정에서 로그아웃합니다</p>
             </div>
-            <button
-              className={cx("logout-btn")}
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-              aria-label="로그아웃"
-            >
-              <PowerIcon />
-            </button>
+            <div className={cx("button-container")}>
+              <button
+                className={cx("logout-btn")}
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                aria-label="로그아웃"
+              >
+                <PowerIcon />
+              </button>
+            </div>
           </div>
         </div>
       </section>

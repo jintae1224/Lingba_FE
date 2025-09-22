@@ -15,20 +15,23 @@ export default function DangerZone() {
     <div className={cx("danger-zone")}>
       <div className={cx("item")}>
         <div className={cx("info")}>
-          <h3 className={cx("item-title")}>회원탈퇴</h3>
-          <p className={cx("item-description")}>
-            계정과 모든 데이터가 영구적으로 삭제됩니다. 이 작업은 되돌릴 수
-            없습니다.
+          <h3 className={cx("title")}>회원탈퇴</h3>
+          <p className={cx("description")}>
+            계정과 모든 데이터가 영구적으로 삭제됩니다.
+            <br />
+            이 작업은 되돌릴 수 없습니다.
           </p>
         </div>
-        <Button
-          variant="danger"
-          size="small"
-          onClick={handleWithdraw}
-          loading={isWithdrawing}
-        >
-          회원탈퇴
-        </Button>
+        <div className={cx("button-container")}>
+          <Button
+            variant="danger"
+            size="small"
+            onClick={handleWithdraw}
+            loading={isWithdrawing}
+          >
+            회원탈퇴
+          </Button>
+        </div>
       </div>
     </div>
   );

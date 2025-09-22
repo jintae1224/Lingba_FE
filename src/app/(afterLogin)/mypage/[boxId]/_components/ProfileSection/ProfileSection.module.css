@@ -53,7 +53,7 @@
   font-size: var(--font-md);
   font-weight: 600;
   color: var(--text-primary);
-  margin: 0;
+  margin: 0 0 8px 0;
   letter-spacing: -0.01em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -136,6 +136,13 @@
   user-select: none;
 }
 
+.button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+}
+
 /* Logout Button */
 .logout-btn {
   display: flex;
@@ -196,6 +203,10 @@
 
   .avatar-container {
     padding-top: 6px;
+  }
+
+  .button-container {
+    align-self: center;
   }
 
   .logout-btn {
