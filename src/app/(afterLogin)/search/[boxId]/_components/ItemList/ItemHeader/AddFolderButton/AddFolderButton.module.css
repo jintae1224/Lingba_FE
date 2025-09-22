@@ -1,0 +1,80 @@
+/* Modern Notion/Toss Style Add Folder Button */
+
+.add-folder-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Icon Wrapper */
+.icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+
+.folder-icon {
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  transition: all 0.2s ease;
+}
+
+.plus-icon {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10px;
+  height: 10px;
+  color: var(--primary-500);
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.add-folder-button:hover .plus-icon {
+  opacity: 1;
+  color: var(--primary-600);
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Text */
+.text {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: color 0.2s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .add-folder-button {
+    gap: 6px !important;
+  }
+
+  .icon-wrapper {
+    width: 18px;
+    height: 18px;
+  }
+
+  .folder-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .plus-icon {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .folder-icon,
+  .plus-icon,
+  .text {
+    transition: none;
+  }
+}
