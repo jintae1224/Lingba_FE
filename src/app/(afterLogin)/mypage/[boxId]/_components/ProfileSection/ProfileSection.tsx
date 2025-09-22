@@ -7,7 +7,7 @@ import BoxIcon from "@/app/_components/Icons/BoxIcon";
 import EditIcon from "@/app/_components/Icons/EditIcon";
 import LinkIcon from "@/app/_components/Icons/LinkIcon";
 import PowerIcon from "@/app/_components/Icons/PowerIcon";
-import { useSheet } from "@/hooks/etc/useSheet";
+import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { useUserLogout } from "@/hooks/user/useUserLogout";
 import { UserProfile } from "@/types/user";
 
@@ -29,7 +29,7 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
     sheetRef: colorSheetRef,
     openSheet: openColorSheet,
     closeSheet: closeColorSheet,
-  } = useSheet();
+  } = useSheetQuery({ sheetType: 'user-color' });
 
   // 닉네임 변경 Sheet 관리
   const {
@@ -37,7 +37,7 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
     sheetRef: nicknameSheetRef,
     openSheet: openNicknameSheet,
     closeSheet: closeNicknameSheet,
-  } = useSheet();
+  } = useSheetQuery({ sheetType: 'user-nickname' });
 
   return (
     <>
