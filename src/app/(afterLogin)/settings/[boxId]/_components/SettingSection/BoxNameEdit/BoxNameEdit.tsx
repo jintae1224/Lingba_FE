@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 
-import { useSheet } from "@/hooks/etc/useSheet";
+import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { Box } from "@/types/box";
 
 import styles from "./BoxNameEdit.module.css";
@@ -13,7 +13,7 @@ interface BoxNameEditProps {
 }
 
 export default function BoxNameEdit({ box }: BoxNameEditProps) {
-  const { isOpen, sheetRef, openSheet, closeSheet } = useSheet();
+  const { isOpen, sheetRef, openSheet, closeSheet } = useSheetQuery({ sheetType: 'box-name' });
 
   return (
     <>

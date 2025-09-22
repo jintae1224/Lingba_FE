@@ -5,7 +5,7 @@ import Image from "next/image";
 
 import EditIcon from "@/app/_components/Icons/EditIcon";
 import { AGE_OPTIONS, GENDER_OPTIONS } from "@/constants/signup";
-import { useSheet } from "@/hooks/etc/useSheet";
+import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 import { UserProfile } from "@/types/user";
 
 import AgeGroupEditSheet from "./AgeGroupEditSheet/AgeGroupEditSheet";
@@ -25,7 +25,7 @@ export default function InfoSection({ user }: InfoSectionProps) {
     sheetRef: genderSheetRef,
     openSheet: openGenderSheet,
     closeSheet: closeGenderSheet,
-  } = useSheet();
+  } = useSheetQuery({ sheetType: 'user-gender' });
 
   // 연령대 변경 Sheet 관리
   const {
@@ -33,7 +33,7 @@ export default function InfoSection({ user }: InfoSectionProps) {
     sheetRef: ageGroupSheetRef,
     openSheet: openAgeGroupSheet,
     closeSheet: closeAgeGroupSheet,
-  } = useSheet();
+  } = useSheetQuery({ sheetType: 'user-age-group' });
 
   return (
     <>
