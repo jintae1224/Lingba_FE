@@ -26,7 +26,6 @@
   font-size: var(--font-sm);
   color: var(--gray-500);
   margin: 0;
-  font-family: monospace;
 }
 
 .search-section {

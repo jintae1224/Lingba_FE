@@ -1,26 +1,9 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Noto_Sans_KR } from "next/font/google";
 
 import QueryProvider from "@/providers/QueryProvider";
 import { ToastProvider } from "@/providers/ToastProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const notoSansKR = Noto_Sans_KR({
-  variable: "--font-noto-sans-kr",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -40,14 +23,17 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1, viewport-fit=cover"
         />
-        <script 
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css"
+        />
+        <script
           src="https://developers.kakao.com/sdk/js/kakao.js"
           async
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoSansKR.variable}`}
-      >
+      <body>
         <QueryProvider>
           <ToastProvider>{children}</ToastProvider>
         </QueryProvider>
