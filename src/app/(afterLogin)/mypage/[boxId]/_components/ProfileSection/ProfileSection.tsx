@@ -44,16 +44,14 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
     <>
       <div className={cx("section")}>
         <div className={cx("header")}>
-          <div className={cx("header-content")}>
-            <button
-              className={cx("logout-btn")}
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-              aria-label="로그아웃"
-            >
-              <PowerIcon />
-            </button>
-          </div>
+          <button
+            className={cx("logout-btn")}
+            onClick={handleLogout}
+            disabled={isLoggingOut}
+            aria-label="로그아웃"
+          >
+            <PowerIcon />
+          </button>
         </div>
 
         <div className={cx("content")}>
@@ -81,24 +79,20 @@ export default function ProfileSection({ user }: ProfileSectionProps) {
 
           <div className={cx("stats")}>
             <div className={cx("stat")}>
-              <div className={cx("stat-content")}>
-                <BoxIcon className={cx("stat-icon")} />
-                <div className={cx("stat-info")}>
-                  <span className={cx("stat-label")}>박스</span>
-                  <span className={cx("stat-value")}>{user.box_count}</span>
-                </div>
+              <BoxIcon className={cx("stat-icon")} />
+              <div className={cx("stat-info")}>
+                <span className={cx("stat-label")}>박스</span>
+                <span className={cx("stat-value")}>{user.box_count}</span>
               </div>
             </div>
 
             <div className={cx("stat-divider")} />
 
             <div className={cx("stat")}>
-              <div className={cx("stat-content")}>
-                <LinkIcon className={cx("stat-icon")} />
-                <div className={cx("stat-info")}>
-                  <span className={cx("stat-label")}>링크</span>
-                  <span className={cx("stat-value")}>{user.link_count}</span>
-                </div>
+              <LinkIcon className={cx("stat-icon")} />
+              <div className={cx("stat-info")}>
+                <span className={cx("stat-label")}>링크</span>
+                <span className={cx("stat-value")}>{user.link_count}</span>
               </div>
             </div>
           </div>

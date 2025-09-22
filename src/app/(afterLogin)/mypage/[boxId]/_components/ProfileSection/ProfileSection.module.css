@@ -17,9 +17,6 @@
 /* Header */
 .header {
   padding: 28px 24px 0;
-}
-
-.header-content {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -170,6 +167,8 @@
   flex: 1;
   display: flex;
   justify-content: center;
+  align-items: center;
+  gap: 12px;
   padding: 8px 12px;
   border-radius: 8px;
   transition: all 0.15s ease;
@@ -178,12 +177,6 @@
 
 .stat:hover {
   background: var(--gray-50);
-}
-
-.stat-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }
 
 .stat-icon {
@@ -276,9 +269,6 @@
 
   .stat {
     padding: 8px 10px;
-  }
-
-  .stat-content {
     gap: 10px;
   }
 
