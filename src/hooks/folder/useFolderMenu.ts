@@ -39,11 +39,13 @@ export function useFolderMenu({
       // 폴더 목록 갱신
       queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
       // 현재 폴더의 아이템 리스트 갱신
-      queryClient.invalidateQueries({ queryKey: ["list", boxId, currentFolderId] });
+      queryClient.invalidateQueries({
+        queryKey: ["list", boxId, currentFolderId],
+      });
       // 해당 boxId와 관련된 모든 breadcrumb 갱신 (폴더명 변경이 breadcrumb에 반영되어야 함)
       queryClient.invalidateQueries({
         queryKey: ["breadcrumb", boxId],
-        exact: false
+        exact: false,
       });
       onClose();
     },
@@ -57,16 +59,18 @@ export function useFolderMenu({
         // 폴더 목록 갱신
         queryClient.invalidateQueries({ queryKey: ["folders", boxId] });
         // 현재 폴더의 아이템 리스트 갱신 (삭제된 폴더가 목록에서 사라져야 함)
-        queryClient.invalidateQueries({ queryKey: ["list", boxId, currentFolderId] });
+        queryClient.invalidateQueries({
+          queryKey: ["list", boxId, currentFolderId],
+        });
         // 해당 boxId와 관련된 모든 breadcrumb 갱신 (삭제된 폴더가 breadcrumb에서 사라져야 함)
         queryClient.invalidateQueries({
           queryKey: ["breadcrumb", boxId],
-          exact: false
+          exact: false,
         });
         // 삭제된 폴더 자체와 그 하위의 모든 리스트 갱신
         queryClient.invalidateQueries({
           queryKey: ["list", boxId, folderId],
-          exact: false
+          exact: false,
         });
         onClose();
       }
@@ -79,7 +83,11 @@ export function useFolderMenu({
   };
 
   const handleEditSubmit = async () => {
-    if (!editName.trim() || editName.trim() === folderName.trim() || editMutation.isPending) {
+    if (
+      !editName.trim() ||
+      editName.trim() === folderName.trim() ||
+      editMutation.isPending
+    ) {
       return;
     }
     await editMutation.mutateAsync({ name: editName });
@@ -102,7 +110,9 @@ export function useFolderMenu({
   const isEditValid = editName.trim().length > 0;
   const isEditChanged = editName.trim() !== folderName.trim();
   const isEditLoading = editMutation.isPending;
-  const editError = editMutation.error ? (editMutation.error.message || "편집에 실패했습니다.") : null;
+  const editError = editMutation.error
+    ? editMutation.error.message || "편집에 실패했습니다."
+    : null;
 
   return {
     editName,

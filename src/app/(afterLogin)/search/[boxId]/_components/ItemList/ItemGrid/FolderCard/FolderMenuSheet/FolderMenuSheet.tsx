@@ -43,12 +43,7 @@ export default function FolderMenuSheet({
   });
 
   return (
-    <Sheet
-      ref={sheetRef}
-      isOpen={isOpen}
-      title="폴더 편집"
-      onClose={onClose}
-    >
+    <Sheet ref={sheetRef} isOpen={isOpen} title="폴더 편집" onClose={onClose}>
       <div className={cx("content")}>
         <div className={cx("body")}>
           <div className={cx("form-group")}>
@@ -68,11 +63,7 @@ export default function FolderMenuSheet({
             />
           </div>
 
-          {editError && (
-            <div className={cx("error-message")}>
-              {editError}
-            </div>
-          )}
+          {editError && <div className={cx("error-message")}>{editError}</div>}
 
           <div className={cx("delete-section")}>
             <button
