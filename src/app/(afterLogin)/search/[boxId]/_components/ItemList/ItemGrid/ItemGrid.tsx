@@ -4,6 +4,7 @@ import classNames from "classnames/bind";
 import Link from "next/link";
 import { useRef } from "react";
 
+import BlurOverlay from "@/app/_components/BlurOverlay/BlurOverlay";
 import Sheet, { SheetHandle } from "@/app/_components/Sheet/Sheet";
 import CardSkeleton from "@/app/_components/Skeleton/CardSkeleton/CardSkeleton";
 import LinkDetail from "@/app/(afterLogin)/_components/LinkCard/LinkDetail/LinkDetail";
@@ -70,7 +71,7 @@ export default function ItemGrid() {
       )}
 
       {/* 하단 blur 효과 */}
-      {hasNextPage && <div className={cx("blur-overlay")} />}
+      <BlurOverlay />
 
       {isDetailOpen && (
         <Sheet
