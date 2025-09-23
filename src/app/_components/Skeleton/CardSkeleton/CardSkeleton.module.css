@@ -1,13 +1,14 @@
+/* Card Container */
 .card {
   background: transparent;
   overflow: visible;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   position: relative;
   width: 100%;
   flex-direction: column;
-  gap: 12px;
 }
 
+/* Thumbnail */
 .thumbnail {
   aspect-ratio: 16/9;
   display: flex;
@@ -17,11 +18,12 @@
   overflow: hidden;
   flex-shrink: 0;
   background: var(--gray-100);
-  border-radius: 16px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
   border: 1px solid var(--gray-150);
 }
 
+/* Content */
 .content {
   padding: 16px 0;
   position: relative;
@@ -32,26 +34,18 @@
 }
 
 .title-area {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  font-size: var(--font-md);
+  line-height: 1.4;
   height: calc(1.4em * 2);
-  justify-content: flex-start;
   margin-bottom: 12px;
 }
 
 .info-area {
+  font-size: var(--font-sm);
+  height: 25px;
   margin-top: auto;
-  height: 1.2em;
-  display: flex;
-  align-items: center;
 }
 
-.extra-space {
-  margin-top: auto;
-  height: 1em;
-  opacity: 0;
-}
 
 /* 다크모드 대응 */
 @media (prefers-color-scheme: dark) {
@@ -64,7 +58,7 @@
 /* 768px 이하: 모바일 */
 @media (max-width: 768px) {
   .thumbnail {
-    border-radius: 14px;
+    border-radius: 10px;
   }
 
   .content {
@@ -73,15 +67,34 @@
     flex: 1;
     min-width: 0;
   }
+
+  .title-area {
+    font-size: var(--font-sm);
+    margin-bottom: 8px;
+  }
+
+  .info-area {
+    font-size: var(--font-xs);
+    height: 23px;
+  }
 }
 
 @media (max-width: 480px) {
   .thumbnail {
-    border-radius: 12px;
+    border-radius: 8px;
   }
 
   .content {
     padding: 10px 0;
-    gap: 8px;
+  }
+
+  .title-area {
+    font-size: var(--font-xs);
+    margin-bottom: 6px;
+  }
+
+  .info-area {
+    font-size: 11px;
+    height: 17px;
   }
 }
