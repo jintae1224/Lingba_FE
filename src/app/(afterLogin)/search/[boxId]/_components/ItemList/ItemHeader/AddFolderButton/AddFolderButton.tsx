@@ -2,7 +2,6 @@
 
 import classNames from "classnames/bind";
 
-import Button from "@/app/_components/Button/Button";
 import FolderIcon from "@/app/_components/Icons/FolderIcon";
 import PlusIcon from "@/app/_components/Icons/PlusIcon";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
@@ -28,19 +27,15 @@ export default function AddFolderButton({
 
   return (
     <>
-      <Button
-        variant="secondary"
-        size="small"
+      <button
         onClick={openFolderAddSheet}
         disabled={disabled}
         className={cx("add-folder-button")}
+        aria-label="새 폴더 추가"
+        title="새 폴더"
       >
-        <div className={cx("icon-wrapper")}>
-          <FolderIcon className={cx("folder-icon")} />
-          <PlusIcon className={cx("plus-icon")} />
-        </div>
-        <span className={cx("text")}>새 폴더</span>
-      </Button>
+        <FolderIcon className={cx("folder-icon")} />
+      </button>
 
       {isFolderAddSheetOpen && (
         <FolderAddSheet
