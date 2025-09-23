@@ -30,7 +30,7 @@ export default function ItemGrid() {
     <div className={cx("content")}>
       {isLoading ? (
         <div className={cx("grid")}>
-          {Array.from({ length: 24 }, (_, index) => (
+          {Array.from({ length: 20 }, (_, index) => (
             <CardSkeleton key={`initial-loading-${index}`} />
           ))}
         </div>
@@ -58,7 +58,7 @@ export default function ItemGrid() {
           {/* 무한스크롤 로딩 스켈레톤 */}
           {isLoadingMore && (
             <>
-              {Array.from({ length: 24 }, (_, index) => (
+              {Array.from({ length: 2 }, (_, index) => (
                 <CardSkeleton key={`loading-${index}`} />
               ))}
             </>
