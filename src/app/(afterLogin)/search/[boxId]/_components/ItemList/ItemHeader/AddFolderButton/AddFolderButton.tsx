@@ -3,7 +3,6 @@
 import classNames from "classnames/bind";
 
 import FolderIcon from "@/app/_components/Icons/FolderIcon";
-import PlusIcon from "@/app/_components/Icons/PlusIcon";
 import { useSheetQuery } from "@/hooks/etc/useSheetQuery";
 
 import styles from "./AddFolderButton.module.css";
