@@ -1,62 +1,122 @@
-/* Modern Notion/Toss Style Add Folder Button */
+/* Modern FAB Style Add Button - 2025 Trends */
 
 .add-folder-button {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-}
-
-/* Icon Wrapper */
-.icon-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1.5px dashed #94a3b8;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-folder-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #f8fafc;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: hover) {
+  .add-folder-button:hover {
+    border-color: #64748b;
+    background: #f8fafc;
+  }
+
+  .add-folder-button:hover::before {
+    opacity: 1;
+  }
+}
+
+.add-folder-button:active {
+  transform: scale(0.95);
+  border-color: #475569;
+}
+
+.add-folder-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  border-style: solid;
+}
+
+.add-folder-button::after {
+  content: '+';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #64748b;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .folder-icon {
   width: 18px;
   height: 18px;
-  color: currentColor;
-  transition: all 0.2s ease;
+  color: #64748b;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.plus-icon {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 10px;
-  height: 10px;
-  color: var(--primary-500);
-  opacity: 0.8;
-  transition: all 0.2s ease;
-}
-
-.add-folder-button:hover .plus-icon {
-  opacity: 1;
-  color: var(--primary-600);
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-/* Text */
-.text {
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  transition: color 0.2s ease;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .add-folder-button {
-    gap: 6px !important;
+@media (hover: hover) {
+  .add-folder-button:hover .folder-icon {
+    transform: scale(1.1);
+    color: #475569;
   }
 
-  .icon-wrapper {
+  .add-folder-button:hover::after {
+    transform: translate(-50%, -50%) scale(1.1);
+    color: #475569;
+  }
+}
+
+.add-folder-button:active .folder-icon {
+  transform: scale(0.95);
+}
+
+.add-folder-button:active::after {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .add-folder-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+  }
+
+  .folder-icon {
     width: 18px;
     height: 18px;
+  }
+
+  .add-folder-button::after {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-folder-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
   }
 
   .folder-icon {
@@ -64,17 +124,42 @@
     height: 16px;
   }
 
-  .plus-icon {
-    width: 8px;
-    height: 8px;
+  .add-folder-button::after {
+    font-size: 18px;
   }
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .folder-icon,
-  .plus-icon,
-  .text {
+  .add-folder-button,
+  .add-folder-button::before,
+  .add-folder-button::after,
+  .folder-icon {
     transition: none;
+  }
+
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .add-folder-button {
+    border-color: #475569;
+  }
+
+  .folder-icon,
+  .add-folder-button::after {
+    color: #94a3b8;
+  }
+}
+
+@media (prefers-color-scheme: dark) and (hover: hover) {
+  .add-folder-button:hover {
+    background: rgba(71, 85, 105, 0.1);
+    border-color: #64748b;
+  }
+
+  .add-folder-button:hover .folder-icon,
+  .add-folder-button:hover::after {
+    color: #cbd5e1;
   }
 }

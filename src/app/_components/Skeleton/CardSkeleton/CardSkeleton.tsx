@@ -12,7 +12,7 @@ export default function CardSkeleton() {
     <div className={cx("card")}>
       {/* Thumbnail */}
       <div className={cx("thumbnail")}>
-        <Skeleton height="100%" borderRadius="4px 4px 0 0" />
+        <Skeleton height="100%" borderRadius="inherit" />
       </div>
 
       {/* Content */}
@@ -20,6 +20,11 @@ export default function CardSkeleton() {
         {/* Title */}
         <div className={cx("title-area")}>
           <Skeleton height="1.4em" borderRadius="3px" />
+        </div>
+
+        {/* Info area */}
+        <div className={cx("info-area")}>
+          <Skeleton height="1.2em" width="60%" borderRadius="3px" />
         </div>
       </div>
     </div>

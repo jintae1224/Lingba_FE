@@ -2,10 +2,26 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-items: baseline;
   gap: 16px;
   min-height: 40px;
+  padding-top: 18px;
 }
 
 .header.root-folder {
   justify-content: flex-end;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+  .header {
+    padding-top: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .header {
+    padding-top: 12px;
+  }
 }

@@ -1,16 +1,14 @@
+/* Card Container */
 .card {
-  background: var(--bg-primary);
-  border: 1px solid var(--gray-150);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  overflow: visible;
+  transition: all 0.2s ease;
   position: relative;
   width: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  backdrop-filter: blur(8px);
   flex-direction: column;
 }
 
+/* Thumbnail */
 .thumbnail {
   aspect-ratio: 16/9;
   display: flex;
@@ -20,71 +18,83 @@
   overflow: hidden;
   flex-shrink: 0;
   background: var(--gray-100);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--gray-150);
 }
 
+/* Content */
 .content {
-  padding: 18px;
+  padding: 16px 0;
   position: relative;
-  gap: 14px;
+  gap: 12px;
   min-height: 0;
-  border-top: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
 }
 
 .title-area {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  height: calc(1.5em * 2); /* Match title height from cards */
-  justify-content: flex-start;
+  font-size: var(--font-md);
+  line-height: 1.4;
+  height: calc(1.4em * 2);
+  margin-bottom: 12px;
 }
 
-.url-area {
+.info-area {
+  font-size: var(--font-sm);
+  height: 25px;
   margin-top: auto;
-  height: 1em;
-  display: flex;
-  align-items: center;
 }
 
-.extra-space {
-  margin-top: auto;
-  height: 1em;
-  opacity: 0;
-}
 
 /* 다크모드 대응 */
 @media (prefers-color-scheme: dark) {
-  .card {
-    background: var(--gray-800);
-    border-color: var(--gray-700);
-  }
-  
   .thumbnail {
     background: var(--gray-700);
+    border-color: var(--gray-600);
   }
 }
 
-/* 768px 이하: 모바일 list 뷰 */
+/* 768px 이하: 모바일 */
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
+  .thumbnail {
     border-radius: 10px;
   }
-  
+
   .content {
-    padding: 8px 12px;
+    padding: 12px 0;
     gap: 8px;
     flex: 1;
     min-width: 0;
   }
+
+  .title-area {
+    font-size: var(--font-sm);
+    margin-bottom: 8px;
+  }
+
+  .info-area {
+    font-size: var(--font-xs);
+    height: 23px;
+  }
 }
 
 @media (max-width: 480px) {
-  .card {
+  .thumbnail {
     border-radius: 8px;
   }
-  
+
   .content {
-    padding: 8px 12px;
-    gap: 8px;
+    padding: 10px 0;
+  }
+
+  .title-area {
+    font-size: var(--font-xs);
+    margin-bottom: 6px;
+  }
+
+  .info-area {
+    font-size: 11px;
+    height: 17px;
   }
 }
