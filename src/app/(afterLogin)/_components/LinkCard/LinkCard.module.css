@@ -1,35 +1,29 @@
+/* Card Container */
 .card {
-  background: var(--bg-primary);
-  border: 1px solid var(--gray-150);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  overflow: visible;
+  transition: all 0.2s ease;
   position: relative;
   width: 100%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   cursor: pointer;
-  backdrop-filter: blur(8px);
   flex-direction: column;
+  gap: 12px;
 }
 
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-  border-color: var(--gray-250);
-}
 
 /* Grid 모드 (기본) */
 .card.grid-mode {
   flex-direction: column;
 }
-s
 
 /* List 모드 */
 .card.list-mode {
   flex-direction: row;
   height: 88px;
+  gap: 16px;
 }
 
+/* Thumbnail */
 .thumbnail {
   aspect-ratio: 16/9;
   display: flex;
@@ -38,18 +32,19 @@ s
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  background: #f8fafc;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border: 1px solid #f1f5f9;
 }
 
 .thumbnail-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
-.card:hover .thumbnail-image {
-  transform: scale(1.02);
-}
 
 .default-thumbnail {
   display: flex;
@@ -57,46 +52,43 @@ s
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: var(--gray-100);
+  background: #f8fafc;
 }
 
 .link-icon {
-  width: 36px;
-  height: 36px;
-  color: var(--primary-400);
-  transition: all 0.3s ease;
-}
-
-.card:hover .link-icon {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border-radius: 12px;
+  padding: 8px;
   color: var(--primary-500);
-  transform: scale(1.1);
+  transition: all 0.2s ease;
 }
 
+
+/* Pin Button */
 .pin-button-wrapper {
   position: absolute;
   top: 8px;
   right: 8px;
   z-index: 10;
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.2s ease;
 }
 
-.card:hover .pin-button-wrapper {
-  opacity: 1;
-}
 
+/* Content */
 .content {
-  padding: 18px;
+  padding: 16px 0;
   position: relative;
-  gap: 14px;
+  gap: 12px;
   min-height: 0;
-  border-top: 1px solid var(--gray-200);
 }
 
 .title {
-  font-size: var(--font-md);
+  font-size: 15px;
   font-weight: 600;
-  color: var(--gray-900);
+  color: #1e293b;
   line-height: 1.4;
   height: calc(1.4em * 2);
   display: -webkit-box;
@@ -105,7 +97,6 @@ s
   -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  letter-spacing: -0.01em;
   margin-bottom: 12px;
 }
 
@@ -113,9 +104,9 @@ s
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  background: var(--gray-50);
-  border-radius: 8px;
+  padding: 6px 10px;
+  background: #f1f5f9;
+  border-radius: 6px;
   margin-top: auto;
 }
 
@@ -128,50 +119,50 @@ s
 }
 
 .url {
-  font-size: var(--font-xs);
-  color: var(--gray-600);
+  font-size: 13px;
+  color: #64748b;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-weight: 500;
-  letter-spacing: -0.005em;
 }
 
-/* 768px 이하: 모바일 list 뷰 */
+/* 768px 이하: 모바일 */
 @media (max-width: 768px) {
-  .card {
-    width: 100%;
+  .thumbnail {
     border-radius: 10px;
   }
 
   .link-icon {
-    width: 28px;
-    height: 28px;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    padding: 6px;
   }
 
   .pin-button-wrapper {
     top: 6px;
     right: 6px;
-    opacity: 1; /* 모바일에서는 항상 표시 */
+    opacity: 1;
   }
 
   .content {
-    padding: 8px 12px;
+    padding: 12px 0;
     gap: 8px;
     flex: 1;
     min-width: 0;
   }
 
   .title {
-    font-size: var(--font-sm);
-    height: calc(1.3em * 2);
-    line-height: 1.3;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
 
   .favicon-wrapper {
     padding: 4px 8px;
-    border-radius: 6px;
+    border-radius: 4px;
     margin-top: 0;
+    gap: 6px;
   }
 
   .favicon-wrapper > img {
@@ -180,18 +171,20 @@ s
   }
 
   .url {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
-  .card {
+  .thumbnail {
     border-radius: 8px;
   }
 
   .link-icon {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    padding: 6px;
   }
 
   .pin-button-wrapper {
@@ -199,15 +192,19 @@ s
     right: 4px;
   }
 
+  .content {
+    padding: 10px 0;
+  }
+
   .title {
-    font-size: var(--font-sm);
-    height: calc(1.3em * 2);
-    line-height: 1.3;
+    font-size: 13px;
+    margin-bottom: 6px;
   }
 
   .favicon-wrapper {
     padding: 3px 6px;
-    border-radius: 4px;
+    border-radius: 3px;
+    gap: 4px;
   }
 
   .favicon-wrapper > img {
@@ -216,6 +213,6 @@ s
   }
 
   .url {
-    font-size: 10px;
+    font-size: 11px;
   }
 }
