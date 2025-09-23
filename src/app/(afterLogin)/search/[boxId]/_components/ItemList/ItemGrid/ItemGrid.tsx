@@ -58,7 +58,7 @@ export default function ItemGrid() {
           {/* 무한스크롤 로딩 스켈레톤 */}
           {isLoadingMore && (
             <>
-              {Array.from({ length: 2 }, (_, index) => (
+              {Array.from({ length: 6 }, (_, index) => (
                 <CardSkeleton key={`loading-${index}`} />
               ))}
             </>

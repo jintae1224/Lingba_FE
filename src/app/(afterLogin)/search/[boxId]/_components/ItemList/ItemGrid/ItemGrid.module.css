@@ -5,9 +5,9 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-auto-rows: 1fr;
   gap: 24px;
   width: 100%;
+  align-items: start;
 }
 
 /* Grid Items */
