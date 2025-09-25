@@ -8,7 +8,18 @@ import { createKeyHandler } from "@/utils/common/keyboard";
 
 export function useSearchModal() {
   const { isSearchOpen, setSearchOpen } = useSearchStore();
-  const { searchQuery, hasQuery, handleQueryChange, clearSearch } = useSearch();
+  const {
+    searchQuery,
+    hasQuery,
+    handleQueryChange,
+    clearSearch,
+    results,
+    isSearching,
+    totalCount,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useSearch();
 
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
@@ -55,5 +66,11 @@ export function useSearchModal() {
     handleInputChange,
     handleClear,
     handleKeyDown,
+    results,
+    isSearching,
+    totalCount,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   };
 }
