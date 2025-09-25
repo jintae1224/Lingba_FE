@@ -1,24 +1,22 @@
 "use client";
 
 import classNames from "classnames/bind";
-import { useSearchParams } from "next/navigation";
 
 import Breadcrumb from "@/app/_components/Breadcrumb/Breadcrumb";
+import { useFolderId } from "@/hooks/folder/useFolderId";
 
 import AddFolderButton from "./AddFolderButton/AddFolderButton";
 import styles from "./ItemHeader.module.css";
+import SearchButton from "./SearchButton/SearchButton";
 
 const cx = classNames.bind(styles);
 
 export default function ItemHeader() {
-  const searchParams = useSearchParams();
-  const folderId = searchParams.get("f_id");
-  
-  // root 폴더인지 판단 (f_id가 없으면 root)
-  const isRootFolder = !folderId;
+  const { isRootFolder } = useFolderId();
 
   return (
     <div className={cx("header", { "root-folder": isRootFolder })}>
+      {isRootFolder && <SearchButton />}
       {!isRootFolder && <Breadcrumb />}
       <AddFolderButton />
     </div>
