@@ -1,0 +1,64 @@
+.results-container {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* 검색 결과 */
+.results-header {
+  margin-bottom: 24px;
+}
+
+.results-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.count {
+  font-weight: 400;
+  color: var(--gray-500);
+}
+
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+  align-items: start;
+}
+
+.item {
+  width: 100%;
+  cursor: pointer;
+}
+
+/* 무한 스크롤 트리거 */
+.scroll-trigger {
+  height: 1px;
+  width: 100%;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+  .results-container {
+    padding: 16px;
+  }
+
+  .results-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .item {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
