@@ -1,30 +1,21 @@
 import { useCallback, useRef } from "react";
 
 import { useClickOutside } from "@/hooks/etc/useClickOutside";
+import { useDragToClose } from "@/hooks/etc/useDragToClose";
 import { useScrollLock } from "@/hooks/etc/useScrollLock";
-import { useSearch } from "@/hooks/search/useSearch";
 import { useSearchStore } from "@/stores/searchStore";
 import { createKeyHandler } from "@/utils/common/keyboard";
 
 export function useSearchModal() {
   const { isSearchOpen, setSearchOpen } = useSearchStore();
-  const {
-    searchQuery,
-    hasQuery,
-    handleQueryChange,
-    clearSearch,
-    results,
-    isSearching,
-    totalCount,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useSearch();
-
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   const handleClose = useCallback(() => {
     setSearchOpen(false);
+  }, [setSearchOpen]);
+
+  const handleOpen = useCallback(() => {
+    setSearchOpen(true);
   }, [setSearchOpen]);
 
   useClickOutside({
@@ -37,40 +28,21 @@ export function useSearchModal() {
     enabled: isSearchOpen,
   });
 
-  const handleSubmit = useCallback((e: React.FormEvent) => {
-    e.preventDefault();
-  }, []);
-
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      handleQueryChange(e.target.value);
-    },
-    [handleQueryChange]
-  );
-
-  const handleClear = useCallback(() => {
-    clearSearch();
-  }, [clearSearch]);
-
   const handleKeyDown = createKeyHandler({
     onEscape: handleClose,
   });
 
+  // 히스토리 흡수 방식 사용 (드래그 UI는 사용하지 않음)
+  useDragToClose({
+    onClose: handleClose,
+    isOpen: isSearchOpen,
+  });
+
   return {
     isSearchOpen,
-    searchQuery,
-    hasQuery,
-    searchContainerRef,
     handleClose,
-    handleSubmit,
-    handleInputChange,
-    handleClear,
+    handleOpen,
+    searchContainerRef,
     handleKeyDown,
-    results,
-    isSearching,
-    totalCount,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
   };
 }
