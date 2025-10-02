@@ -77,10 +77,10 @@ export async function GET(
       );
     }
 
-    // 링크 조회
+    // 링크 조회 (parent 정보 포함)
     const { data: link, error } = await supabase
       .from("user_link")
-      .select("*")
+      .select("*, parent:parent_id(id, name)")
       .eq("id", linkId)
       .eq("box_id", boxId)
       .single();
@@ -116,14 +116,14 @@ export async function GET(
       isOwner: link.user_id === user.id,
     };
 
-    // user_id는 클라이언트로 전송하지 않음 (보안상 이유)
+    // user_id와 parent_id는 클라이언트로 전송하지 않음 (parent 객체에 포함됨)
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { user_id: _, ...linkWithoutUserId } = linkWithPin;
+    const { user_id: _, parent_id: __, ...linkWithoutSensitiveData } = linkWithPin;
 
     return NextResponse.json({
       success: true,
       message: "Link fetched successfully",
-      data: linkWithoutUserId,
+      data: linkWithoutSensitiveData,
     } as ApiResponse<Link>);
   } catch (error) {
     console.error("API error:", error);

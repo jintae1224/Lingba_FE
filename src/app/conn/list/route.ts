@@ -76,17 +76,17 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    // 폴더 쿼리 설정 - 최적화된 필드만 선택 + user_id 포함
+    // 폴더 쿼리 설정 - 최적화된 필드만 선택 + user_id + parent 정보 포함
     let folderQuery = supabase
       .from("user_folder")
-      .select("id, name, updated_at, position, created_at, user_id")
+      .select("id, name, updated_at, position, created_at, user_id, parent_id, parent:parent_id(id, name)")
       .eq("box_id", boxId);
 
-    // 링크 쿼리 설정 - 최적화된 필드만 선택 + user_id 포함
+    // 링크 쿼리 설정 - 최적화된 필드만 선택 + user_id + parent 정보 포함
     let linkQuery = supabase
       .from("user_link")
       .select(
-        "id, url, title, thumbnail_url, favicon_url, position, created_at, user_id"
+        "id, url, title, thumbnail_url, favicon_url, position, created_at, user_id, parent_id, parent:parent_id(id, name)"
       )
       .eq("box_id", boxId);
 
@@ -214,10 +214,10 @@ export async function GET(request: NextRequest) {
     const paginatedItems = allItems
       .slice(offset, offset + limit)
       .map((item) => {
-        // user_id는 클라이언트로 전송하지 않음 (보안상 이유)
+        // user_id와 parent_id는 클라이언트로 전송하지 않음 (parent 객체에 포함됨)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { user_id: _, ...itemWithoutUserId } = item;
-        return itemWithoutUserId;
+        const { user_id: _, parent_id: __, ...itemWithoutSensitiveData } = item;
+        return itemWithoutSensitiveData;
       });
 
     const response = {

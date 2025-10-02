@@ -1,3 +1,9 @@
+// Parent 폴더 정보
+export interface ParentFolder {
+  id: string;
+  name: string;
+}
+
 // 링크 타입
 export interface Link {
   id: string;
@@ -6,7 +12,7 @@ export interface Link {
   description?: string | null;
   user_id: string;
   box_id: string;
-  parent_id?: string | null;
+  parent?: ParentFolder | null;
   ai_summary?: string | null;
   ai_tags?: string[] | null;
   favicon_url?: string | null;
