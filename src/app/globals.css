@@ -91,10 +91,10 @@
   }
 }
 
-html,
-body {
-  max-width: 100vw;
+html {
   overflow-x: hidden;
+  /* 스크롤바 공간 항상 확보 (레이아웃 쉬프트 방지) */
+  overflow-y: scroll;
 }
 
 body {
